@@ -1,0 +1,29 @@
+AUTOMATIKUS QR-BELÉPŐ E-MAIL RENDSZER
+
+Feltöltendő/cserélendő a GitHubon:
+- script.js
+- koszonjuk.html
+- belepo.html
+- belepo.js
+- belepo.css
+
+Supabase-ba feltöltendő:
+- supabase/functions/send-ticket-email/index.ts
+- supabase/config.toml
+
+Mit csinál:
+- Regisztráció után létrejönnek a participants rekordok és QR-kódok.
+- Automatikusan meghívja a Supabase Edge Functiont.
+- A megadott e-mail címre elküldi a névre szóló QR-belépőket.
+- A köszönő oldalon külön gomb nyitja meg a nyomtatható/menthető beléptető kártyákat.
+
+Supabase secret-ek:
+1. RESEND_API_KEY
+2. FROM_EMAIL
+   Példa: Csatangoló Lovarda <belepo@csatangolo.online>
+3. ORGANIZER_EMAIL opcionális
+   Ide mehet értesítés új regisztrációról.
+
+Fontos:
+Az e-mail küldéshez Resend vagy hasonló e-mail szolgáltatás kell.
+Ha a Resend még nincs beállítva, a regisztráció akkor is működni fog, csak az e-mail nem megy ki.

@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="hu">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rendszerellenőrzés – Csatangoló Fórum</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js?v=test-env-1"></script>
+</head>
+<body>
+  <main class="page">
+    <section class="hero small">
+      <div class="badge">Rendszerellenőrzés</div>
+      <h1>Csatangoló Fórum állapot</h1>
+      <p class="motto">Táblák • Jogosultságok • Storage • Feltöltések</p>
+    </section>
+
+    <section id="loginBox" class="card narrow-card">
+      <h2>Szervezői kód</h2>
+      <label>Kód
+        <input id="checkCode" type="password" placeholder="Írd be a szervezői kódot">
+      </label>
+      <button id="startCheck" class="button">Ellenőrzés indítása</button>
+      <div id="loginMessage" class="form-message"></div>
+    </section>
+
+    <section id="checkContent" class="hidden">
+      <section class="support-panel compact">
+        <div>
+          <span class="eyebrow">Állapot</span>
+          <h2 id="overallStatus">Ellenőrzés folyamatban...</h2>
+          <p id="overallText">Megnézzük, hogy minden fontos adatbázis és feltöltési funkció elérhető-e.</p>
+        </div>
+      </section>
+
+      <section class="dashboard-grid">
+        <div class="card">
+          <h2>Adatbázis táblák</h2>
+          <div id="tableChecks" class="check-list"></div>
+        </div>
+
+        <div class="card">
+          <h2>Storage / képfeltöltés</h2>
+          <div id="storageChecks" class="check-list"></div>
+        </div>
+
+        <div class="card">
+          <h2>Fontos funkciók</h2>
+          <div id="featureChecks" class="check-list"></div>
+        </div>
+
+        <div class="card">
+          <h2>Teendők</h2>
+          <div id="todoList" class="check-list"></div>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Gyors linkek</h2>
+        <div class="quick-links">
+          <a class="button" href="szervezo.html">Szervezői irányítópult</a>
+          <a class="button" href="tartalom.html">Tartalomkezelő</a>
+          <a class="button" href="kapu-egyszeru.html">Egyszerű kapu</a>
+          <a class="button ghost dark" href="index.html">Főoldal</a>
+        </div>
+      </section>
+    </section>
+  </main>
+
+<script src="ellenorzes.js"></script>
+</body>
+</html>

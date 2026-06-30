@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="hu">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Beléptető kártyák – Csatangoló Fórum</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="belepo.css">
+  <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+</head>
+<body>
+  <main class="ticket-page">
+    <section class="ticket-hero no-print">
+      <span class="badge">QR-belépők</span>
+      <h1>Beléptető kártyák</h1>
+      <p>Mentsd el PDF-ként, nyomtasd ki, vagy mutasd be telefonról a helyszíni beléptetésnél.</p>
+      <div class="hero-actions">
+        <button class="button" onclick="window.print()">Nyomtatás / Mentés PDF-be</button>
+        <a class="button ghost" href="index.html">Vissza a főoldalra</a>
+      </div>
+    </section>
+
+    <section id="ticketCards" class="print-ticket-grid"></section>
+
+    <p id="ticketEmpty" class="ticket-empty no-print" hidden>
+      Ezen az eszközön nincs elmentett belépő. Nyisd meg a regisztráció után kapott e-mailt, vagy regisztrálj újra, ha nem sikerült menteni.
+    </p>
+  </main>
+
+  <script src="belepo.js"></script>
+</body>
+</html>
