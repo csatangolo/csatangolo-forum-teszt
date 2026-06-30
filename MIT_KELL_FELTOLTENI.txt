@@ -1,12 +1,24 @@
-v1.7.1 Nyilvános előadói oldal összekötése – TESZT repóhoz
+v1.8 Galéria Manager – TESZT repóhoz
 
 Feltöltendő/cserélendő:
-- eloadok.html
-- public-content.js
-- docs/CHANGELOG_v1_7_1_PUBLIC_SPEAKERS.md
+- gallery-manager.html
+- gallery-manager.js
+- public-gallery.js
+- styles.css
+- manager.html
+- admin.html
+- dashboard.html
+- event-settings.html
+- speakers-manager.html
+- galeria.html, ha benne van a csomagban
+- docs/CHANGELOG_v1_8_GALLERY.md
 
 SQL:
-- Nincs új SQL, ha a v1.7 people/event_speakers SQL már lefutott.
+- Nincs SQL fájl.
+- Az SQL-t a chatben kapod, onnan másold be Supabase SQL Editorba.
 
-Fontos:
-- Ez biztonságos verzió: ha nincs új Manager adat, a régi előadói oldal tovább működik.
+Storage:
+- A SQL létrehozza a gallery bucketet is.
+
+PIN:
+- Tigris97

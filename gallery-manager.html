@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="hu">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Galéria kezelése – Csatangoló Manager</title>
+  <link rel="stylesheet" href="styles.css?v=gallery-v1-8">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js?v=test-env-1"></script>
+  <script src="event-loader.js?v=events-connect-1"></script>
+</head>
+<body class="gallery-manager-body">
+  <nav class="topbar">
+    <a href="manager.html" class="brand">Csatangoló Manager</a>
+    <div class="navlinks">
+      <a href="manager.html">Manager</a>
+      <a href="admin.html">Admin</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="speakers-manager.html">Előadók</a>
+      <a href="event-settings.html">Rendezvény</a>
+      <a href="index.html">Főoldal</a>
+    </div>
+  </nav>
+
+  <main class="gallery-manager-page">
+    <section id="galleryLogin" class="gallery-login-card">
+      <span class="badge">v1.8</span>
+      <h1>Galéria Manager</h1>
+      <p>Albumok, képfeltöltés, kiemelt képek és rendezvényenkénti galéria egy helyen.</p>
+      <label>Manager PIN
+        <input id="galleryPin" type="password" placeholder="PIN">
+      </label>
+      <button id="galleryUnlock" class="button gallery-primary" type="button">Megnyitás</button>
+      <div id="galleryLoginMessage" class="form-message"></div>
+    </section>
+
+    <section id="galleryContent" class="hidden">
+      <header class="gallery-header">
+        <div>
+          <span class="eyebrow">Csatangoló Manager</span>
+          <h1>Galéria</h1>
+          <p id="galleryEventMeta">Aktív rendezvény betöltése...</p>
+        </div>
+        <div class="gallery-header-actions">
+          <button id="newAlbumBtn" class="button gallery-primary" type="button">➕ Új album</button>
+          <button id="reloadGalleryBtn" class="button ghost dark" type="button">Frissítés</button>
+        </div>
+      </header>
+
+      <section class="gallery-layout">
+        <aside class="gallery-sidebar">
+          <article class="gallery-panel">
+            <span class="eyebrow">Albumok</span>
+            <div id="albumList" class="album-list"></div>
+          </article>
+
+          <article class="gallery-panel">
+            <span class="eyebrow">Album szerkesztése</span>
+            <form id="albumForm" class="album-form">
+              <input type="hidden" id="albumId">
+              <label>Album neve *
+                <input id="albumTitle" type="text" required placeholder="pl. Fórum 2026">
+              </label>
+              <label>Leírás
+                <textarea id="albumDescription" rows="4" placeholder="Rövid összefoglaló az albumhoz"></textarea>
+              </label>
+              <div class="album-form-actions">
+                <button class="button gallery-primary" type="submit">Album mentése</button>
+                <button class="button ghost dark" id="resetAlbumForm" type="button">Új album</button>
+              </div>
+              <div id="albumMessage" class="form-message"></div>
+            </form>
+          </article>
+        </aside>
+
+        <section class="gallery-main">
+          <article class="gallery-panel upload-panel">
+            <div class="panel-head compact">
+              <div>
+                <span class="eyebrow">Képfeltöltés</span>
+                <h2 id="selectedAlbumTitle">Válassz albumot</h2>
+              </div>
+            </div>
+
+            <div class="upload-box">
+              <input id="galleryFiles" type="file" accept="image/*" multiple>
+              <p>Válassz ki több képet egyszerre. A képek a Supabase Storage-ba kerülnek.</p>
+              <button id="uploadImagesBtn" class="button gallery-primary" type="button">Képek feltöltése</button>
+              <div id="uploadMessage" class="form-message"></div>
+            </div>
+          </article>
+
+          <article class="gallery-panel">
+            <div class="panel-head compact">
+              <div>
+                <span class="eyebrow">Képek</span>
+                <h2>Album képei</h2>
+              </div>
+            </div>
+            <div id="galleryImageGrid" class="gallery-image-grid">
+              <p class="hint">Válassz albumot a bal oldalon.</p>
+            </div>
+          </article>
+        </section>
+      </section>
+    </section>
+  </main>
+
+<script src="gallery-manager.js?v=gallery-v1-8"></script>
+<script src="site-mobile-menu.js?v=real-final"></script>
+<div class="version-badge">Gallery v1.8 TESZT</div>
+</body>
+</html>
