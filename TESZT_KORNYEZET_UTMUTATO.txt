@@ -1,0 +1,66 @@
+CSATANGOLÓ FÓRUM – TESZT KÖRNYEZET ELSŐ CSOMAG
+
+Teszt Supabase URL:
+https://brbtvjikquaanypccvlf.supabase.co
+
+FONTOS:
+1. Nyisd meg ezt a fájlt:
+   supabase-config.js
+
+2. Ebben a sorban:
+   window.CSATANGOLO_SUPABASE_ANON_KEY = "IDE_MASOLD_A_TESZT_ANON_VAGY_PUBLISHABLE_KEYT";
+
+   cseréld ki az idézőjelek közötti részt a TESZT Supabase anon/public/publishable key-re.
+
+3. Ne a service_role / secret kulcsot másold be.
+
+4. A teszt Supabase SQL Editorban futtasd le először a teljes projekt SQL-jét,
+   majd ezt is:
+   supabase_test_delete_policy.sql
+
+Módosított HTML fájlok:
+[
+  "admin.html",
+  "beleptetes.html",
+  "ellenorzes.html",
+  "eloadok.html",
+  "feltoltes.html",
+  "galeria.html",
+  "hirek.html",
+  "index.html",
+  "kapu-egyszeru.html",
+  "kapu.html",
+  "profil.html",
+  "program.html",
+  "regisztracio.html",
+  "szervezo.html",
+  "tamogatas.html",
+  "tartalom.html",
+  "terkep.html",
+  "tudastar.html"
+]
+
+Módosított JS fájlok:
+[
+  "admin.js",
+  "beleptetes.js",
+  "cms.js",
+  "ellenorzes.js",
+  "feltoltes.js",
+  "home-videos.js",
+  "homepage.js",
+  "kapu-egyszeru.js",
+  "kapu.js",
+  "profil.js",
+  "public-content.js",
+  "public-map.js",
+  "script.js",
+  "szervezo.js",
+  "tamogatas.js",
+  "terkep.js"
+]
+
+Éles Supabase URL maradt-e a fájlokban:
+[
+  "OLDALAK_ES_KODOK.md"
+]

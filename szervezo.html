@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="hu">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Szervezői felület – Csatangoló Fórum</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js?v=test-env-1"></script>
+</head>
+<body>
+  <nav class="topbar">
+    <a href="index.html" class="brand">Csatangoló Fórum Szervezői felület</a>
+<div class="navlinks">
+      <a href="index.html">Főoldal</a>
+    <a href="ellenorzes.html">Ellenőrzés</a>
+      <a href="kapu.html">Kapu</a>
+      <a href="kapu-egyszeru.html">Egyszerű kapu</a>
+      <a href="tartalom.html">Tartalomkezelő</a>
+      <a href="terkep.html">Térkép</a>
+    </div>
+  </nav>
+
+  <main class="page">
+    <section class="hero small">
+      <div class="badge">Szervezői irányítópult</div>
+      <h1>Ma is építjük a közösséget. ❤️</h1>
+      <p class="motto">Regisztrációk • Résztvevők • Statisztikák • Beléptetés</p>
+    </section>
+
+    <section class="admin-login card" id="loginBox">
+      <h2>Szervezői belépés</h2>
+      <p class="hint">A felületet csak a szervezői link és a szervezői kód ismeretében lehet használni.</p>
+      <label>Szervezői kód
+        <input id="adminCode" type="password" placeholder="Írd be a szervezői kódot">
+      </label>
+      <button class="button" id="loginButton">Belépés</button>
+      <div id="loginMessage" class="form-message"></div>
+    </section>
+
+    <section id="adminContent" class="hidden">
+      <section class="admin-stats expanded">
+        <div class="stat-card"><span id="statRegistrations">0</span><small>regisztráció</small></div>
+        <div class="stat-card"><span id="statParticipants">0</span><small>résztvevő összesen</small></div>
+        <div class="stat-card"><span id="statCompanions">0</span><small>kísérő</small></div>
+        <div class="stat-card"><span id="statCheckedIn">0</span><small>belépett</small></div>
+        <div class="stat-card"><span id="statPaid">0</span><small>hozzájárulás rendezve</small></div>
+        <div class="stat-card"><span id="statSupport">0 Ft</span><small>rendezett hozzájárulás</small></div>
+        <div class="stat-card"><span id="statChildren">0</span><small>gyermekes regisztráció</small></div>
+        <div class="stat-card"><span id="statCities">0</span><small>település</small></div>
+      </section>
+
+      <section class="dashboard-grid">
+        <div class="card">
+          <h2>Beléptetés állapota</h2>
+          <div class="progress-wrap">
+            <div class="progress-bar"><span id="checkinProgress"></span></div>
+            <p id="checkinText" class="hint">0% beléptetve</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>Leggyakoribb települések</h2>
+          <div id="cityList" class="list-stat"></div>
+        </div>
+
+        <div class="card">
+          <h2>Legnépszerűbb témák</h2>
+          <div id="topicList" class="list-stat"></div>
+        </div>
+
+        <div class="card">
+          <h2>Előadókhoz érkezett kérdések</h2>
+          <div id="questionForList" class="list-stat"></div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="admin-header">
+          <h2>Résztvevők</h2>
+          <div class="admin-actions">
+            <button class="button" id="refreshData">Frissítés</button>
+            <button class="button" id="exportCsv">Résztvevők export</button>
+            <button class="button ghost" id="exportRegistrations">Regisztrációk export</button>
+          </div>
+        </div>
+        <label>Keresés név, kód, település szerint
+          <input id="searchInput" type="search" placeholder="Kezdj el gépelni...">
+        </label>
+        <div class="table-wrap">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Név</th>
+                <th>Típus</th>
+                <th>Kód</th>
+                <th>Település</th>
+                <th>Belépett</th>
+                <th>Hozzájárulás</th>
+                <th>Törlés</th>
+              </tr>
+            </thead>
+            <tbody id="participantsBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Beérkezett kérdések</h2>
+        <div id="questionsList" class="questions-list"></div>
+      </section>
+    </section>
+  </main>
+
+<script src="szervezo.js"></script>
+  <script src="site-mobile-menu.js?v=real-final"></script>
+</body>
+</html>

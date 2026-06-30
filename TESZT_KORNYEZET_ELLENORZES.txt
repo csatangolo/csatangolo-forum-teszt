@@ -1,0 +1,16 @@
+Teszt környezet ellenőrzés
+
+Eredmény:
+- Éles Supabase URL a működő fájlokban: NINCS
+- Éles Supabase URL sehol a csomagban: NINCS
+- Minden Supabase-t használó HTML betölti a supabase-config.js fájlt: IGEN
+- JavaScript szintaktikai hibák: NINCS
+
+Teszt Supabase URL:
+https://brbtvjikquaanypccvlf.supabase.co
+
+Teendő:
+1. supabase-config.js fájlban legyen bent a TESZT anon/public/publishable key.
+2. A teszt Supabase SQL Editorban futtasd:
+   supabase_test_delete_policy.sql
+3. Ezután a teljes csomagot töltsd fel a TESZT oldalra, nem az élesre.

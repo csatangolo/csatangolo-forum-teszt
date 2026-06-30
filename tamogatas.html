@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="hu">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Támogatás – Csatangoló Fórum</title>
+  <link rel="stylesheet" href="styles.css?v=FINAL2">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js?v=test-env-1"></script>
+</head>
+<body>
+<nav class="topbar site-nav-final">
+  <a href="index.html" class="brand">Csatangoló Lovarda</a>
+<div class="navlinks">
+    <a href="index.html">Főoldal</a>
+    <a href="program.html">Program</a>
+    <a href="eloadok.html">Előadók</a>
+    <a href="bemutatkozas.html">Lovarda</a>
+    <a href="tudastar.html">Tudástár</a>
+    <a href="galeria.html">Galéria</a>
+    <a href="tamogatas.html">Támogatás</a>
+    <a class="nav-cta" href="regisztracio.html">Regisztráció</a>
+  </div>
+</nav>
+<main class="support-page final-support-page">
+  <section class="supporters-section-final top-supporters">
+    <div class="section-head">
+      <span class="eyebrow">Köszönjük</span>
+      <h1>Támogatóink</h1>
+      <p>Köszönjük partnereinknek és támogatóinknak, hogy hozzájárulnak a Csatangoló programok megvalósításához.</p>
+    </div>
+    <div class="supporter-logo-grid">
+      <a class="supporter-logo-card" href="https://maps.app.goo.gl/hfNsGfhbuQPEudeGA?g_st=ic" target="_blank" rel="noopener">
+        <img src="assets/jolly-rogers.jpg" alt="Jolly Roger's" loading="lazy">
+        <span>Jolly Roger's</span>
+      </a>
+      <a class="supporter-logo-card" href="https://letak.hu/" target="_blank" rel="noopener">
+        <img src="assets/letak.jpg" alt="Leták Mezőgazdasági Gépgyár" loading="lazy">
+        <span>Leták Mezőgazdasági Gépgyár</span>
+      </a>
+      <a class="supporter-logo-card" href="https://www.simoncser.hu/" target="_blank" rel="noopener">
+        <img src="assets/simoncser.jpeg" alt="Simoncsér Kft." loading="lazy">
+        <span>Simoncsér Kft.</span>
+      </a>
+      <a class="supporter-logo-card" href="https://www.facebook.com/ATIABLAK" target="_blank" rel="noopener">
+        <img src="assets/atiablak.jpg" alt="ATI Ablak" loading="lazy">
+        <span>ATI Ablak</span>
+      </a>
+      <a class="supporter-logo-card" href="http://meseautojatszohaz.hu/" target="_blank" rel="noopener">
+        <img src="assets/meseauto.jpeg" alt="Meseautó Játszóház" loading="lazy">
+        <span>Meseautó Játszóház</span>
+      </a>
+      <a class="supporter-logo-card" href="https://www.kalo-rent.hu/" target="_blank" rel="noopener">
+        <img src="assets/kalo-rent.jpeg" alt="Kalo-Rent" loading="lazy">
+        <span>Kalo-Rent</span>
+      </a>
+      <a class="supporter-logo-card" href="https://elsodunakavics.hu/" target="_blank" rel="noopener">
+        <img src="assets/elso-duna-kavics.jpeg" alt="Első Duna-Kavics Kft." loading="lazy">
+        <span>Első Duna-Kavics Kft.</span>
+      </a>
+    </div>
+  </section>
+
+  <section class="support-form-shell final-support-form">
+    <div class="support-form-intro">
+      <span class="eyebrow">Támogatási lehetőség</span>
+      <h2>Jelezd, ha támogattál vagy támogatnál</h2>
+      <p>Ha szeretnél megjelenni a támogatói listán, vagy céges logót küldenél, itt tudod jelezni.</p>
+    </div>
+    <form id="supportForm" class="form support-form">
+      <label>Támogató neve / cégnév<input name="supporter_name" required></label>
+      <label>E-mail<input name="email" type="email" required></label>
+      <label>Telefon<input name="phone"></label>
+      <label>Támogatás típusa<select name="support_type"><option>Pénzbeli támogatás</option><option>Tombolatárgy</option><option>Takarmány / eszköz</option><option>Önkéntes segítség</option><option>Partneri együttműködés</option><option>Egyéb</option></select></label>
+      <label>Összeg, ha pénzbeli támogatás<input name="amount" placeholder="pl. 10000 Ft"></label>
+      <label>Mivel és hogyan szeretnél támogatni?<textarea name="support_details" rows="4" required></textarea></label>
+      <label>Logó feltöltése cégeknek<input name="logo" type="file" accept="image/*"></label>
+      <label class="check"><input name="anonymous" type="checkbox"> Névtelenül szeretnék szerepelni</label>
+      <label class="check"><input name="public_display" type="checkbox" checked> Jóváhagyás után megjelenhet a támogatói listán</label>
+      <button class="button" type="submit">Támogatási szándék elküldése</button>
+      <div id="supportMessage" class="form-message"></div>
+    </form>
+  </section>
+
+  <section class="bank-support-box final-bank-box">
+    <div class="bank-support-text">
+      <span class="eyebrow">Banki átutalás</span>
+      <h2>Számlaszám utaláshoz</h2>
+      <p>Az alábbi bankszámlaszámra bármilyen szabadon választott összeget utalhatsz.</p>
+    </div>
+    <div class="bank-details-card">
+      <div class="bank-detail-row"><span>Kedvezményezett</span><strong>Csatangoló Lovas Egyesület</strong><button type="button" class="copy-bank-btn" data-copy="Csatangoló Lovas Egyesület">Másolás</button></div>
+      <div class="bank-detail-row"><span>Bankszámlaszám</span><strong>10101164-54293700-01005004</strong><button type="button" class="copy-bank-btn" data-copy="10101164-54293700-01005004">Másolás</button></div>
+      <div class="bank-detail-row"><span>Bank</span><strong>Budapest Bank</strong></div>
+      <div class="bank-detail-row"><span>Javasolt közlemény</span><strong>Támogatás</strong><button type="button" class="copy-bank-btn" data-copy="Támogatás">Másolás</button></div>
+    </div>
+  </section>
+
+  <section class="google-review-box final-google-review">
+    <div><span class="eyebrow">Véleményed sokat számít</span><h2>Értékelj minket a Google Térképen</h2><p>Ha jártál már nálunk, egy rövid értékeléssel sokat segítesz nekünk.</p></div>
+    <a class="button" href="https://maps.app.goo.gl/1N2QbDjBaoTYU3Np9?g_st=ic" target="_blank" rel="noopener">Google értékelés írása</a>
+  </section>
+</main>
+<script src="tamogatas.js?v=FINAL2"></script>
+  <script src="site-mobile-menu.js?v=real-final"></script>
+</body>
+</html>

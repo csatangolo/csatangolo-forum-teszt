@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="hu">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tudástár – Csatangoló Fórum</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js?v=test-env-1"></script>
+</head>
+<body>
+<nav class="topbar">
+  <a href="index.html" class="brand">Csatangoló Fórum</a>
+<div class="navlinks">
+    <a href="index.html">Főoldal</a>
+    <a href="program.html">Program</a>
+    <a href="eloadok.html">Előadók</a>
+    <a href="tudastar.html">Tudástár</a>
+    <a href="hirek.html">Hírek</a>
+    <a href="galeria.html">Galéria</a>
+    <a class="nav-cta" href="regisztracio.html">Regisztráció</a>
+  </div>
+</nav>
+<main class="page">
+  <section class="hero small">
+    <div class="badge">Tudástár</div>
+    <h1>A tudás nem ér véget a rendezvény napján</h1>
+    <p class="motto">YouTube videók • összefoglalók • letölthető anyagok</p>
+  </section>
+
+  <section class="card intro-card">
+    <h2>Fórum Tudástár</h2>
+    <p>Itt jelennek meg a szervezői felületen feltöltött YouTube videók és szakmai anyagok.</p>
+  </section>
+
+  <section id="videoList" class="knowledge-grid"></section>
+
+  <section class="card"><h2>Letölthető dokumentumok</h2><div id="documentList" class="cms-list"></div></section>
+</main>
+<footer class="footer"><strong>Egymástól tanulunk.</strong><strong>A lovakért.</strong><strong>Egy közösségként.</strong></footer>
+<script src="public-content.js"></script>
+<script>loadPublicVideos(); loadPublicDocuments();</script>
+  <script src="site-mobile-menu.js?v=real-final"></script>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="hu">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Térképes statisztika – Csatangoló Fórum</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js?v=test-env-1"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+</head>
+<body>
+<nav class="topbar">
+  <a href="szervezo.html" class="brand">Csatangoló Fórum Térkép</a>
+<div class="navlinks">
+    <a href="szervezo.html">Irányítópult</a>
+    <a href="tartalom.html">Tartalom</a>
+    <a href="ellenorzes.html">Ellenőrzés</a>
+  </div>
+</nav>
+
+<main class="page">
+  <section class="hero small">
+    <div class="badge">Térképes statisztika</div>
+    <h1>Honnan érkeznek?</h1>
+    <p class="motto">Településpontok név nélkül • csak létszámok</p>
+  </section>
+
+  <section id="loginBox" class="card narrow-card">
+    <h2>Szervezői kód</h2>
+    <label>Kód
+      <input id="mapCode" type="password" placeholder="Írd be a szervezői kódot">
+    </label>
+    <button id="startMap" class="button">Térkép megnyitása</button>
+    <div id="mapMessage" class="form-message"></div>
+  </section>
+
+  <section id="mapContent" class="hidden">
+    <section class="support-panel compact">
+      <div>
+        <span class="eyebrow">Adatvédelem</span>
+        <h2>Csak település és létszám látszik</h2>
+        <p>A térképen nem jelennek meg nevek vagy személyes adatok. Egy pont egy települést jelöl, a pont mérete pedig a résztvevők számát.</p>
+      </div>
+    </section>
+
+    <section class="map-layout">
+      <div class="card map-card">
+        <div id="hungaryMap"></div>
+      </div>
+
+      <aside class="card">
+        <h2>Top települések</h2>
+        <div id="topCities" class="list-stat"></div>
+        <hr>
+        <h2>Összesítés</h2>
+        <div class="map-summary">
+          <div><strong id="sumParticipants">0</strong><span>résztvevő településadattal</span></div>
+          <div><strong id="sumCities">0</strong><span>település</span></div>
+          <div><strong id="unknownCities">0</strong><span>még nem azonosított település</span></div>
+        </div>
+      </aside>
+    </section>
+
+    <section id="unknownBox" class="card hidden">
+      <h2>Még nem ismert településnevek</h2>
+      <p class="hint">Ezekhez később hozzá tudunk adni koordinátát, és onnantól automatikusan megjelennek a térképen.</p>
+      <div id="unknownList" class="tag-list"></div>
+    </section>
+  </section>
+</main>
+
+<script src="terkep.js"></script>
+  <script src="site-mobile-menu.js?v=real-final"></script>
+</body>
+</html>
