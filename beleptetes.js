@@ -2,7 +2,7 @@ const SUPABASE_URL = window.CSATANGOLO_SUPABASE_URL;
 const SUPABASE_ANON_KEY = window.CSATANGOLO_SUPABASE_ANON_KEY;
 const client = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-const GATE_PIN = "2026";
+const GATE_PIN = "Tigris97";
 
 let participants = [];
 let currentParticipant = null;
@@ -53,6 +53,7 @@ manualSearchInput.addEventListener("input", renderManualResults);
 document.getElementById("quickOnsiteForm").addEventListener("submit", createQuickParticipant);
 
 async function loadParticipants() {
+  await loadCheckinActiveEvent();
   const { data, error } = await client.from("participants").select("*").order("created_at", { ascending: true });
   if (error) {
     console.error(error);
@@ -63,6 +64,28 @@ async function loadParticipants() {
   participants = data || [];
   updateStats();
   renderManualResults();
+}
+
+
+async function loadCheckinActiveEvent() {
+  const event = await loadActiveEvent(client);
+  const eventName = document.getElementById("checkinEventName");
+  const status = document.getElementById("connectionStatus");
+
+  if (!event) {
+    if (eventName) eventName.textContent = "Nincs aktív rendezvény beállítva";
+    if (status) status.textContent = "Nincs aktív rendezvény";
+    return;
+  }
+
+  if (eventName) {
+    const date = event.event_date ? formatEventDateHu(event.event_date) : "";
+    eventName.textContent = [event.name, date].filter(Boolean).join(" • ");
+  }
+
+  if (status) {
+    status.textContent = event.name || "Aktív rendezvény";
+  }
 }
 
 function updateStats() {

@@ -2,7 +2,7 @@ const SUPABASE_URL = window.CSATANGOLO_SUPABASE_URL;
 const SUPABASE_ANON_KEY = window.CSATANGOLO_SUPABASE_ANON_KEY;
 const client = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-const ADMIN_CODE = "csatangolo2026";
+const ADMIN_CODE = "Tigris97";
 let activeEvent = null;
 
 const eventLogin = document.getElementById("eventLogin");

@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="styles.css?v=admin-participants-v1-2">
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="supabase-config.js?v=test-env-1"></script>
+  <script src="event-loader.js?v=events-connect-1"></script>
   <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 </head>
@@ -39,6 +40,11 @@
     </section>
 
     <section id="adminContent" class="hidden">
+      <section id="activeEventBox" class="active-event-box">
+        <div><span class="eyebrow">Aktív rendezvény</span><h2 id="activeEventName">Betöltés...</h2><p id="activeEventMeta"></p></div>
+        <a class="button ghost dark" href="event-settings.html">Rendezvény beállítások</a>
+      </section>
+
       <section class="admin-stats checkin-admin-stats">
         <div class="stat-card"><span id="statParticipants">0</span><small>résztvevő</small></div>
         <div class="stat-card"><span id="statCheckedIn">0</span><small>megérkezett</small></div>

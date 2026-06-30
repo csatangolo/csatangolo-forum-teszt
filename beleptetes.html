@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="styles.css?v=checkin-v2-1">
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="supabase-config.js?v=test-env-1"></script>
+  <script src="event-loader.js?v=events-connect-1"></script>
   <script src="https://unpkg.com/html5-qrcode/minified/html5-qrcode.min.js"></script>
 </head>
 <body class="checkin-v2-body">
@@ -39,6 +40,7 @@
         <div>
           <span class="eyebrow">Rendezvénynapi felület</span>
           <h1>Beléptetés</h1>
+          <p id="checkinEventName" class="checkin-event-name">Aktív rendezvény betöltése...</p>
         </div>
         <div class="checkin-v2-status" id="connectionStatus">Teszt rendszer</div>
       </header>

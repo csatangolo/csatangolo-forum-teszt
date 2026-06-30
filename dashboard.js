@@ -2,8 +2,9 @@ const SUPABASE_URL = window.CSATANGOLO_SUPABASE_URL;
 const SUPABASE_ANON_KEY = window.CSATANGOLO_SUPABASE_ANON_KEY;
 const client = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-const ADMIN_CODE = "csatangolo2026";
-const CONTRIBUTION_FT = 2000;
+const ADMIN_CODE = "Tigris97";
+let CONTRIBUTION_FT = 2000;
+let activeEvent = null;
 
 let participants = [];
 let autoRefresh = true;
@@ -40,6 +41,7 @@ document.getElementById("toggleAutoRefresh").addEventListener("click", () => {
 });
 
 async function loadDashboard() {
+  await loadDashboardActiveEvent();
   const { data, error } = await client.from("participants").select("*").order("created_at", { ascending: true });
 
   if (error) {
@@ -50,6 +52,31 @@ async function loadDashboard() {
 
   participants = data || [];
   renderDashboard();
+}
+
+
+async function loadDashboardActiveEvent() {
+  activeEvent = await loadActiveEvent(client);
+  const nameEl = document.getElementById("activeEventName");
+  const metaEl = document.getElementById("activeEventMeta");
+  if (!nameEl || !metaEl) return;
+
+  if (!activeEvent) {
+    nameEl.textContent = "Nincs aktív rendezvény";
+    metaEl.textContent = "Nyisd meg a Rendezvény beállítások oldalt.";
+    return;
+  }
+
+  if (activeEvent.contribution_amount !== null && activeEvent.contribution_amount !== undefined) {
+    CONTRIBUTION_FT = Number(activeEvent.contribution_amount) || 2000;
+  }
+
+  nameEl.textContent = activeEvent.name || "Aktív rendezvény";
+  const date = activeEvent.event_date ? formatEventDateHu(activeEvent.event_date) : "";
+  const time = formatEventTimeRange(activeEvent);
+  const place = activeEvent.location_name || activeEvent.location_address || "";
+  const fee = formatFtHu(CONTRIBUTION_FT);
+  metaEl.textContent = [date, time, place, fee].filter(Boolean).join(" • ");
 }
 
 function startAutoRefresh() {

@@ -1,7 +1,7 @@
 const SUPABASE_URL = window.CSATANGOLO_SUPABASE_URL;
 const SUPABASE_ANON_KEY = window.CSATANGOLO_SUPABASE_ANON_KEY;
 const client = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-const ADMIN_CODE = "csatangolo2026";
+const ADMIN_CODE = "Tigris97";
 
 let participants = [];
 let currentEditParticipant = null;
@@ -37,6 +37,7 @@ document.getElementById("adminCode").addEventListener("keydown", e => {
 });
 
 async function loadData() {
+  await loadAdminActiveEvent();
   setTableLoading("Betöltés...");
   const pRes = await client.from("participants").select("*").order("created_at", { ascending: true });
 
@@ -54,6 +55,27 @@ async function loadData() {
 
 function setTableLoading(text) {
   if (body) body.innerHTML = `<tr><td colspan="8" class="muted-table-cell">${escapeHtml(text)}</td></tr>`;
+}
+
+
+async function loadAdminActiveEvent() {
+  const event = await loadActiveEvent(client);
+  const nameEl = document.getElementById("activeEventName");
+  const metaEl = document.getElementById("activeEventMeta");
+  if (!nameEl || !metaEl) return;
+
+  if (!event) {
+    nameEl.textContent = "Nincs aktív rendezvény";
+    metaEl.textContent = "Nyisd meg a Rendezvény beállítások oldalt.";
+    return;
+  }
+
+  nameEl.textContent = event.name || "Aktív rendezvény";
+  const date = event.event_date ? formatEventDateHu(event.event_date) : "";
+  const time = formatEventTimeRange(event);
+  const place = event.location_name || event.location_address || "";
+  const fee = event.contribution_amount ? formatFtHu(event.contribution_amount) : "";
+  metaEl.textContent = [date, time, place, fee].filter(Boolean).join(" • ");
 }
 
 function updateStats() {

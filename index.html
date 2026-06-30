@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="forum-premium-3-3.css?v=FINAL2">
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="supabase-config.js?v=test-env-1"></script>
+  <script src="event-loader.js?v=events-connect-1"></script>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 </head>
 <body class="forum33">
@@ -35,13 +36,13 @@
 
     <section class="f33-hero-text">
       <div class="f33-kicker"><span></span>Élő szakmai nap belovaglóknak, lókiképzőknek és lovasoknak<span></span></div>
-      <h1>I. Országos<br>Belovagló és Lókiképző<br>Szakmai Fórum</h1>
+      <h1 id="publicEventTitle">I. Országos<br>Belovagló és Lókiképző<br>Szakmai Fórum</h1>
       <p>Egymástól tanulunk. A lovakért. Egy közösségként.</p>
 
       <div class="f33-meta-line" aria-label="Esemény adatai">
-        <span>📅 2026. július 25.</span>
-        <span class="f33-meta-time">🕘 9.00-tól</span>
-        <span>📍 Öregcsertő, Homokmégyi u. 39.</span>
+        <span id="publicEventDate">📅 2026. július 25.</span>
+        <span id="publicEventTime" class="f33-meta-time">🕘 9.00-tól</span>
+        <span id="publicEventLocation">📍 Öregcsertő, Homokmégyi u. 39.</span>
       </div>
 
       <div class="f33-countdown">
@@ -51,7 +52,7 @@
       </div>
 
       <div class="f33-actions">
-        <a class="f33-btn" href="regisztracio.html">Regisztrálok</a>
+        <a id="publicRegistrationButton" class="f33-btn" href="regisztracio.html">Regisztrálok</a>
         <a class="f33-btn outline" href="program.html">Programok</a>
       </div>
     </section>
@@ -275,6 +276,7 @@
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="public-map.js?v=FINAL2"></script>
-  <script src="site-mobile-menu.js?v=real-final"></script>
+  <script src="public-event.js?v=events-connect-1"></script>
+<script src="site-mobile-menu.js?v=real-final"></script>
 </body>
 </html>

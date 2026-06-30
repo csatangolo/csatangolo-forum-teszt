@@ -1,20 +1,27 @@
-v1.6 Rendezvény beállítások – TESZT repóhoz
+v1.6.1 Aktív rendezvény összekötés – TESZT repóhoz
 
 Feltöltendő/cserélendő:
-- event-settings.html
-- event-settings.js
-- styles.css
+- event-loader.js
+- public-event.js
+- index.html
 - admin.html
 - dashboard.html
 - beleptetes.html
-- docs/CHANGELOG_v1_6_EVENTS.md
+- admin.js
+- dashboard.js
+- beleptetes.js
+- event-settings.js
+- styles.css
+- docs/CHANGELOG_v1_6_1_EVENTS_CONNECT.md
 
 SQL:
-- Nincs külön SQL fájl.
-- Az SQL kódot a chat üzenetben kapod, onnan másold be Supabase SQL Editorba.
+- Nincs új SQL, ha a v1.6 events SQL már lefutott.
 
-Új oldal:
-- event-settings.html
+Új közös belső PIN:
+- Tigris97
 
-Admin PIN:
-- csatangolo2026
+Tesztelendő:
+- Főoldal dátum/helyszín/rendezvény név
+- Admin aktív rendezvény panel
+- Dashboard aktív rendezvény panel és bevételszámítás
+- Beléptetés aktív rendezvény neve
