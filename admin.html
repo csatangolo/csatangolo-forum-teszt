@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="hu">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin – Csatangoló Fórum</title>
+  <link rel="stylesheet" href="styles.css?v=admin-checkin-pro-1">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js?v=test-env-1"></script>
+  <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+</head>
+<body>
+  <nav class="topbar">
+    <a href="index.html" class="brand">Csatangoló Fórum Admin</a>
+    <div class="navlinks">
+      <a href="index.html">Főoldal</a>
+      <a href="beleptetes.html">Beléptetés</a>
+    </div>
+  </nav>
+
+  <main class="page admin-pro-page">
+    <section class="hero small">
+      <div class="badge">Szervezői felület</div>
+      <h1>Admin áttekintő</h1>
+      <p class="motto">Teljes résztvevőlista • érkezés • fizetés • export</p>
+    </section>
+
+    <section class="admin-login card" id="loginBox">
+      <h2>Admin belépés</h2>
+      <p class="hint">A teljes lista és export csak szervezőknek látható.</p>
+      <label>Admin kód
+        <input id="adminCode" type="password" placeholder="Írd be az admin kódot">
+      </label>
+      <button class="button" id="loginButton">Belépés</button>
+      <div id="loginMessage" class="form-message"></div>
+    </section>
+
+    <section id="adminContent" class="hidden">
+      <section class="admin-stats checkin-admin-stats">
+        <div class="stat-card"><span id="statParticipants">0</span><small>résztvevő</small></div>
+        <div class="stat-card"><span id="statCheckedIn">0</span><small>megérkezett</small></div>
+        <div class="stat-card"><span id="statPaid">0</span><small>fizetett</small></div>
+        <div class="stat-card"><span id="statUnpaidArrived">0</span><small>fizetésre vár</small></div>
+        <div class="stat-card"><span id="statSpeakers">0</span><small>előadó</small></div>
+        <div class="stat-card"><span id="statChildren">0</span><small>gyermek</small></div>
+      </section>
+
+
+      <section class="card onsite-registration-card">
+        <div class="admin-header">
+          <div>
+            <span class="eyebrow">Helyszíni regisztráció</span>
+            <h2>Gyors új résztvevő felvétele</h2>
+          </div>
+        </div>
+
+        <form id="onsiteForm" class="onsite-form">
+          <div class="admin-filter-grid">
+            <label>Név *
+              <input id="onsiteName" required type="text" placeholder="Résztvevő neve">
+            </label>
+            <label>Titulus
+              <select id="onsiteType">
+                <option>Vendég</option>
+                <option>Gyermek vendég</option>
+                <option>Oktató</option>
+                <option>Lovasedző</option>
+                <option>Előadó</option>
+                <option>Lókiképző</option>
+                <option>Belovagló</option>
+                <option>Tenyésztő</option>
+                <option>Állatorvos</option>
+                <option>Patkolókovács</option>
+                <option>Lovarda tulajdonos</option>
+                <option>Egyesületi képviselő</option>
+                <option>Kiállító</option>
+                <option>Támogató</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="admin-filter-grid">
+            <label>Település
+              <input id="onsiteCity" type="text" placeholder="pl. Kalocsa">
+            </label>
+            <label>E-mail / telefon, ha van
+              <input id="onsiteContact" type="text" placeholder="opcionális">
+            </label>
+          </div>
+
+          <div class="onsite-checks">
+            <label class="checkin-check"><input id="onsiteArrived" type="checkbox" checked><span>Megérkezett</span></label>
+            <label class="checkin-check"><input id="onsitePaid" type="checkbox"><span>Fizetés rendezve</span></label>
+          </div>
+
+          <button class="button" type="submit">Helyszíni résztvevő rögzítése</button>
+          <div id="onsiteMessage" class="form-message"></div>
+        </form>
+
+        <div id="onsiteTicketBox" class="onsite-ticket-box hidden"></div>
+      </section>
+
+
+      <section class="card admin-filter-card">
+        <div class="admin-header">
+          <h2>Beléptetési állapot</h2>
+          <button class="button" id="exportCsv">Excel / CSV export</button>
+        </div>
+
+        <div class="admin-filter-grid">
+          <label>Keresés név, kód, település szerint
+            <input id="searchInput" type="search" placeholder="Kezdj el gépelni...">
+          </label>
+          <label>Szűrő
+            <select id="statusFilter">
+              <option value="all">Összes résztvevő</option>
+              <option value="arrived">Csak megérkezettek</option>
+              <option value="not-arrived">Csak meg nem érkezettek</option>
+              <option value="unpaid-arrived">Megérkezett, de fizetésre vár</option>
+              <option value="paid">Fizetettek</option>
+              <option value="speaker">Előadók</option>
+              <option value="trainer">Oktatók / edzők</option>
+              <option value="guest">Vendégek</option>
+              <option value="child">Gyermekek</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="table-wrap">
+          <table class="admin-table checkin-admin-table">
+            <thead>
+              <tr>
+                <th>Név</th>
+                <th>Titulus</th>
+                <th>Kód</th>
+                <th>Település</th>
+                <th>Megérkezett</th>
+                <th>Fizetett</th>
+                <th>Érkezés ideje</th>
+                <th>Törlés</th>
+              </tr>
+            </thead>
+            <tbody id="participantsBody"></tbody>
+          </table>
+        </div>
+      </section>
+    </section>
+  </main>
+
+<script src="admin.js?v=admin-checkin-pro-1"></script>
+<script src="site-mobile-menu.js?v=real-final"></script>
+</body>
+</html>
