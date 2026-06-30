@@ -292,7 +292,7 @@ function showOnsiteTicket(p) {
 
     <article id="onsiteTicketCard" class="premium-guest-card onsite-ticket-card">
       <div class="guest-card-header">
-        <div class="guest-logo-mark"><img src="assets/Photoroom_20250216_213349.png" alt="Csatangoló Lovarda logó"></div>
+        <div class="guest-logo-mark"><img src="Photoroom_20250216_213349.png" alt="Csatangoló Lovarda logó"></div>
         <div>
           <strong>Csatangoló Lovarda</strong>
           <span>Helyszíni vendégkártya</span>
