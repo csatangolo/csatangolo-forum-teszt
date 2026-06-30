@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="hu">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Program – Csatangoló Fórum</title>
+  <link rel="stylesheet" href="styles.css?v=FINAL2">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js?v=test-env-1"></script>
+</head>
+<body>
+<nav class="topbar site-nav-final">
+  <a href="index.html" class="brand">Csatangoló Lovarda</a>
+<div class="navlinks">
+    <a href="index.html">Főoldal</a>
+    <a href="program.html">Program</a>
+    <a href="eloadok.html">Előadók</a>
+    <a href="bemutatkozas.html">Lovarda</a>
+    <a href="tudastar.html">Tudástár</a>
+    <a href="galeria.html">Galéria</a>
+    <a href="tamogatas.html">Támogatás</a>
+    <a class="nav-cta" href="regisztracio.html">Regisztráció</a>
+  </div>
+</nav>
+<main class="page final-program-page">
+  <section class="program-hero-final compact-title">
+    <span class="badge">Program</span>
+    <h1>A nap menete</h1>
+    <p>Rugalmas, tartalmas, egész napos szakmai jelenlét.</p>
+  </section>
+
+  <section class="program-cards-final compact-program-cards">
+    <article><b>☕</b><h2>Érkezés</h2><p>Regisztráció, kávé, ismerkedés.</p></article>
+    <article><b>🎤</b><h2>Szakmai gondolatindító</h2><p>Előadások és tapasztalatok.</p></article>
+    <article><b>🐴</b><h2>Gyakorlati bemutatók</h2><p>Fedeles lovardában vagy kültéren.</p></article>
+    <article><b>🤝</b><h2>Kötetlen beszélgetések</h2><p>Kérdések, kapcsolatok, közös gondolkodás.</p></article>
+    <article><b>🌙</b><h2>Esti levezetés</h2><p>Akár késő estig, jó hangulatban.</p></article>
+  </section>
+
+  <section class="program-timeline-final">
+    <div>
+      <span class="eyebrow">Egész napos program</span>
+      <h2>Nem percre pontos konferencia</h2>
+      <p>A pontos programpontok a résztvevőkhöz, az előadókhoz és az időjáráshoz igazodhatnak.</p>
+    </div>
+    <div id="programList" class="timeline premium-timeline"></div>
+  </section>
+</main>
+<script src="public-content.js?v=FINAL2"></script>
+<script>loadPublicProgram();</script>
+  <script src="site-mobile-menu.js?v=real-final"></script>
+</body>
+</html>

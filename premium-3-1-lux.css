@@ -1,0 +1,264 @@
+
+/* ============================================================
+   CSATANGOLÓ FÓRUM – PREMIUM 3.1 LUX BROWN
+   Mély csokoládébarna • arany • bézs luxus irány
+   Gyorsabb, könnyebb, elegánsabb vizuális réteg
+============================================================ */
+:root{
+  --lux-night:#160c06;
+  --lux-deep:#24140b;
+  --lux-brown:#4A2B18;
+  --lux-choco:#5E3C26;
+  --lux-copper:#9C642D;
+  --lux-gold:#D7A64F;
+  --lux-light-gold:#F4D58D;
+  --lux-cream:#F7EFE4;
+  --lux-paper:#FFF9F0;
+  --lux-line:rgba(215,166,79,.34);
+  --lux-shadow:0 32px 90px rgba(31,16,7,.28);
+}
+
+.premium3{
+  background:
+    radial-gradient(circle at 12% 0%, rgba(215,166,79,.22), transparent 28%),
+    radial-gradient(circle at 84% 8%, rgba(94,60,38,.20), transparent 30%),
+    linear-gradient(180deg,#efe0cc 0%,#fff7ec 44%,#e6ccb2 100%) !important;
+}
+
+/* gyorsabb intro */
+.p3-loader{
+  background:
+    radial-gradient(circle at 50% 34%,rgba(244,213,141,.26),transparent 24%),
+    linear-gradient(135deg,var(--lux-night),var(--lux-brown) 72%,#2d190d) !important;
+}
+.p3-loader-orb{
+  border-color:rgba(244,213,141,.62)!important;
+  box-shadow:0 0 50px rgba(215,166,79,.30)!important;
+}
+.p3-loader-title{
+  color:#fff4df;
+  text-shadow:0 14px 34px rgba(0,0,0,.44);
+}
+
+/* lux navigáció */
+.p3-nav{
+  height:82px;
+  background:
+    linear-gradient(180deg,rgba(22,12,6,.94),rgba(22,12,6,.62) 58%,transparent)!important;
+  border-bottom:1px solid rgba(244,213,141,.13);
+}
+.p3-brand-emblem{
+  background:rgba(255,248,239,.06);
+  border-color:rgba(244,213,141,.7)!important;
+  box-shadow:inset 0 0 18px rgba(244,213,141,.08);
+}
+.p3-menu a{
+  color:#fff3dc!important;
+}
+.p3-menu a:after{
+  height:2px!important;
+  background:linear-gradient(90deg,transparent,var(--lux-light-gold),transparent)!important;
+}
+.p3-ghost,.p3-theme{
+  background:rgba(255,248,239,.10)!important;
+  border-color:rgba(244,213,141,.5)!important;
+  box-shadow:inset 0 0 14px rgba(244,213,141,.06);
+}
+
+/* sokkal luxusabb hero */
+.p3-hero{
+  min-height:88vh!important;
+  background:
+    linear-gradient(180deg,rgba(22,12,6,.16),rgba(22,12,6,.72)),
+    radial-gradient(circle at 50% 12%,rgba(244,213,141,.46),transparent 25%),
+    linear-gradient(135deg,#7A4A25 0%,#3B2110 42%,#160C06 100%)!important;
+}
+.p3-hero-bg{
+  background:
+    linear-gradient(180deg,rgba(22,12,6,.08),rgba(22,12,6,.66)),
+    radial-gradient(circle at 50% 18%,rgba(244,213,141,.38),transparent 30%)!important;
+}
+.p3-hero-light{
+  opacity:.9;
+  background:
+    linear-gradient(112deg,transparent 0 38%,rgba(255,230,170,.24) 45%,transparent 58%),
+    radial-gradient(circle at 76% 22%,rgba(215,166,79,.28),transparent 18%),
+    radial-gradient(circle at 18% 76%,rgba(244,213,141,.20),transparent 20%)!important;
+  animation:p3LuxLight 7s ease-in-out infinite alternate!important;
+}
+@keyframes p3LuxLight{
+  from{transform:translate3d(-1.5%,0,0) scale(1)}
+  to{transform:translate3d(1.5%,0,0) scale(1.025)}
+}
+.p3-hero:after{
+  height:38%!important;
+  background:linear-gradient(0deg,#efe0cc 0%,rgba(239,224,204,.82) 28%,transparent 100%)!important;
+}
+.p3-kicker{
+  display:inline-block;
+  padding:9px 16px;
+  border:1px solid rgba(244,213,141,.32);
+  border-radius:999px;
+  background:rgba(22,12,6,.28);
+  color:#ffe6b6!important;
+  backdrop-filter:blur(8px);
+}
+.p3-hero h1{
+  color:#fff8ee;
+  text-shadow:
+    0 3px 0 rgba(94,60,38,.3),
+    0 22px 60px rgba(0,0,0,.58),
+    0 0 34px rgba(244,213,141,.18)!important;
+}
+.p3-hero p{
+  color:#ffe8c4!important;
+}
+
+/* prémium gombok */
+.p3-button{
+  border-radius:15px!important;
+  background:
+    linear-gradient(135deg,#F0C66E 0%,#C48735 48%,#8B5222 100%)!important;
+  border:1px solid rgba(255,232,185,.72)!important;
+  box-shadow:
+    0 18px 42px rgba(54,31,17,.34),
+    inset 0 1px 0 rgba(255,255,255,.35)!important;
+}
+.p3-button:hover{
+  transform:translateY(-2px);
+  filter:saturate(1.08) brightness(1.04);
+}
+.p3-button-outline{
+  background:rgba(22,12,6,.62)!important;
+  border-color:rgba(244,213,141,.58)!important;
+}
+
+/* lux countdown */
+.p3-time-card{
+  background:
+    linear-gradient(180deg,rgba(255,250,240,.82),rgba(235,211,181,.60)),
+    radial-gradient(circle at 50% 0,rgba(244,213,141,.42),transparent 48%)!important;
+  border:1px solid rgba(156,100,45,.46)!important;
+  box-shadow:
+    0 22px 65px rgba(54,31,17,.18),
+    inset 0 1px 0 rgba(255,255,255,.72),
+    inset 0 -20px 40px rgba(94,60,38,.06)!important;
+}
+.p3-time-card strong{
+  color:#2A170B!important;
+  text-shadow:0 2px 0 rgba(255,255,255,.45);
+}
+.p3-time-card small{
+  color:#5E3C26!important;
+}
+
+/* barna ribbon luxusabb */
+.p3-ribbon{
+  background:
+    radial-gradient(circle at 72% 18%,rgba(244,213,141,.24),transparent 26%),
+    linear-gradient(135deg,#160C06 0%,#2A170B 42%,#5E3C26 100%)!important;
+  border:1px solid rgba(244,213,141,.22);
+  box-shadow:var(--lux-shadow)!important;
+}
+.p3-ribbon-icon{
+  background:rgba(244,213,141,.08);
+  box-shadow:inset 0 0 22px rgba(244,213,141,.08);
+}
+.p3-ribbon strong{
+  color:#F4D58D!important;
+}
+
+/* előadói kártyák drágább hatása */
+.p3-speaker-card{
+  min-height:410px!important;
+  background:
+    linear-gradient(180deg,rgba(22,12,6,.02),rgba(22,12,6,.82)),
+    radial-gradient(circle at 50% 22%,rgba(244,213,141,.16),transparent 24%),
+    linear-gradient(135deg,#8A623F,#24140B)!important;
+  border:1px solid rgba(244,213,141,.18);
+  box-shadow:var(--lux-shadow)!important;
+}
+.p3-speaker-card:after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(115deg,transparent 0 42%,rgba(255,232,180,.10) 48%,transparent 58%);
+  pointer-events:none;
+}
+.p3-speaker-card span{
+  background:linear-gradient(135deg,#FFF7E8,#EAC16E)!important;
+  color:#3A210F!important;
+}
+.p3-speaker-card a{
+  background:rgba(22,12,6,.28);
+  border-color:rgba(244,213,141,.74)!important;
+}
+
+/* miért érdemes blokk */
+.p3-reasons{
+  background:rgba(255,248,239,.84)!important;
+  border-color:rgba(156,100,45,.32)!important;
+  box-shadow:0 20px 50px rgba(54,31,17,.10);
+}
+.p3-reasons div{
+  transition:.22s ease;
+}
+.p3-reasons div:hover{
+  background:rgba(244,213,141,.12);
+  transform:translateY(-2px);
+}
+.p3-reasons b{
+  color:#9C642D;
+}
+
+/* panelek: üveges luxus bézs */
+.p3-panel{
+  background:
+    radial-gradient(circle at 90% 10%,rgba(215,166,79,.18),transparent 26%),
+    linear-gradient(180deg,rgba(255,250,240,.86),rgba(255,248,239,.72))!important;
+  border:1px solid rgba(156,100,45,.24)!important;
+  box-shadow:0 24px 70px rgba(54,31,17,.12)!important;
+}
+.p3-support{
+  background:
+    linear-gradient(90deg,rgba(255,248,239,.88),rgba(255,248,239,.62)),
+    radial-gradient(circle at 78% 42%,rgba(94,60,38,.20),transparent 28%),
+    linear-gradient(135deg,#F6E6D0,#D9B98E)!important;
+}
+.p3-eyebrow{
+  color:#9C642D!important;
+}
+.p3-video-box{
+  background:
+    radial-gradient(circle at 50% 12%,rgba(244,213,141,.18),transparent 28%),
+    linear-gradient(135deg,#160C06,#5E3C26)!important;
+  border:1px solid rgba(244,213,141,.28);
+}
+
+/* lábléc sötétebb-barnább */
+.p3-footer{
+  background:#160C06!important;
+}
+.p3-footer-hero{
+  background:
+    linear-gradient(180deg,rgba(22,12,6,.05),rgba(22,12,6,.88)),
+    radial-gradient(circle at 70% 18%,rgba(244,213,141,.44),transparent 22%),
+    linear-gradient(135deg,#8D5528,#160C06)!important;
+}
+.p3-footer-grid{
+  border-top:1px solid rgba(244,213,141,.14);
+}
+
+/* gyorsítás: rövidebb loader */
+.p3-loader.fast-hide{
+  transition:.42s ease!important;
+}
+
+/* mobil finomítás */
+@media(max-width:680px){
+  .p3-hero{min-height:82vh!important}
+  .p3-kicker{font-size:.68rem!important;letter-spacing:.18em!important}
+  .p3-button{width:100%;max-width:320px}
+  .p3-hero-buttons{align-items:center}
+  .p3-time-card{min-height:108px!important}
+}

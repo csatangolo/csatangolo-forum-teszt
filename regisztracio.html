@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="hu">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Regisztráció – I. Országos Belovagló és Lókiképző Szakmai Fórum</title>
+  <link rel="stylesheet" href="styles.css?v=FINAL2">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js?v=test-env-1"></script>
+</head>
+<body>
+  <nav class="topbar site-nav-final">
+  <a href="index.html" class="brand">Csatangoló Lovarda</a>
+<div class="navlinks">
+    <a href="index.html">Főoldal</a>
+    <a href="program.html">Program</a>
+    <a href="eloadok.html">Előadók</a>
+    <a href="bemutatkozas.html">Lovarda</a>
+    <a href="tudastar.html">Tudástár</a>
+    <a href="galeria.html">Galéria</a>
+    <a href="tamogatas.html">Támogatás</a>
+    <a class="nav-cta" href="regisztracio.html">Regisztráció</a>
+  </div>
+</nav>
+
+  <main class="page narrow">
+    <section class="hero small">
+      <div class="badge">Regisztráció</div>
+      <h1>I. Országos Belovagló és Lókiképző Szakmai Fórum</h1>
+      <p class="motto">Egymástól tanulunk. A lovakért. Egy közösségként.</p>
+      <p><strong>2026. július 25. • Csatangoló Lovarda</strong></p>
+    </section>
+
+    <section class="support-panel compact">
+      <div>
+        <span class="eyebrow">Regisztráció előtt</span>
+        <h2>Részvételi hozzájárulás: 2 000 Ft / fő</h2>
+        <p>A hozzájárulás a helyszínen fizethető. Köszönjük, hogy támogatod a fórum színvonalas megszervezését.</p>
+      </div>
+    </section>
+
+    <form id="registrationForm" class="form card">
+      <h2>1. Résztvevő adatai</h2>
+      <div class="person-title-row">
+        <label>Teljes név *<input required name="mainName" type="text"></label>
+        <label>Titulus
+        <select name="mainTitle">
+          <option value="Vendég" selected>Vendég</option>
+          <option value="Előadó">Előadó</option>
+          <option value="Oktató">Oktató</option>
+          <option value="Lovasedző">Lovasedző</option>
+          <option value="Lókiképző">Lókiképző</option>
+          <option value="Belovagló">Belovagló</option>
+          <option value="Tenyésztő">Tenyésztő</option>
+          <option value="Lovarda tulajdonos">Lovarda tulajdonos</option>
+          <option value="Állatorvos">Állatorvos</option>
+          <option value="Patkolókovács">Patkolókovács</option>
+          <option value="Egyesületi képviselő">Egyesületi képviselő</option>
+          <option value="Hobby lovas">Hobby lovas</option>
+        </select>
+      </label>
+      </div>
+      <label>E-mail cím *<input required name="email" type="email"></label>
+      <label>Telefonszám *<input required name="phone" type="tel"></label>
+      <label>Melyik településről érkezel?<input name="city" type="text"></label>
+
+      <h2>2. Kísérők</h2>
+      <p class="hint">Kérjük, sorold fel azok nevét, akikkel együtt érkezel. Ha egyedül érkezel, üresen hagyhatod.</p>
+      <div class="person-list-grid">
+        <div class="person-title-row">
+          <label>1. kísérő neve<input name="companion1" type="text"></label>
+          <label>Titulus
+        <select name="companion1Title">
+          <option value="Vendég" selected>Vendég</option>
+          <option value="Előadó">Előadó</option>
+          <option value="Oktató">Oktató</option>
+          <option value="Lovasedző">Lovasedző</option>
+          <option value="Lókiképző">Lókiképző</option>
+          <option value="Belovagló">Belovagló</option>
+          <option value="Tenyésztő">Tenyésztő</option>
+          <option value="Lovarda tulajdonos">Lovarda tulajdonos</option>
+          <option value="Állatorvos">Állatorvos</option>
+          <option value="Patkolókovács">Patkolókovács</option>
+          <option value="Egyesületi képviselő">Egyesületi képviselő</option>
+          <option value="Hobby lovas">Hobby lovas</option>
+        </select>
+      </label>
+        </div>
+        <div class="person-title-row">
+          <label>2. kísérő neve<input name="companion2" type="text"></label>
+          <label>Titulus
+        <select name="companion2Title">
+          <option value="Vendég" selected>Vendég</option>
+          <option value="Előadó">Előadó</option>
+          <option value="Oktató">Oktató</option>
+          <option value="Lovasedző">Lovasedző</option>
+          <option value="Lókiképző">Lókiképző</option>
+          <option value="Belovagló">Belovagló</option>
+          <option value="Tenyésztő">Tenyésztő</option>
+          <option value="Lovarda tulajdonos">Lovarda tulajdonos</option>
+          <option value="Állatorvos">Állatorvos</option>
+          <option value="Patkolókovács">Patkolókovács</option>
+          <option value="Egyesületi képviselő">Egyesületi képviselő</option>
+          <option value="Hobby lovas">Hobby lovas</option>
+        </select>
+      </label>
+        </div>
+        <div class="person-title-row">
+          <label>3. kísérő neve<input name="companion3" type="text"></label>
+          <label>Titulus
+        <select name="companion3Title">
+          <option value="Vendég" selected>Vendég</option>
+          <option value="Előadó">Előadó</option>
+          <option value="Oktató">Oktató</option>
+          <option value="Lovasedző">Lovasedző</option>
+          <option value="Lókiképző">Lókiképző</option>
+          <option value="Belovagló">Belovagló</option>
+          <option value="Tenyésztő">Tenyésztő</option>
+          <option value="Lovarda tulajdonos">Lovarda tulajdonos</option>
+          <option value="Állatorvos">Állatorvos</option>
+          <option value="Patkolókovács">Patkolókovács</option>
+          <option value="Egyesületi képviselő">Egyesületi képviselő</option>
+          <option value="Hobby lovas">Hobby lovas</option>
+        </select>
+      </label>
+        </div>
+        <div class="person-title-row">
+          <label>4. kísérő neve<input name="companion4" type="text"></label>
+          <label>Titulus
+        <select name="companion4Title">
+          <option value="Vendég" selected>Vendég</option>
+          <option value="Előadó">Előadó</option>
+          <option value="Oktató">Oktató</option>
+          <option value="Lovasedző">Lovasedző</option>
+          <option value="Lókiképző">Lókiképző</option>
+          <option value="Belovagló">Belovagló</option>
+          <option value="Tenyésztő">Tenyésztő</option>
+          <option value="Lovarda tulajdonos">Lovarda tulajdonos</option>
+          <option value="Állatorvos">Állatorvos</option>
+          <option value="Patkolókovács">Patkolókovács</option>
+          <option value="Egyesületi képviselő">Egyesületi képviselő</option>
+          <option value="Hobby lovas">Hobby lovas</option>
+        </select>
+      </label>
+        </div>
+        <div class="person-title-row">
+          <label>5. kísérő neve<input name="companion5" type="text"></label>
+          <label>Titulus
+        <select name="companion5Title">
+          <option value="Vendég" selected>Vendég</option>
+          <option value="Előadó">Előadó</option>
+          <option value="Oktató">Oktató</option>
+          <option value="Lovasedző">Lovasedző</option>
+          <option value="Lókiképző">Lókiképző</option>
+          <option value="Belovagló">Belovagló</option>
+          <option value="Tenyésztő">Tenyésztő</option>
+          <option value="Lovarda tulajdonos">Lovarda tulajdonos</option>
+          <option value="Állatorvos">Állatorvos</option>
+          <option value="Patkolókovács">Patkolókovács</option>
+          <option value="Egyesületi képviselő">Egyesületi képviselő</option>
+          <option value="Hobby lovas">Hobby lovas</option>
+        </select>
+      </label>
+        </div>
+      </div>
+
+      <h2>3. Gyermekek</h2>
+      <label>Érkezik Veled gyermek? *
+        <select required name="hasChildren">
+          <option value="">Válassz...</option>
+          <option>Igen</option>
+          <option>Nem</option>
+        </select>
+      </label>
+      <label>Ha igen, kérjük írd le, hány gyermek érkezik, és hány évesek.
+        <textarea name="childrenDetails" rows="3" placeholder="Példa: 2 gyermek – 6 éves és 10 éves"></textarea>
+      </label>
+      <div class="child-name-box">
+        <p class="hint"><strong>QR-belépőhöz:</strong> kérjük, írd be a gyermekek nevét is. Minden gyermek külön vendégkártyát és QR-kódot kap.</p>
+        <div class="two-col">
+          <label>1. gyermek neve<input name="child1" type="text"></label>
+          <label>2. gyermek neve<input name="child2" type="text"></label>
+          <label>3. gyermek neve<input name="child3" type="text"></label>
+          <label>4. gyermek neve<input name="child4" type="text"></label>
+          <label>5. gyermek neve<input name="child5" type="text"></label>
+        </div>
+      </div>
+
+      <h2>4. Gyermekprogramok</h2>
+      <p class="hint">A gyermekprogramok még szervezés alatt állnak, a válaszokat jelenleg igényfelmérés céljából gyűjtjük.</p>
+      <fieldset>
+        <label><input type="checkbox" name="childPrograms" value="Lovaglás"> Lovaglás</label>
+        <label><input type="checkbox" name="childPrograms" value="Ugrálóvár"> Ugrálóvár</label>
+        <label><input type="checkbox" name="childPrograms" value="Lovas kvíz"> Lovas kvíz</label>
+        <label><input type="checkbox" name="childPrograms" value="Csatangoló alkalmazás lovas játékai / kvízei"> Csatangoló alkalmazás lovas játékai / kvízei</label>
+        <label><input type="checkbox" name="childPrograms" value="Még nem tudom"> Még nem tudom</label>
+        <label>Egyéb<input name="childProgramsOther" type="text"></label>
+      </fieldset>
+
+      <h2>5. Szállás / sátorozás</h2>
+      <label>Érdekel valamelyik lehetőség?
+        <select name="accommodation">
+          <option value="">Válassz...</option>
+          <option>Környékbeli szálláslehetőség érdekel</option>
+          <option>Sátorozási lehetőség érdekel</option>
+          <option>Egyik sem</option>
+          <option>Még nem tudom</option>
+        </select>
+      </label>
+
+      <h2>6. Gyakorlati bemutató lehetőség</h2>
+      <p>A szakmai fórum során lehetőséget biztosítunk arra, hogy előadóink a <strong>Csatangoló Lovarda lovaival</strong> gyakorlati bemutatókat tartsanak.</p>
+      <p>Ha van olyan téma, feladat vagy képzési módszer, amelyet szívesen bemutatnál a résztvevőknek, kérjük, néhány mondatban írd le elképzelésedet.</p>
+      <p>A bemutatók összeállítását a beérkezett igények alapján tervezzük meg, ezért nem tudjuk garantálni, hogy minden jelentkező bemutatóra sor kerül, de igyekszünk minél több érdekes témának helyet biztosítani.</p>
+      <label>Szeretnél bemutatót tartani a Csatangoló Lovarda lovaival?
+        <select name="demoInterest">
+          <option value="">Válassz...</option>
+          <option>Igen</option>
+          <option>Nem</option>
+          <option>Még nem tudom</option>
+        </select>
+      </label>
+      <label>Ha igen, kérjük írd le röviden, milyen témát vagy bemutatót tervezel.
+        <textarea name="demoDetails" rows="4"></textarea>
+      </label>
+
+      <h2>7. Kérdések az előadókhoz</h2>
+      <p>A szakmai fórumon elsősorban az előzetesen beküldött kérdéseket dolgozzuk fel, hogy előadóink fel tudjanak készülni rájuk. Természetesen a helyszínen is lesz lehetőség kérdéseket feltenni és beszélgetni.</p>
+      <label>Milyen kérdésre szeretnél választ kapni?
+        <textarea name="speakerQuestion" rows="5"></textarea>
+      </label>
+      <label>Ha kérdésed elsősorban egy adott előadóhoz szól, kérjük írd be a nevét.
+        <input name="questionFor" type="text">
+      </label>
+
+      <h2>8. Mely témák érdekelnek leginkább?</h2>
+      <fieldset>
+        <label><input type="checkbox" name="topics" value="Belovaglás"> Belovaglás</label>
+        <label><input type="checkbox" name="topics" value="Fiatal lovak képzése"> Fiatal lovak képzése</label>
+        <label><input type="checkbox" name="topics" value="Problémás lovak"> Problémás lovak</label>
+        <label><input type="checkbox" name="topics" value="Szabadidomítás"> Szabadidomítás</label>
+        <label><input type="checkbox" name="topics" value="Kiképzés"> Kiképzés</label>
+        <label><input type="checkbox" name="topics" value="Elrontott lovak utóképzése"> Elrontott lovak utóképzése</label>
+      </fieldset>
+      <label>Ha van más téma, ami érdekel, kérjük írd ide.
+        <input name="topicsOther" type="text">
+      </label>
+
+      <h2>9. Rövid bemutatkozás</h2>
+      <p class="hint">Ezt azért kérjük, hogy a résztvevők szakmai hátterét jobban lássuk, és később a névkártyák is hasznosabbak lehessenek.</p>
+      <fieldset>
+        <label><input type="checkbox" name="roles" value="Belovagló"> Belovagló</label>
+        <label><input type="checkbox" name="roles" value="Lókiképző"> Lókiképző</label>
+        <label><input type="checkbox" name="roles" value="Lovasedző"> Lovasedző</label>
+        <label><input type="checkbox" name="roles" value="Oktató"> Oktató</label>
+        <label><input type="checkbox" name="roles" value="Versenyző"> Versenyző</label>
+        <label><input type="checkbox" name="roles" value="Lótartó"> Lótartó</label>
+        <label><input type="checkbox" name="roles" value="Tenyésztő"> Tenyésztő</label>
+        <label><input type="checkbox" name="roles" value="Patkolókovács"> Patkolókovács</label>
+        <label><input type="checkbox" name="roles" value="Állatorvos"> Állatorvos</label>
+        <label><input type="checkbox" name="roles" value="Nyeregkészítő / nyeregillesztő"> Nyeregkészítő / nyeregillesztő</label>
+        <label><input type="checkbox" name="roles" value="Lovarda tulajdonos"> Lovarda tulajdonos</label>
+        <label><input type="checkbox" name="roles" value="Lovas egyesület képviselője"> Lovas egyesület képviselője</label>
+        <label><input type="checkbox" name="roles" value="Hobby lovas"> Hobby lovas</label>
+        <label><input type="checkbox" name="roles" value="Érdeklődő"> Érdeklődő</label>
+      </fieldset>
+      <label>Egyéb / rövid bemutatkozás
+        <textarea name="intro" rows="4"></textarea>
+      </label>
+
+      <h2>10. Hol hallottál a rendezvényről?</h2>
+      <label>
+        <select name="source">
+          <option value="">Válassz...</option>
+          <option>Facebook</option>
+          <option>Instagram</option>
+          <option>TikTok</option>
+          <option>YouTube</option>
+          <option>Panyi György</option>
+          <option>Meghívott előadó</option>
+          <option>Ismerős ajánlotta</option>
+          <option>Csatangoló Lovarda</option>
+          <option>Egyéb</option>
+        </select>
+      </label>
+
+      <h2>11. Adatkezelési tájékoztató</h2>
+      <p>A regisztráció során megadott személyes adatokat az <strong>I. Országos Belovagló és Lókiképző Szakmai Fórum</strong> megszervezéséhez, a résztvevőkkel való kapcsolattartáshoz, a digitális QR-belépő elkészítéséhez, a beléptetéshez, a részvételi hozzájárulás nyilvántartásához és a rendezvény lebonyolításához kezeljük.</p>
+      <p>A részletes tájékoztató itt olvasható: <a href="adatkezeles.html" target="_blank" rel="noopener">Adatkezelési tájékoztató</a>.</p>
+      <label class="check"><input required type="checkbox" name="privacyAccepted" value="Igen"> Elolvastam és elfogadom az adatkezelési tájékoztatót. *</label>
+
+      <h2>12. Fotó-, hang- és videófelvétel</h2>
+      <p>A rendezvényen fotó-, hang- és videófelvételek készülhetnek, amelyeket a szervezők a rendezvény dokumentálására, valamint kommunikációs és marketing célokra felhasználhatnak, például közösségi média felületeken, weboldalon, videós tartalmakban vagy sajtóanyagokban.</p>
+      <label class="check"><input required type="checkbox" name="mediaAccepted" value="Igen"> Tudomásul veszem, hogy a rendezvényen fotó-, hang- és videófelvételek készülhetnek, és hozzájárulok ezek rendezvénykommunikációs célú felhasználásához. *</label>
+
+      <div id="formMessage" class="form-message"></div>
+      <div class="submit-row">
+        <button id="submitButton" type="submit" class="button">Regisztráció elküldése</button>
+      </div>
+    </form>
+  </main>
+
+  <script src="script.js"></script>
+  <script src="site-mobile-menu.js?v=real-final"></script>
+</body>
+</html>

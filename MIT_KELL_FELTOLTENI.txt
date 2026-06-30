@@ -1,0 +1,14 @@
+REAL FINAL mobil menü javítás
+
+Cserélendő/feltöltendő:
+- site-mobile-menu.js
+- styles.css
+- forum-premium-3-3.css
+- a ZIP-ben lévő HTML fájlok
+
+Mit csinál:
+- eltávolítja a korábbi elromlott menügomb megoldásokat
+- minden oldalon ugyanazt az egységes mobil menüt használja
+- a főoldalon és az aloldalakon is működik
+- mobilon a gomb a menüsor jobb oldalán marad
+- kattintásra lenyílik, menüpontra kattintva bezáródik

@@ -1,0 +1,4 @@
+Csatangoló Fórum CMS 1.0
+Generated package folder: csatangolo_forum_cms_1_0_teljes
+Missing expected files: nincs
+Total files: 37

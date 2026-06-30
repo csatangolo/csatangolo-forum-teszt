@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="hu">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Saját belépőim – Csatangoló Fórum</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js?v=test-env-1"></script>
+  <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+</head>
+<body>
+  <nav class="topbar">
+    <a href="index.html" class="brand">Csatangoló Fórum</a>
+<div class="navlinks">
+      <a href="index.html">Főoldal</a>
+      <a href="program.html">Program</a>
+      <a href="tudastar.html">Tudástár</a>
+    <a href="hirek.html">Hírek</a>
+    <a href="galeria.html">Galéria</a>
+    </div>
+  </nav>
+
+  <main class="page narrow">
+    <section class="hero small">
+      <div class="badge">Résztvevői profil</div>
+      <h1>Saját belépőim</h1>
+      <p class="motto">Itt találod a névre szóló digitális belépőidet.</p>
+    </section>
+
+    <section class="support-panel compact">
+      <div>
+        <span class="eyebrow">Fontos</span>
+        <h2>Érkezéskor mutasd fel a saját QR-kódodat</h2>
+        <p>Ha többen regisztráltatok egy e-mail címmel, minden résztvevő külön QR-kódot kap.</p>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Belépők</h2>
+      <div id="profileMessage" class="hint"></div>
+      <div id="profileTickets" class="tickets"></div>
+    </section>
+
+    <section class="card">
+      <h2>Hasznos tudnivalók</h2>
+      <div class="profile-info-grid">
+        <div><strong>📅 Dátum</strong><span>2026. július 25. szombat</span></div>
+        <div><strong>📍 Helyszín</strong><span>Csatangoló Lovarda, Öregcsertő</span></div>
+        <div><strong>💰 Hozzájárulás</strong><span>2 000 Ft / fő, a helyszínen fizethető</span></div>
+        <div><strong>🕘 Kezdés</strong><span>9:00 órától akár késő estig</span></div>
+      </div>
+    </section>
+
+    <section class="card center">
+      <h2>Program és tudástár</h2>
+      <p>A részletes program és a későbbi YouTube videók ezen az oldalon keresztül is elérhetőek lesznek.</p>
+      <div class="hero-actions">
+        <a class="button" href="program.html">Program</a>
+        <a class="button ghost dark" href="tudastar.html">Tudástár</a>
+      </div>
+    </section>
+  </main>
+
+<script src="profil.js"></script>
+  <script src="site-mobile-menu.js?v=real-final"></script>
+</body>
+</html>

@@ -1,0 +1,6 @@
+const P3_EVENT_DATE = new Date("2026-07-25T09:00:00+02:00");
+function p3Set(id, value) { const el = document.getElementById(id); if (!el) return; const next = String(value).padStart(2, "0"); if (el.textContent !== next) { el.classList.remove("p3-flip"); void el.offsetWidth; el.textContent = next; el.classList.add("p3-flip"); }}
+function p3Countdown() { const now = new Date(); let diff = Math.max(0, P3_EVENT_DATE - now); const days = Math.floor(diff / 86400000); diff %= 86400000; const hours = Math.floor(diff / 3600000); diff %= 3600000; const minutes = Math.floor(diff / 60000); diff %= 60000; const seconds = Math.floor(diff / 1000); p3Set("p3Days", days); p3Set("p3Hours", hours); p3Set("p3Minutes", minutes); p3Set("p3Seconds", seconds); }
+setInterval(p3Countdown, 1000); p3Countdown();
+window.addEventListener("load", () => { const loader = document.getElementById("p3Loader"); if (loader) { setTimeout(() => loader.classList.add("hide"), 900); setTimeout(() => loader.remove(), 1800); }});
+const p3Theme = document.getElementById("p3Theme"); if (p3Theme) { p3Theme.addEventListener("click", () => { document.body.classList.toggle("dark-p3"); p3Theme.textContent = document.body.classList.contains("dark-p3") ? "☀️" : "🌙"; }); }
