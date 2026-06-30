@@ -233,13 +233,21 @@ function renderSpeakerDetail(s) {
 async function loadPublicSpeakers() {
   const el = document.getElementById("speakerList");
   if (!el) return;
-  const { data, error } = await client.from("speakers").select("*").eq("is_published", true).order("sort_order", { ascending: true });
-  let speakers = (!error && data && data.length) ? data : [];
 
-  LOCAL_SPEAKERS.forEach(local => {
-    const exists = speakers.some(s => String(s.name || "").toLowerCase().trim() === local.name.toLowerCase().trim());
-    if (!exists) speakers.push(local);
-  });
+  let speakers = [];
+  const event = await loadActiveEventSafe();
+
+  if (event) {
+    speakers = await loadSpeakersFromManager(event.id);
+  }
+
+  if (!speakers.length) {
+    speakers = await loadLegacySpeakers();
+  }
+
+  if (!speakers.length) {
+    speakers = LOCAL_SPEAKERS.slice();
+  }
 
   speakers = speakers
     .filter(s => s && s.is_published !== false)
@@ -275,6 +283,94 @@ async function loadPublicSpeakers() {
   if (hash) {
     const found = speakers.find(s => speakerSlug(s.name) === hash || speakerSlug(s.name).includes(hash));
     if (found) openSpeakerDetail(speakerSlug(found.name), false);
+  }
+}
+
+async function loadActiveEventSafe() {
+  try {
+    if (typeof loadActiveEvent === "function") {
+      return await loadActiveEvent(client);
+    }
+
+    const { data, error } = await client
+      .from("events")
+      .select("*")
+      .eq("is_active", true)
+      .order("created_at", { ascending: false })
+      .limit(1)
+      .maybeSingle();
+
+    return error ? null : data;
+  } catch (error) {
+    console.warn("Aktív rendezvény nem tölthető be.", error);
+    return null;
+  }
+}
+
+async function loadSpeakersFromManager(eventId) {
+  try {
+    const { data, error } = await client
+      .from("event_speakers")
+      .select(`
+        id,
+        talk_title,
+        sort_order,
+        is_visible,
+        is_featured,
+        people (
+          id,
+          name,
+          title,
+          city,
+          image_filename,
+          bio,
+          link_url
+        )
+      `)
+      .eq("event_id", eventId)
+      .eq("is_visible", true)
+      .order("sort_order", { ascending: true });
+
+    if (error || !data || !data.length) {
+      if (error) console.warn("Manager előadók nem tölthetők be.", error);
+      return [];
+    }
+
+    return data
+      .filter(row => row.people)
+      .map(row => {
+        const p = row.people;
+        return {
+          name: p.name,
+          subtitle: p.title,
+          image_url: p.image_filename,
+          bio: p.bio,
+          topic: row.talk_title,
+          city: p.city,
+          link_url: p.link_url,
+          sort_order: row.sort_order,
+          is_featured: row.is_featured,
+          is_published: row.is_visible,
+          source: "manager"
+        };
+      });
+  } catch (error) {
+    console.warn("Manager előadók betöltési hiba.", error);
+    return [];
+  }
+}
+
+async function loadLegacySpeakers() {
+  try {
+    const { data, error } = await client
+      .from("speakers")
+      .select("*")
+      .eq("is_published", true)
+      .order("sort_order", { ascending: true });
+
+    return (!error && data && data.length) ? data : [];
+  } catch (error) {
+    return [];
   }
 }
 

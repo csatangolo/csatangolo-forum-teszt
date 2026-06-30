@@ -1,21 +1,12 @@
-v1.7 Előadókezelő alapmodul – TESZT repóhoz
+v1.7.1 Nyilvános előadói oldal összekötése – TESZT repóhoz
 
 Feltöltendő/cserélendő:
-- speakers-manager.html
-- speakers-manager.js
-- styles.css
-- manager.html
-- admin.html
-- dashboard.html
-- event-settings.html
-- docs/CHANGELOG_v1_7_SPEAKERS.md
+- eloadok.html
+- public-content.js
+- docs/CHANGELOG_v1_7_1_PUBLIC_SPEAKERS.md
 
 SQL:
-- Az SQL-t a chatben kapod, onnan másold be a TESZT Supabase SQL Editorba.
-
-PIN:
-- Tigris97
+- Nincs új SQL, ha a v1.7 people/event_speakers SQL már lefutott.
 
 Fontos:
-- Ez még nem cseréli le a nyilvános előadói oldalt, hogy biztosan ne romoljon el.
-- Először az admin adatkezelő részt teszteljük.
+- Ez biztonságos verzió: ha nincs új Manager adat, a régi előadói oldal tovább működik.
