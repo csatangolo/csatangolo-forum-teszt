@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Admin – Csatangoló Fórum</title>
-  <link rel="stylesheet" href="styles.css?v=admin-checkin-pro-1">
+  <link rel="stylesheet" href="styles.css?v=admin-participants-v1-2">
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="supabase-config.js?v=test-env-1"></script>
   <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
@@ -138,7 +138,7 @@
                 <th>Megérkezett</th>
                 <th>Fizetett</th>
                 <th>Érkezés ideje</th>
-                <th>Törlés</th>
+                <th>Műveletek</th>
               </tr>
             </thead>
             <tbody id="participantsBody"></tbody>
@@ -148,7 +148,72 @@
     </section>
   </main>
 
-<script src="admin.js?v=admin-checkin-pro-1"></script>
+
+  <div id="editModal" class="participant-modal hidden" aria-hidden="true">
+    <div class="participant-modal-backdrop" data-modal-close="1"></div>
+    <section class="participant-modal-card">
+      <button type="button" class="participant-modal-close" data-modal-close="1">×</button>
+      <span class="eyebrow">Jelentkező szerkesztése</span>
+      <h2 id="editModalTitle">Résztvevő adatai</h2>
+
+      <form id="editParticipantForm" class="participant-edit-form">
+        <input type="hidden" id="editId">
+
+        <label>Név *
+          <input id="editName" type="text" required>
+        </label>
+
+        <label>Titulus
+          <select id="editType">
+            <option>Vendég</option>
+            <option>Gyermek vendég</option>
+            <option>Oktató</option>
+            <option>Lovasedző</option>
+            <option>Előadó</option>
+            <option>Lókiképző</option>
+            <option>Belovagló</option>
+            <option>Tenyésztő</option>
+            <option>Állatorvos</option>
+            <option>Patkolókovács</option>
+            <option>Lovarda tulajdonos</option>
+            <option>Egyesületi képviselő</option>
+            <option>Kiállító</option>
+            <option>Támogató</option>
+          </select>
+        </label>
+
+        <label>Település
+          <input id="editCity" type="text">
+        </label>
+
+        <label>E-mail
+          <input id="editEmail" type="email">
+        </label>
+
+        <label>Telefon
+          <input id="editPhone" type="text">
+        </label>
+
+        <label>Megjegyzés
+          <textarea id="editNote" rows="3"></textarea>
+        </label>
+
+        <div class="edit-check-grid">
+          <label class="checkin-check"><input id="editCheckedIn" type="checkbox"><span>Megérkezett</span></label>
+          <label class="checkin-check"><input id="editPaid" type="checkbox"><span>Fizetés rendezve</span></label>
+        </div>
+
+        <div class="participant-modal-actions">
+          <button class="button" type="submit">Mentés</button>
+          <button class="button ghost dark" type="button" data-modal-close="1">Mégsem</button>
+        </div>
+
+        <div id="editMessage" class="form-message"></div>
+      </form>
+    </section>
+  </div>
+
+<script src="admin.js?v=admin-participants-v1-2"></script>
 <script src="site-mobile-menu.js?v=real-final"></script>
 </body>
 </html>

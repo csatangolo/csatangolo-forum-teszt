@@ -4,6 +4,7 @@ const client = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 const ADMIN_CODE = "csatangolo2026";
 
 let participants = [];
+let currentEditParticipant = null;
 
 const loginBox = document.getElementById("loginBox");
 const adminContent = document.getElementById("adminContent");
@@ -12,6 +13,9 @@ const loginMessage = document.getElementById("loginMessage");
 const body = document.getElementById("participantsBody");
 const searchInput = document.getElementById("searchInput");
 const statusFilter = document.getElementById("statusFilter");
+const editModal = document.getElementById("editModal");
+const editForm = document.getElementById("editParticipantForm");
+const editMessage = document.getElementById("editMessage");
 
 function msg(text) {
   loginMessage.className = "form-message error";
@@ -33,10 +37,12 @@ document.getElementById("adminCode").addEventListener("keydown", e => {
 });
 
 async function loadData() {
+  setTableLoading("Betöltés...");
   const pRes = await client.from("participants").select("*").order("created_at", { ascending: true });
 
   if (pRes.error) {
-    alert("Nem sikerült betölteni a résztvevőket. Ellenőrizd az adatbázis jogosultságokat.");
+    setTableLoading("Nem sikerült betölteni a résztvevőket.");
+    alert("Nem sikerült betölteni a résztvevőket. Ellenőrizd a teszt Supabase jogosultságokat.");
     console.error(pRes.error);
     return;
   }
@@ -44,6 +50,10 @@ async function loadData() {
   participants = pRes.data || [];
   updateStats();
   render(getFilteredRows());
+}
+
+function setTableLoading(text) {
+  if (body) body.innerHTML = `<tr><td colspan="8" class="muted-table-cell">${escapeHtml(text)}</td></tr>`;
 }
 
 function updateStats() {
@@ -72,7 +82,9 @@ function getFilteredRows() {
       String(p.name || "").toLowerCase().includes(q) ||
       String(p.participant_code || "").toLowerCase().includes(q) ||
       String(p.city || "").toLowerCase().includes(q) ||
-      String(p.type || "").toLowerCase().includes(q);
+      String(p.type || "").toLowerCase().includes(q) ||
+      String(p.email_contact || "").toLowerCase().includes(q) ||
+      String(p.phone_contact || "").toLowerCase().includes(q);
 
     if (!searchOk) return false;
 
@@ -98,15 +110,30 @@ function render(rows) {
   rows.forEach(p => {
     const tr = document.createElement("tr");
     tr.className = rowClass(p);
+    tr.dataset.participantId = p.id;
+
+    const contact = [
+      p.email_contact ? `<small class="admin-contact">✉️ ${escapeHtml(p.email_contact)}</small>` : "",
+      p.phone_contact ? `<small class="admin-contact">☎️ ${escapeHtml(p.phone_contact)}</small>` : ""
+    ].join("");
+
     tr.innerHTML = `
-      <td><strong>${escapeHtml(p.name || "")}</strong></td>
+      <td>
+        <strong>${escapeHtml(p.name || "")}</strong>
+        ${contact}
+      </td>
       <td><span class="role-chip">${escapeHtml(p.type || "Vendég")}</span></td>
       <td><small>${escapeHtml(p.participant_code || "")}</small></td>
       <td>${escapeHtml(p.city || "")}</td>
-      <td><button class="mini-button ${p.checked_in ? "ok" : ""}" data-action="checkin" data-id="${p.id}">${p.checked_in ? "Megérkezett" : "Nem érkezett"}</button></td>
-      <td><button class="mini-button ${p.contribution_paid ? "ok" : ""}" data-action="paid" data-id="${p.id}">${p.contribution_paid ? "Rendezve" : "Fizetendő"}</button></td>
+      <td><button class="admin-toggle ${p.checked_in ? "on" : ""}" data-action="checkin" data-id="${p.id}"><b>${p.checked_in ? "✓" : ""}</b><span>${p.checked_in ? "Itt van" : "Nincs itt"}</span></button></td>
+      <td><button class="admin-toggle ${p.contribution_paid ? "on" : ""}" data-action="paid" data-id="${p.id}"><b>${p.contribution_paid ? "✓" : ""}</b><span>${p.contribution_paid ? "Fizetett" : "Nem fizetett"}</span></button></td>
       <td>${p.checked_in_at ? escapeHtml(new Date(p.checked_in_at).toLocaleString("hu-HU")) : ""}</td>
-      <td><button class="mini-button danger" data-action="delete" data-id="${p.id}">Törlés</button></td>
+      <td>
+        <div class="admin-action-group">
+          <button class="mini-button edit" data-action="edit" data-id="${p.id}">Szerkesztés</button>
+          <button class="mini-button danger delete-participant-btn" data-action="delete" data-id="${p.id}">Törlés</button>
+        </div>
+      </td>
     `;
     body.appendChild(tr);
   });
@@ -128,57 +155,177 @@ function roleText(p) {
 body.addEventListener("click", async (e) => {
   const btn = e.target.closest("button[data-action]");
   if (!btn) return;
+
   const id = btn.dataset.id;
-  const p = participants.find(x => x.id === id);
+  const p = participants.find(x => String(x.id) === String(id));
   if (!p) return;
 
   if (btn.dataset.action === "delete") {
-    await deleteParticipant(p);
+    await deleteParticipant(p, btn);
     return;
   }
 
-  const update = btn.dataset.action === "checkin"
+  if (btn.dataset.action === "edit") {
+    openEditModal(p);
+    return;
+  }
+
+  await toggleParticipantStatus(p, btn.dataset.action, btn);
+});
+
+async function toggleParticipantStatus(p, action, btn) {
+  btn.disabled = true;
+  btn.classList.add("is-working");
+
+  const update = action === "checkin"
     ? { checked_in: !p.checked_in, checked_in_at: !p.checked_in ? new Date().toISOString() : null }
     : { contribution_paid: !p.contribution_paid };
 
-  const { error } = await client.from("participants").update(update).eq("id", id);
+  const { error } = await client.from("participants").update(update).eq("id", p.id);
   if (error) {
-    alert("Nem sikerült menteni. Ellenőrizd az UPDATE jogosultságot.");
+    btn.disabled = false;
+    btn.classList.remove("is-working");
+    alert("Nem sikerült menteni. Ellenőrizd az UPDATE jogosultságot a teszt Supabase-ben.");
     console.error(error);
     return;
   }
 
-  await loadData();
-});
+  Object.assign(p, update);
+  updateStats();
+  render(getFilteredRows());
+}
 
-async function deleteParticipant(p) {
-  if (!confirm(`Biztosan törlöd ezt a résztvevőt?\n\n${p.name}\n${p.participant_code}`)) return;
+async function deleteParticipant(p, btn) {
+  const ok = confirm(
+    `Biztosan törlöd ezt a résztvevőt?\n\n` +
+    `Név: ${p.name || ""}\n` +
+    `Kód: ${p.participant_code || ""}\n` +
+    `Titulus: ${p.type || "Vendég"}\n` +
+    `Megérkezett: ${p.checked_in ? "igen" : "nem"}\n` +
+    `Fizetett: ${p.contribution_paid ? "igen" : "nem"}\n\n` +
+    `A törlés után a QR-kódja nem lesz érvényes.`
+  );
+  if (!ok) return;
+
+  btn.disabled = true;
+  btn.textContent = "Törlés...";
+  btn.classList.add("is-working");
 
   const { error } = await client.from("participants").delete().eq("id", p.id);
   if (error) {
-    alert("Nem sikerült törölni. Ellenőrizd a DELETE jogosultságot.");
+    btn.disabled = false;
+    btn.textContent = "Törlés";
+    btn.classList.remove("is-working");
+    alert("Nem sikerült törölni. Ellenőrizd a DELETE jogosultságot a teszt Supabase-ben.");
     console.error(error);
     return;
   }
 
-  await loadData();
+  participants = participants.filter(x => String(x.id) !== String(p.id));
+  updateStats();
+  render(getFilteredRows());
+}
+
+function openEditModal(p) {
+  currentEditParticipant = p;
+  document.getElementById("editId").value = p.id || "";
+  document.getElementById("editName").value = p.name || "";
+  document.getElementById("editType").value = p.type || "Vendég";
+  document.getElementById("editCity").value = p.city || "";
+  document.getElementById("editEmail").value = p.email_contact || "";
+  document.getElementById("editPhone").value = p.phone_contact || "";
+  document.getElementById("editNote").value = p.note || "";
+  document.getElementById("editCheckedIn").checked = !!p.checked_in;
+  document.getElementById("editPaid").checked = !!p.contribution_paid;
+  document.getElementById("editModalTitle").textContent = p.name || "Résztvevő adatai";
+  editMessage.textContent = "";
+
+  editModal.classList.remove("hidden");
+  editModal.setAttribute("aria-hidden", "false");
+  document.body.classList.add("modal-open");
+}
+
+function closeEditModal() {
+  currentEditParticipant = null;
+  editModal.classList.add("hidden");
+  editModal.setAttribute("aria-hidden", "true");
+  document.body.classList.remove("modal-open");
+}
+
+if (editModal) {
+  editModal.addEventListener("click", (event) => {
+    if (event.target.dataset.modalClose) closeEditModal();
+  });
+}
+
+if (editForm) {
+  editForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    if (!currentEditParticipant) return;
+
+    editMessage.className = "form-message";
+    editMessage.textContent = "Mentés folyamatban...";
+
+    const checkedIn = document.getElementById("editCheckedIn").checked;
+    const wasCheckedIn = !!currentEditParticipant.checked_in;
+
+    const update = {
+      name: document.getElementById("editName").value.trim(),
+      type: document.getElementById("editType").value,
+      city: document.getElementById("editCity").value.trim(),
+      email_contact: document.getElementById("editEmail").value.trim(),
+      phone_contact: document.getElementById("editPhone").value.trim(),
+      note: document.getElementById("editNote").value.trim(),
+      checked_in: checkedIn,
+      checked_in_at: checkedIn ? (wasCheckedIn && currentEditParticipant.checked_in_at ? currentEditParticipant.checked_in_at : new Date().toISOString()) : null,
+      contribution_paid: document.getElementById("editPaid").checked
+    };
+
+    if (!update.name) {
+      editMessage.className = "form-message error";
+      editMessage.textContent = "A név megadása kötelező.";
+      return;
+    }
+
+    const { data, error } = await client.from("participants").update(update).eq("id", currentEditParticipant.id).select("*").single();
+
+    if (error) {
+      editMessage.className = "form-message error";
+      editMessage.textContent = "Nem sikerült menteni. Ellenőrizd az UPDATE jogosultságot.";
+      console.error(error);
+      return;
+    }
+
+    const index = participants.findIndex(p => String(p.id) === String(currentEditParticipant.id));
+    if (index !== -1) participants[index] = data || { ...currentEditParticipant, ...update };
+
+    editMessage.className = "form-message success";
+    editMessage.textContent = "Mentve.";
+    updateStats();
+    render(getFilteredRows());
+
+    setTimeout(closeEditModal, 350);
+  });
 }
 
 searchInput.addEventListener("input", () => render(getFilteredRows()));
 statusFilter.addEventListener("change", () => render(getFilteredRows()));
 
 document.getElementById("exportCsv").addEventListener("click", () => {
-  const rows = [["Név","Titulus","Kód","Település","Megérkezett","Fizetett","Érkezés ideje"]];
+  const rows = [["Név","Titulus","Kód","Település","E-mail","Telefon","Megérkezett","Fizetett","Érkezés ideje","Megjegyzés"]];
   getFilteredRows().forEach(p => rows.push([
     p.name,
     p.type,
     p.participant_code,
     p.city,
+    p.email_contact,
+    p.phone_contact,
     p.checked_in ? "igen" : "nem",
     p.contribution_paid ? "igen" : "nem",
-    p.checked_in_at || ""
+    p.checked_in_at || "",
+    p.note || ""
   ]));
-  downloadCsv(rows, "csatangolo_forum_beleptetes.csv");
+  downloadCsv(rows, "csatangolo_forum_jelentkezok.csv");
 });
 
 function downloadCsv(rows, filename) {
@@ -195,6 +342,7 @@ function downloadCsv(rows, filename) {
 function escapeHtml(str) {
   return String(str || "").replace(/[&<>"']/g, m => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
 }
+
 
 
 // === Helyszíni gyors regisztráció ===

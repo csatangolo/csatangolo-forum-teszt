@@ -3323,3 +3323,203 @@ body:not(.forum33) .final-program-page{
     padding:22px!important;
   }
 }
+
+
+/* === CSATANGOLÓ ADMIN v1.2 – Jelentkezők kezelése === */
+.admin-contact{
+  display:block;
+  margin-top:4px;
+  color:#7a5a42;
+  font-size:.78rem;
+  line-height:1.25;
+  font-family:Arial,sans-serif;
+}
+
+.admin-action-group{
+  display:flex;
+  flex-wrap:wrap;
+  gap:7px;
+}
+
+.mini-button.edit{
+  background:#f3dfbd!important;
+  color:#5e3c26!important;
+  border:1px solid rgba(160,106,50,.22)!important;
+}
+
+.mini-button.danger.delete-participant-btn{
+  background:#7a1f16!important;
+  color:#fff8ea!important;
+  border:0!important;
+  box-shadow:0 8px 22px rgba(122,31,22,.18);
+}
+
+.admin-toggle{
+  border:0;
+  border-radius:999px;
+  padding:7px 10px;
+  min-width:118px;
+  background:#f4dfbd;
+  color:#7a4323;
+  font-family:Arial,sans-serif;
+  font-weight:900;
+  cursor:pointer;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+}
+
+.admin-toggle b{
+  width:20px;
+  height:20px;
+  display:grid;
+  place-items:center;
+  border-radius:50%;
+  background:#fff8ea;
+  color:#7a4323;
+}
+
+.admin-toggle.on{
+  background:#dff5d6;
+  color:#2f7a3a;
+}
+
+.admin-toggle.on b{
+  background:#2f7a3a;
+  color:#fff;
+}
+
+button.is-working{
+  opacity:.62;
+  pointer-events:none;
+}
+
+body.modal-open{overflow:hidden}
+
+.participant-modal.hidden{display:none!important}
+
+.participant-modal{
+  position:fixed;
+  inset:0;
+  z-index:5000;
+  display:grid;
+  place-items:center;
+  padding:18px;
+}
+
+.participant-modal-backdrop{
+  position:absolute;
+  inset:0;
+  background:rgba(26,12,6,.72);
+  backdrop-filter:blur(8px);
+}
+
+.participant-modal-card{
+  position:relative;
+  z-index:1;
+  width:min(720px, 100%);
+  max-height:92vh;
+  overflow:auto;
+  padding:28px;
+  border-radius:32px;
+  background:linear-gradient(135deg,#fff8ea,#ead6b5);
+  border:1px solid rgba(160,106,50,.20);
+  box-shadow:0 34px 110px rgba(0,0,0,.38);
+}
+
+.participant-modal-card h2{
+  margin:.15em 0 .7em;
+  color:#3a2110;
+  font-size:clamp(1.8rem,4vw,3rem);
+  line-height:1.05;
+}
+
+.participant-modal-close{
+  position:absolute;
+  top:14px;
+  right:14px;
+  width:42px;
+  height:42px;
+  border:0;
+  border-radius:50%;
+  background:#5e3c26;
+  color:#fff8ea;
+  font-size:1.8rem;
+  cursor:pointer;
+}
+
+.participant-edit-form{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+}
+
+.participant-edit-form label{
+  min-width:0;
+}
+
+.participant-edit-form label:nth-child(2),
+.participant-edit-form label:nth-child(7){
+  grid-column:1/-1;
+}
+
+.participant-edit-form textarea{
+  width:100%;
+  border:1px solid rgba(94,60,38,.18);
+  border-radius:18px;
+  padding:12px 14px;
+  background:#fff8ea;
+  color:#3a2110;
+  font:inherit;
+  resize:vertical;
+}
+
+.edit-check-grid{
+  grid-column:1/-1;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+
+.participant-modal-actions{
+  grid-column:1/-1;
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+}
+
+.participant-modal-actions .button{
+  min-width:150px;
+}
+
+#editMessage{
+  grid-column:1/-1;
+}
+
+@media(max-width:760px){
+  .participant-modal{
+    padding:10px;
+    align-items:start;
+  }
+  .participant-modal-card{
+    padding:22px;
+    border-radius:26px;
+    margin-top:10px;
+  }
+  .participant-edit-form,
+  .edit-check-grid{
+    grid-template-columns:1fr;
+  }
+  .participant-modal-actions .button{
+    width:100%;
+    justify-content:center;
+  }
+  .admin-action-group{
+    flex-direction:column;
+  }
+  .admin-toggle{
+    min-width:104px;
+    padding:7px 9px;
+  }
+}

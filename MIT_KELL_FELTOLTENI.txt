@@ -1,14 +1,18 @@
-REAL FINAL mobil menü javítás
+Admin v1.2 javítócsomag – TESZT repóhoz
 
 Cserélendő/feltöltendő:
-- site-mobile-menu.js
+- admin.html
+- admin.js
 - styles.css
-- forum-premium-3-3.css
-- a ZIP-ben lévő HTML fájlok
+- supabase_admin_v1_2_participants.sql
+- docs/CHANGELOG_v1_2_ADMIN.md
 
-Mit csinál:
-- eltávolítja a korábbi elromlott menügomb megoldásokat
-- minden oldalon ugyanazt az egységes mobil menüt használja
-- a főoldalon és az aloldalakon is működik
-- mobilon a gomb a menüsor jobb oldalán marad
-- kattintásra lenyílik, menüpontra kattintva bezáródik
+Supabase TEST SQL Editorban futtasd:
+- supabase_admin_v1_2_participants.sql
+
+Ezután a teszt admin oldalon próbáld ki:
+- keresés
+- szerkesztés
+- törlés
+- megérkezett/fizetett kapcsolók
+- CSV export
