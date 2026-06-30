@@ -1,16 +1,20 @@
-v1.5 RC stabilizáló javítócsomag – TESZT repóhoz
+v1.6 Rendezvény beállítások – TESZT repóhoz
 
 Feltöltendő/cserélendő:
+- event-settings.html
+- event-settings.js
 - styles.css
 - admin.html
-- beleptetes.html
 - dashboard.html
-- docs/AUDIT_v1_5_RC.md
-- TORLENDO_DUPLIKALT_FAJLOK.txt csak tájékoztató
+- beleptetes.html
+- docs/CHANGELOG_v1_6_EVENTS.md
 
 SQL:
-- Nincs új SQL.
+- Nincs külön SQL fájl.
+- Az SQL kódot a chat üzenetben kapod, onnan másold be Supabase SQL Editorba.
 
-Fontos:
-- A ZIP nem tud fájlokat törölni a GitHubból automatikusan.
-- A TORLENDO_DUPLIKALT_FAJLOK.txt listában lévő fájlokat kézzel törölheted a teszt repóból, ha még ott vannak.
+Új oldal:
+- event-settings.html
+
+Admin PIN:
+- csatangolo2026

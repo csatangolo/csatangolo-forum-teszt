@@ -4436,69 +4436,212 @@ body.modal-open{overflow:hidden}
 }
 
 
-/* === v1.5 RC stabilizálás === */
-.version-badge{
-  position:fixed;
-  right:10px;
-  bottom:8px;
-  z-index:9000;
-  padding:6px 9px;
-  border-radius:999px;
-  background:rgba(43,21,9,.72);
+/* === v1.6 Rendezvény beállítások === */
+.event-settings-body{overflow-x:hidden}
+.event-settings-page{
+  width:min(1220px, calc(100% - 28px));
+  margin:0 auto;
+  padding:24px 0 48px;
+}
+.event-login-card{
+  min-height:calc(100vh - 130px);
+  display:grid;
+  place-items:center;
+  align-content:center;
+  gap:14px;
+  text-align:center;
+  padding:34px;
+  border-radius:38px;
   color:#fff8ea;
-  font:700 11px Arial,sans-serif;
-  letter-spacing:.04em;
+  background:linear-gradient(135deg,rgba(36,17,7,.94),rgba(94,60,38,.76)),url("fokep.png") center/cover;
+  border:1px solid rgba(242,203,121,.28);
+  box-shadow:0 34px 100px rgba(70,42,22,.25);
+}
+.event-login-card h1{
+  margin:.1em 0;
+  color:#fff8ea;
+  font-size:clamp(2.3rem,6vw,5rem);
+  line-height:1.02;
+}
+.event-login-card p{
+  max-width:720px;
+  color:#ecd8b8;
+  line-height:1.62;
+}
+.event-login-card label{
+  width:min(420px,100%);
+  text-align:left;
+  color:#fff8ea;
+}
+.event-primary{
+  background:linear-gradient(135deg,#d6a24b,#7a4323)!important;
+  color:#fff8ea!important;
+}
+.event-settings-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:18px;
+  padding:26px 28px;
+  border-radius:32px;
+  background:linear-gradient(135deg,#fff8ea,#ead6b5);
+  border:1px solid rgba(160,106,50,.18);
+  box-shadow:0 18px 52px rgba(70,42,22,.09);
+}
+.event-settings-header h1{
+  margin:.1em 0;
+  color:#3a2110;
+  font-size:clamp(2rem,4.4vw,4rem);
+  line-height:1.03;
+}
+.event-settings-header p{
+  margin:0;
+  max-width:760px;
+  color:#6e523b;
+  line-height:1.55;
+  font-weight:800;
+}
+.event-header-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  justify-content:flex-end;
+}
+.event-settings-grid{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 390px;
+  gap:18px;
+  margin-top:18px;
+  align-items:start;
+}
+.event-settings-form,
+.event-preview-card{
+  padding:24px;
+  border-radius:30px;
+  background:#fff8ea;
+  border:1px solid rgba(160,106,50,.16);
+  box-shadow:0 18px 54px rgba(70,42,22,.09);
+}
+.event-settings-form{
+  display:grid;
+  gap:18px;
+}
+.event-form-section{
+  display:grid;
+  gap:13px;
+  padding:20px;
+  border-radius:24px;
+  background:linear-gradient(135deg,#fff8ea,#f3dfbd);
+  border:1px solid rgba(160,106,50,.12);
+}
+.event-two{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+.event-settings-form textarea{
+  width:100%;
+  border:1px solid rgba(94,60,38,.18);
+  border-radius:18px;
+  padding:12px 14px;
+  background:#fff8ea;
+  color:#3a2110;
+  font:inherit;
+  resize:vertical;
+}
+.event-form-footer{
+  display:grid;
+  gap:12px;
+}
+.event-active-check{
+  display:flex!important;
+  align-items:center;
+  gap:10px;
+  padding:14px;
+  border-radius:18px;
+  background:#f3dfbd;
+  color:#5e3c26;
+  font-weight:900;
+}
+.event-active-check input{
+  width:auto!important;
+}
+.event-preview-card{
+  position:sticky;
+  top:100px;
+}
+.event-preview-card h2{
+  margin:.15em 0;
+  color:#3a2110;
+  font-size:clamp(1.7rem,3vw,2.7rem);
+  line-height:1.05;
+}
+.event-preview-card p{
+  color:#6e523b;
+  line-height:1.55;
+}
+.event-preview-list{
+  display:grid;
+  gap:10px;
+  margin:18px 0;
+}
+.event-preview-list div{
+  padding:13px;
+  border-radius:18px;
+  background:#f3dfbd;
+}
+.event-preview-list span{
+  display:block;
+  color:#a66a2f;
+  font:900 .72rem Arial,sans-serif;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+}
+.event-preview-list strong{
+  display:block;
+  margin-top:4px;
+  color:#3a2110;
+  line-height:1.25;
+}
+.event-preview-actions{
+  display:grid;
+  gap:10px;
+}
+.event-preview-actions .disabled{
+  opacity:.5;
   pointer-events:none;
 }
-
-@media(max-width:760px){
-  .version-badge{
-    font-size:10px;
-    right:8px;
-    bottom:6px;
+@media(max-width:980px){
+  .event-settings-grid{
+    grid-template-columns:1fr;
+  }
+  .event-preview-card{
+    position:static;
   }
 }
-
-/* Admin / beléptetés / dashboard táblák és kártyák stabilabb mobil tördelése */
-.admin-table,
-.checkin-admin-table{
-  width:100%;
-}
-
-.table-wrap{
-  overflow-x:auto;
-  -webkit-overflow-scrolling:touch;
-}
-
-.admin-table th,
-.admin-table td{
-  vertical-align:top;
-}
-
 @media(max-width:720px){
-  .admin-filter-grid{
-    grid-template-columns:1fr!important;
+  .event-settings-page{
+    width:calc(100% - 18px);
+    padding-top:12px;
   }
-  .admin-header{
-    display:grid!important;
-    gap:10px!important;
+  .event-settings-header{
+    display:grid;
+    padding:20px;
+    border-radius:24px;
   }
-  .admin-header .button{
+  .event-header-actions .button{
     width:100%;
     justify-content:center;
   }
-}
-
-/* iPad fekvő nézet finomhangolás */
-@media(max-width:1180px) and (orientation:landscape){
-  .checkin-v2-page,
-  .dashboard-page{
-    width:calc(100% - 22px);
+  .event-two{
+    grid-template-columns:1fr;
   }
-  .checkin-v2-layout{
-    gap:14px;
+  .event-settings-form,
+  .event-preview-card{
+    padding:18px;
+    border-radius:24px;
   }
-  .dashboard-kpis .kpi{
-    min-height:105px;
+  .event-form-section{
+    padding:16px;
   }
 }

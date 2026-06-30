@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="hu">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rendezvény beállítások – Csatangoló Manager</title>
+  <link rel="stylesheet" href="styles.css?v=events-v1-6">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js?v=test-env-1"></script>
+</head>
+<body class="event-settings-body">
+  <nav class="topbar">
+    <a href="index.html" class="brand">Csatangoló Manager</a>
+    <div class="navlinks">
+      <a href="admin.html">Admin</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="beleptetes.html">Beléptetés</a>
+      <a href="index.html">Főoldal</a>
+    </div>
+  </nav>
+
+  <main class="event-settings-page">
+    <section id="eventLogin" class="event-login-card">
+      <span class="badge">v1.6</span>
+      <h1>Rendezvény beállítások</h1>
+      <p>Itt kezelheted a fórum központi adatait. A későbbi verziókban ezekből épül majd fel automatikusan az oldal több része is.</p>
+
+      <label>Admin PIN
+        <input id="eventAdminCode" type="password" placeholder="Admin kód">
+      </label>
+      <button class="button event-primary" id="unlockEvents">Megnyitás</button>
+      <div id="eventLoginMessage" class="form-message"></div>
+    </section>
+
+    <section id="eventSettingsContent" class="hidden">
+      <header class="event-settings-header">
+        <div>
+          <span class="eyebrow">Csatangoló Manager</span>
+          <h1>Aktív rendezvény</h1>
+          <p>A mentett adatok központi beállításként szolgálnak az admin, beléptetés és később a nyilvános oldalak számára.</p>
+        </div>
+        <div class="event-header-actions">
+          <button id="loadEvent" class="button ghost dark" type="button">Újratöltés</button>
+          <a class="button event-primary" href="admin.html">Vissza az adminba</a>
+        </div>
+      </header>
+
+      <section class="event-settings-grid">
+        <form id="eventSettingsForm" class="event-settings-form">
+          <input type="hidden" id="eventId">
+
+          <div class="event-form-section">
+            <span class="eyebrow">Alapadatok</span>
+            <label>Rendezvény neve *
+              <input id="eventName" type="text" required>
+            </label>
+            <label>Rövid leírás
+              <textarea id="eventDescription" rows="4"></textarea>
+            </label>
+            <div class="event-two">
+              <label>Dátum
+                <input id="eventDate" type="date">
+              </label>
+              <label>Kezdés
+                <input id="eventStartTime" type="time">
+              </label>
+            </div>
+            <div class="event-two">
+              <label>Befejezés / várható zárás
+                <input id="eventEndTime" type="time">
+              </label>
+              <label>Maximális létszám
+                <input id="eventCapacity" type="number" min="0" step="1">
+              </label>
+            </div>
+          </div>
+
+          <div class="event-form-section">
+            <span class="eyebrow">Helyszín és pénzügy</span>
+            <label>Helyszín
+              <input id="eventLocation" type="text">
+            </label>
+            <label>Helyszín címe
+              <input id="eventAddress" type="text">
+            </label>
+            <div class="event-two">
+              <label>Részvételi hozzájárulás / Ft
+                <input id="eventContribution" type="number" min="0" step="100">
+              </label>
+              <label>Kapcsolattartó
+                <input id="eventContactName" type="text">
+              </label>
+            </div>
+            <div class="event-two">
+              <label>Telefon
+                <input id="eventContactPhone" type="text">
+              </label>
+              <label>Email
+                <input id="eventContactEmail" type="email">
+              </label>
+            </div>
+          </div>
+
+          <div class="event-form-section">
+            <span class="eyebrow">Linkek</span>
+            <label>Jelentkezési link
+              <input id="eventRegistrationUrl" type="url">
+            </label>
+            <label>Google Térkép link
+              <input id="eventMapsUrl" type="url">
+            </label>
+            <label>Facebook esemény link
+              <input id="eventFacebookUrl" type="url">
+            </label>
+          </div>
+
+          <div class="event-form-footer">
+            <label class="event-active-check">
+              <input id="eventIsActive" type="checkbox" checked>
+              <span>Ez legyen az aktív rendezvény</span>
+            </label>
+
+            <button class="button event-primary" type="submit">Beállítások mentése</button>
+            <div id="eventSaveMessage" class="form-message"></div>
+          </div>
+        </form>
+
+        <aside class="event-preview-card">
+          <span class="eyebrow">Előnézet</span>
+          <h2 id="previewName">Rendezvény neve</h2>
+          <p id="previewDescription">Rövid leírás...</p>
+
+          <div class="event-preview-list">
+            <div><span>Dátum</span><strong id="previewDate">–</strong></div>
+            <div><span>Időpont</span><strong id="previewTime">–</strong></div>
+            <div><span>Helyszín</span><strong id="previewLocation">–</strong></div>
+            <div><span>Hozzájárulás</span><strong id="previewContribution">–</strong></div>
+            <div><span>Max létszám</span><strong id="previewCapacity">–</strong></div>
+          </div>
+
+          <div class="event-preview-actions">
+            <a id="previewRegistrationLink" class="button event-primary" href="#" target="_blank" rel="noopener">Jelentkezési oldal</a>
+            <a id="previewMapsLink" class="button ghost dark" href="#" target="_blank" rel="noopener">Térkép</a>
+          </div>
+        </aside>
+      </section>
+    </section>
+  </main>
+
+<script src="event-settings.js?v=events-v1-6"></script>
+<script src="site-mobile-menu.js?v=real-final"></script>
+<div class="version-badge">Test v1.6 Events</div>
+</body>
+</html>
