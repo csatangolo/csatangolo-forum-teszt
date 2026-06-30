@@ -1,17 +1,16 @@
-Dashboard v1.4 javítócsomag – TESZT repóhoz
+v1.5 RC stabilizáló javítócsomag – TESZT repóhoz
 
 Feltöltendő/cserélendő:
-- dashboard.html
-- dashboard.js
 - styles.css
 - admin.html
 - beleptetes.html
-- docs/CHANGELOG_v1_4_DASHBOARD.md
-
-Új oldal:
 - dashboard.html
+- docs/AUDIT_v1_5_RC.md
+- TORLENDO_DUPLIKALT_FAJLOK.txt csak tájékoztató
 
-PIN:
-- csatangolo2026
+SQL:
+- Nincs új SQL.
 
-Nem igényel új SQL-t, a participants táblát olvassa.
+Fontos:
+- A ZIP nem tud fájlokat törölni a GitHubból automatikusan.
+- A TORLENDO_DUPLIKALT_FAJLOK.txt listában lévő fájlokat kézzel törölheted a teszt repóból, ha még ott vannak.

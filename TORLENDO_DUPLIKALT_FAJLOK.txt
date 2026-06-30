@@ -1,0 +1,23 @@
+v1.5 RC – törölhető duplikált fájlok
+
+Ezek a fájlok biztosan azonos tartalmú, nem hivatkozott duplikátumok voltak.
+Ha a teszt repóban még látod őket, törölhetők.
+
+-     C07657E9-0A27-4329-971E-57260E5DBD25.png  (azonos ezzel: szabo-zoltan.jpg)
+- kevey-bella.jpg  (azonos ezzel: szabo-zoltan.jpg)
+- szabo-zoltan.webp  (azonos ezzel: szabo-zoltan.jpg)
+-     panyi-gyuri.png.jpg  (azonos ezzel: panyi-gyuri.jpg)
+-     pataky-kata.png.jpg  (azonos ezzel: pataky-kata.jpg)
+- 05FFE925-CF1C-4CC9-9055-6F9D4DE5C81F.PNG  (azonos ezzel: horse-golden.jpg)
+- 3C22F397-F5E6-4D8A-8886-670B94AA0DFE.PNG  (azonos ezzel: 1_1.png)
+- 3D916A50-C97E-405E-8BF1-91D7D9830BB5.PNG  (azonos ezzel: hero-forum.jpg)
+- 58983A47-BBEC-47B6-B8C7-005AC7AD8A55.PNG  (azonos ezzel: lovarda-golden.jpg)
+- 5B9C37A9-C452-43C7-AF97-B8692E75EA53.PNG  (azonos ezzel: hero-arena.jpg)
+- 9BFC2106-49D1-4E79-8B32-516B89E14714.PNG  (azonos ezzel: pasture-golden.jpg)
+- banner-jani.png.PNG  (azonos ezzel: benner-jani.jpg)
+- karl-peter.png.jpg  (azonos ezzel: karl-peter.jpg)
+- kaska-zoltan.png.PNG  (azonos ezzel: kaska-zoltan.jpg)
+- pasture-golden-fast.webp  (azonos ezzel: legelo-kozosseg.webp)
+- szabo-arpi.png.jpg  (azonos ezzel: szabo-arpad-card.jpg)
+- taszler-melinda.png.PNG  (azonos ezzel: taszler-melinda.jpg)
+- tisza-zoltan.png.PNG  (azonos ezzel: tisza-zoltan.jpg)

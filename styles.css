@@ -4434,3 +4434,71 @@ body.modal-open{overflow:hidden}
     grid-template-columns:1fr;
   }
 }
+
+
+/* === v1.5 RC stabilizálás === */
+.version-badge{
+  position:fixed;
+  right:10px;
+  bottom:8px;
+  z-index:9000;
+  padding:6px 9px;
+  border-radius:999px;
+  background:rgba(43,21,9,.72);
+  color:#fff8ea;
+  font:700 11px Arial,sans-serif;
+  letter-spacing:.04em;
+  pointer-events:none;
+}
+
+@media(max-width:760px){
+  .version-badge{
+    font-size:10px;
+    right:8px;
+    bottom:6px;
+  }
+}
+
+/* Admin / beléptetés / dashboard táblák és kártyák stabilabb mobil tördelése */
+.admin-table,
+.checkin-admin-table{
+  width:100%;
+}
+
+.table-wrap{
+  overflow-x:auto;
+  -webkit-overflow-scrolling:touch;
+}
+
+.admin-table th,
+.admin-table td{
+  vertical-align:top;
+}
+
+@media(max-width:720px){
+  .admin-filter-grid{
+    grid-template-columns:1fr!important;
+  }
+  .admin-header{
+    display:grid!important;
+    gap:10px!important;
+  }
+  .admin-header .button{
+    width:100%;
+    justify-content:center;
+  }
+}
+
+/* iPad fekvő nézet finomhangolás */
+@media(max-width:1180px) and (orientation:landscape){
+  .checkin-v2-page,
+  .dashboard-page{
+    width:calc(100% - 22px);
+  }
+  .checkin-v2-layout{
+    gap:14px;
+  }
+  .dashboard-kpis .kpi{
+    min-height:105px;
+  }
+}
