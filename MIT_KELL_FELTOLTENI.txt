@@ -1,27 +1,24 @@
-v1.6.1 Aktív rendezvény összekötés – TESZT repóhoz
+v1.6.2 Szervezői Központ – TESZT repóhoz
 
 Feltöltendő/cserélendő:
-- event-loader.js
-- public-event.js
-- index.html
+- manager.html
+- manager.js
+- styles.css
 - admin.html
 - dashboard.html
 - beleptetes.html
+- event-settings.html
 - admin.js
 - dashboard.js
 - beleptetes.js
 - event-settings.js
-- styles.css
-- docs/CHANGELOG_v1_6_1_EVENTS_CONNECT.md
+- docs/CHANGELOG_v1_6_2_MANAGER.md
 
 SQL:
-- Nincs új SQL, ha a v1.6 events SQL már lefutott.
+- Nincs új SQL.
 
-Új közös belső PIN:
+Közös belső PIN:
 - Tigris97
 
-Tesztelendő:
-- Főoldal dátum/helyszín/rendezvény név
-- Admin aktív rendezvény panel
-- Dashboard aktív rendezvény panel és bevételszámítás
-- Beléptetés aktív rendezvény neve
+Új kezdő oldal:
+- manager.html
