@@ -4099,3 +4099,338 @@ body.modal-open{overflow:hidden}
     font-size:clamp(1.7rem,4vw,2.6rem);
   }
 }
+
+
+/* === DASHBOARD v1.4 – rendezvénynapi élő áttekintő === */
+.dashboard-body{
+  overflow-x:hidden;
+}
+
+.dashboard-page{
+  width:min(1220px, calc(100% - 28px));
+  margin:0 auto;
+  padding:24px 0 44px;
+}
+
+.dashboard-login-card{
+  min-height:calc(100vh - 130px);
+  display:grid;
+  place-items:center;
+  align-content:center;
+  gap:14px;
+  text-align:center;
+  padding:34px;
+  border-radius:38px;
+  color:#fff8ea;
+  background:
+    linear-gradient(135deg,rgba(36,17,7,.94),rgba(94,60,38,.76)),
+    url("fokep.png") center/cover;
+  border:1px solid rgba(242,203,121,.28);
+  box-shadow:0 34px 100px rgba(70,42,22,.25);
+}
+
+.dashboard-login-card h1{
+  margin:.1em 0;
+  color:#fff8ea;
+  font-size:clamp(2.3rem,6vw,5rem);
+  line-height:1.02;
+}
+
+.dashboard-login-card p{
+  max-width:680px;
+  color:#ecd8b8;
+  line-height:1.62;
+}
+
+.dashboard-login-card label{
+  width:min(420px,100%);
+  text-align:left;
+  color:#fff8ea;
+}
+
+.dashboard-primary{
+  background:linear-gradient(135deg,#d6a24b,#7a4323)!important;
+  color:#fff8ea!important;
+}
+
+.dashboard-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:18px;
+  padding:26px 28px;
+  border-radius:32px;
+  background:linear-gradient(135deg,#fff8ea,#ead6b5);
+  border:1px solid rgba(160,106,50,.18);
+  box-shadow:0 18px 52px rgba(70,42,22,.09);
+}
+
+.dashboard-header h1{
+  margin:.1em 0;
+  color:#3a2110;
+  font-size:clamp(2rem,4.4vw,4rem);
+  line-height:1.03;
+}
+
+.dashboard-header p{
+  margin:0;
+  color:#6e523b;
+  font-weight:800;
+}
+
+.dashboard-header-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  justify-content:flex-end;
+}
+
+.dashboard-kpis{
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+  gap:12px;
+  margin:18px 0;
+}
+
+.dashboard-kpis .kpi{
+  min-height:130px;
+  display:grid;
+  place-items:center;
+  text-align:center;
+  padding:18px 12px;
+  border-radius:28px;
+  background:#fff8ea;
+  border:1px solid rgba(160,106,50,.16);
+  box-shadow:0 14px 42px rgba(70,42,22,.08);
+}
+
+.dashboard-kpis .kpi span{
+  color:#4b2a17;
+  font-size:clamp(1.9rem,3.8vw,3.2rem);
+  font-weight:900;
+  line-height:.9;
+}
+
+.dashboard-kpis .kpi small{
+  color:#7a5a42;
+  font:900 .7rem Arial,sans-serif;
+  text-transform:uppercase;
+  letter-spacing:.11em;
+  line-height:1.2;
+}
+
+.dashboard-kpis .arrived{background:linear-gradient(135deg,#e4f8dc,#fff8ea)}
+.dashboard-kpis .paid{background:linear-gradient(135deg,#dff5d6,#fff8ea)}
+.dashboard-kpis .waitpay{background:linear-gradient(135deg,#fff0c2,#fff8ea)}
+.dashboard-kpis .notarrived{background:linear-gradient(135deg,#f3dfbd,#fff8ea)}
+.dashboard-kpis .income{background:linear-gradient(135deg,#2b1509,#7a4323)}
+.dashboard-kpis .income span,
+.dashboard-kpis .income small{color:#fff8ea}
+
+.dashboard-progress-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+  margin:18px 0;
+}
+
+.dashboard-progress-card{
+  padding:22px;
+  border-radius:28px;
+  background:#fff8ea;
+  border:1px solid rgba(160,106,50,.16);
+  box-shadow:0 14px 42px rgba(70,42,22,.08);
+}
+
+.progress-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:14px;
+  margin-bottom:12px;
+  color:#3a2110;
+}
+
+.progress-head span{
+  font:900 1.2rem Arial,sans-serif;
+  color:#5e3c26;
+}
+
+.progress-bar{
+  height:18px;
+  border-radius:999px;
+  background:#f3dfbd;
+  overflow:hidden;
+}
+
+.progress-bar i{
+  display:block;
+  height:100%;
+  width:0;
+  border-radius:999px;
+  background:linear-gradient(90deg,#d6a24b,#5e3c26);
+  transition:width .25s ease;
+}
+
+.dashboard-lists{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
+  margin-top:18px;
+}
+
+.dashboard-list-card{
+  min-height:330px;
+  padding:24px;
+  border-radius:30px;
+  background:#fff8ea;
+  border:1px solid rgba(160,106,50,.16);
+  box-shadow:0 18px 54px rgba(70,42,22,.09);
+}
+
+.dashboard-count-pill{
+  padding:8px 12px;
+  border-radius:999px;
+  background:#5e3c26;
+  color:#fff8ea;
+  font:900 .82rem Arial,sans-serif;
+  white-space:nowrap;
+}
+
+.dashboard-person-list{
+  display:grid;
+  gap:9px;
+  margin-top:12px;
+}
+
+.dashboard-person{
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:10px;
+  align-items:center;
+  padding:12px 14px;
+  border-radius:18px;
+  border:1px solid rgba(160,106,50,.14);
+}
+
+.dashboard-person strong{
+  display:block;
+  color:#3a2110;
+  line-height:1.2;
+}
+
+.dashboard-person span{
+  display:block;
+  margin-top:3px;
+  color:#6e523b;
+  font-size:.88rem;
+}
+
+.dashboard-person b{
+  padding:7px 10px;
+  border-radius:999px;
+  font:900 .75rem Arial,sans-serif;
+}
+
+.dashboard-person.pay{
+  background:#fff0c2;
+}
+
+.dashboard-person.pay b{
+  background:#8a5e38;
+  color:#fff8ea;
+}
+
+.dashboard-person.wait{
+  background:#f3dfbd;
+}
+
+.dashboard-person.wait b{
+  background:#5e3c26;
+  color:#fff8ea;
+}
+
+.dashboard-person.ok{
+  background:#e4f8dc;
+}
+
+.dashboard-person.ok b{
+  background:#2f7a3a;
+  color:#fff;
+}
+
+.role-breakdown{
+  display:grid;
+  gap:9px;
+  margin-top:12px;
+}
+
+.role-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  padding:12px 14px;
+  border-radius:18px;
+  background:#f3dfbd;
+  color:#5e3c26;
+  font-weight:900;
+}
+
+.role-row strong{
+  white-space:nowrap;
+}
+
+@media(max-width:1100px){
+  .dashboard-kpis{
+    grid-template-columns:repeat(3,1fr);
+  }
+}
+
+@media(max-width:860px){
+  .dashboard-header{
+    display:grid;
+  }
+
+  .dashboard-header-actions{
+    justify-content:flex-start;
+  }
+
+  .dashboard-progress-grid,
+  .dashboard-lists{
+    grid-template-columns:1fr;
+  }
+}
+
+@media(max-width:680px){
+  .dashboard-page{
+    width:calc(100% - 18px);
+    padding-top:12px;
+  }
+
+  .dashboard-kpis{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .dashboard-header,
+  .dashboard-list-card,
+  .dashboard-progress-card{
+    padding:20px;
+    border-radius:24px;
+  }
+
+  .dashboard-header-actions .button{
+    width:100%;
+    justify-content:center;
+  }
+}
+
+@media(max-width:430px){
+  .dashboard-kpis{
+    grid-template-columns:1fr;
+  }
+
+  .dashboard-person{
+    grid-template-columns:1fr;
+  }
+}

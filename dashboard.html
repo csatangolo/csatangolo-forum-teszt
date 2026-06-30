@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="hu">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dashboard – Csatangoló Fórum</title>
+  <link rel="stylesheet" href="styles.css?v=dashboard-v1-4">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js?v=test-env-1"></script>
+</head>
+<body class="dashboard-body">
+  <nav class="topbar">
+    <a href="index.html" class="brand">Csatangoló Dashboard</a>
+    <div class="navlinks">
+      <a href="admin.html">Admin</a>
+      <a href="beleptetes.html">Beléptetés</a>
+      <a href="index.html">Főoldal</a>
+    </div>
+  </nav>
+
+  <main class="dashboard-page">
+    <section id="dashboardLogin" class="dashboard-login-card">
+      <span class="badge">Rendezvénynapi dashboard</span>
+      <h1>Élő áttekintő</h1>
+      <p>Gyors összesítés a regisztráltakról, érkezésekről és fizetésekről.</p>
+
+      <label>Admin PIN
+        <input id="dashboardCode" type="password" inputmode="numeric" placeholder="Admin kód">
+      </label>
+      <button class="button dashboard-primary" id="unlockDashboard">Dashboard megnyitása</button>
+      <div id="dashboardMessage" class="form-message"></div>
+    </section>
+
+    <section id="dashboardContent" class="hidden">
+      <header class="dashboard-header">
+        <div>
+          <span class="eyebrow">Csatangoló Fórum</span>
+          <h1>Rendezvénynapi élő dashboard</h1>
+          <p id="lastRefresh">Frissítésre vár...</p>
+        </div>
+        <div class="dashboard-header-actions">
+          <button id="refreshDashboard" class="button dashboard-primary" type="button">Frissítés</button>
+          <button id="toggleAutoRefresh" class="button ghost dark" type="button">Auto frissítés: BE</button>
+        </div>
+      </header>
+
+      <section class="dashboard-kpis">
+        <article class="kpi total"><span id="kpiTotal">0</span><small>regisztrált</small></article>
+        <article class="kpi arrived"><span id="kpiArrived">0</span><small>megérkezett</small></article>
+        <article class="kpi paid"><span id="kpiPaid">0</span><small>fizetett</small></article>
+        <article class="kpi waitpay"><span id="kpiWaitingPay">0</span><small>fizetésre vár</small></article>
+        <article class="kpi notarrived"><span id="kpiNotArrived">0</span><small>még nem érkezett</small></article>
+        <article class="kpi income"><span id="kpiIncome">0 Ft</span><small>rendezett hozzájárulás</small></article>
+      </section>
+
+      <section class="dashboard-progress-grid">
+        <article class="dashboard-progress-card">
+          <div class="progress-head">
+            <strong>Érkezési arány</strong>
+            <span id="arrivalPercent">0%</span>
+          </div>
+          <div class="progress-bar"><i id="arrivalBar"></i></div>
+        </article>
+
+        <article class="dashboard-progress-card">
+          <div class="progress-head">
+            <strong>Fizetési arány</strong>
+            <span id="paidPercent">0%</span>
+          </div>
+          <div class="progress-bar"><i id="paidBar"></i></div>
+        </article>
+      </section>
+
+      <section class="dashboard-lists">
+        <article class="dashboard-list-card">
+          <div class="panel-head compact">
+            <div>
+              <span class="eyebrow">Teendő</span>
+              <h2>Megérkezett, de fizetésre vár</h2>
+            </div>
+            <span id="waitingPayCount" class="dashboard-count-pill">0 fő</span>
+          </div>
+          <div id="waitingPayList" class="dashboard-person-list"></div>
+        </article>
+
+        <article class="dashboard-list-card">
+          <div class="panel-head compact">
+            <div>
+              <span class="eyebrow">Figyelés</span>
+              <h2>Még nem érkeztek meg</h2>
+            </div>
+            <span id="notArrivedCount" class="dashboard-count-pill">0 fő</span>
+          </div>
+          <div id="notArrivedList" class="dashboard-person-list"></div>
+        </article>
+
+        <article class="dashboard-list-card">
+          <div class="panel-head compact">
+            <div>
+              <span class="eyebrow">Utolsó</span>
+              <h2>Legutóbbi érkezések</h2>
+            </div>
+          </div>
+          <div id="latestArrivalsList" class="dashboard-person-list"></div>
+        </article>
+
+        <article class="dashboard-list-card">
+          <div class="panel-head compact">
+            <div>
+              <span class="eyebrow">Szerepkörök</span>
+              <h2>Résztvevők típus szerint</h2>
+            </div>
+          </div>
+          <div id="roleBreakdown" class="role-breakdown"></div>
+        </article>
+      </section>
+    </section>
+  </main>
+
+<script src="dashboard.js?v=dashboard-v1-4"></script>
+<script src="site-mobile-menu.js?v=real-final"></script>
+</body>
+</html>

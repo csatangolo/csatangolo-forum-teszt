@@ -1,14 +1,17 @@
-Beléptetés 2.0 javítócsomag – TESZT repóhoz
+Dashboard v1.4 javítócsomag – TESZT repóhoz
 
-Cserélendő/feltöltendő:
-- beleptetes.html
-- beleptetes.js
+Feltöltendő/cserélendő:
+- dashboard.html
+- dashboard.js
 - styles.css
-- supabase_checkin_v2_policy.sql
-- docs/CHANGELOG_v1_3_CHECKIN.md
+- admin.html
+- beleptetes.html
+- docs/CHANGELOG_v1_4_DASHBOARD.md
 
-Supabase TEST SQL Editorban futtasd, ha még nem futott:
-- supabase_checkin_v2_policy.sql
+Új oldal:
+- dashboard.html
 
-Teszt PIN:
-- 2026
+PIN:
+- csatangolo2026
+
+Nem igényel új SQL-t, a participants táblát olvassa.
