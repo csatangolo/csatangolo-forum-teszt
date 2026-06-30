@@ -1,24 +1,21 @@
-v1.6.2 Szervezői Központ – TESZT repóhoz
+v1.7 Előadókezelő alapmodul – TESZT repóhoz
 
 Feltöltendő/cserélendő:
-- manager.html
-- manager.js
+- speakers-manager.html
+- speakers-manager.js
 - styles.css
+- manager.html
 - admin.html
 - dashboard.html
-- beleptetes.html
 - event-settings.html
-- admin.js
-- dashboard.js
-- beleptetes.js
-- event-settings.js
-- docs/CHANGELOG_v1_6_2_MANAGER.md
+- docs/CHANGELOG_v1_7_SPEAKERS.md
 
 SQL:
-- Nincs új SQL.
+- Az SQL-t a chatben kapod, onnan másold be a TESZT Supabase SQL Editorba.
 
-Közös belső PIN:
+PIN:
 - Tigris97
 
-Új kezdő oldal:
-- manager.html
+Fontos:
+- Ez még nem cseréli le a nyilvános előadói oldalt, hogy biztosan ne romoljon el.
+- Először az admin adatkezelő részt teszteljük.

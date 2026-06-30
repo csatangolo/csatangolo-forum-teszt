@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="hu">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Előadók kezelése – Csatangoló Manager</title>
+  <link rel="stylesheet" href="styles.css?v=speakers-v1-7">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js?v=test-env-1"></script>
+  <script src="event-loader.js?v=events-connect-1"></script>
+</head>
+<body class="speaker-manager-body">
+  <nav class="topbar">
+    <a href="manager.html" class="brand">Csatangoló Manager</a>
+    <div class="navlinks">
+      <a href="manager.html">Manager</a>
+      <a href="admin.html">Admin</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="event-settings.html">Rendezvény</a>
+      <a href="index.html">Főoldal</a>
+    </div>
+  </nav>
+
+  <main class="speaker-manager-page">
+    <section id="speakerLogin" class="speaker-login-card">
+      <span class="badge">v1.7</span>
+      <h1>Előadók kezelése</h1>
+      <p>Első stabil verzió: személyek és rendezvényhez kapcsolt előadói szereplések kezelése.</p>
+      <label>Manager PIN
+        <input id="speakerPin" type="password" placeholder="PIN">
+      </label>
+      <button id="speakerUnlock" class="button speaker-primary" type="button">Megnyitás</button>
+      <div id="speakerLoginMessage" class="form-message"></div>
+    </section>
+
+    <section id="speakerContent" class="hidden">
+      <header class="speaker-header">
+        <div>
+          <span class="eyebrow">Csatangoló Manager</span>
+          <h1>Előadók és személyek</h1>
+          <p id="speakerEventMeta">Aktív rendezvény betöltése...</p>
+        </div>
+        <div class="speaker-header-actions">
+          <button id="newPersonBtn" class="button speaker-primary" type="button">➕ Új személy</button>
+          <button id="reloadSpeakersBtn" class="button ghost dark" type="button">Frissítés</button>
+        </div>
+      </header>
+
+      <section class="speaker-tools">
+        <label>Keresés
+          <input id="speakerSearch" type="search" placeholder="Név, titulus, település...">
+        </label>
+        <label>Szűrő
+          <select id="speakerFilter">
+            <option value="all">Összes személy</option>
+            <option value="visible">Weboldalon látható</option>
+            <option value="hidden">Elrejtett</option>
+            <option value="featured">Kiemelt</option>
+          </select>
+        </label>
+      </section>
+
+      <section class="speaker-layout">
+        <article class="speaker-list-card">
+          <div class="panel-head compact">
+            <div>
+              <span class="eyebrow">Lista</span>
+              <h2>Személyek</h2>
+            </div>
+          </div>
+          <div id="speakerList" class="speaker-list"></div>
+        </article>
+
+        <article class="speaker-editor-card">
+          <div class="panel-head compact">
+            <div>
+              <span class="eyebrow">Szerkesztő</span>
+              <h2 id="editorTitle">Új személy</h2>
+            </div>
+          </div>
+
+          <form id="speakerForm" class="speaker-form">
+            <input type="hidden" id="personId">
+            <input type="hidden" id="appearanceId">
+
+            <label>Név *
+              <input id="personName" type="text" required>
+            </label>
+
+            <div class="speaker-two">
+              <label>Titulus / szakmai cím
+                <input id="personTitle" type="text" placeholder="pl. belovagló, lókiképző">
+              </label>
+              <label>Település
+                <input id="personCity" type="text">
+              </label>
+            </div>
+
+            <label>Kép fájlneve
+              <input id="personImage" type="text" placeholder="pl. szabo-arpad.jpg">
+            </label>
+
+            <label>Bemutatkozás
+              <textarea id="personBio" rows="6"></textarea>
+            </label>
+
+            <div class="speaker-two">
+              <label>Facebook / weboldal
+                <input id="personLink" type="url">
+              </label>
+              <label>Előadás címe
+                <input id="talkTitle" type="text">
+              </label>
+            </div>
+
+            <div class="speaker-three">
+              <label>Sorrend
+                <input id="speakerOrder" type="number" step="1" value="100">
+              </label>
+              <label class="speaker-check"><input id="speakerVisible" type="checkbox" checked><span>Látható</span></label>
+              <label class="speaker-check"><input id="speakerFeatured" type="checkbox"><span>Kiemelt</span></label>
+            </div>
+
+            <div class="speaker-form-actions">
+              <button class="button speaker-primary" type="submit">Mentés</button>
+              <button class="button ghost dark" type="button" id="resetSpeakerForm">Új adatlap</button>
+              <button class="button danger" type="button" id="deleteSpeakerBtn">Törlés</button>
+            </div>
+
+            <div id="speakerFormMessage" class="form-message"></div>
+          </form>
+        </article>
+      </section>
+    </section>
+  </main>
+
+<script src="speakers-manager.js?v=speakers-v1-7"></script>
+<script src="site-mobile-menu.js?v=real-final"></script>
+<div class="version-badge">Speakers v1.7 TESZT</div>
+</body>
+</html>
