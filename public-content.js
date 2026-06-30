@@ -19,7 +19,7 @@ const LOCAL_SPEAKERS = [
   {
     name: "Panyi György",
     subtitle: "Belovaglás, csikóképzés és díjugratás",
-    image_url: "assets/panyi-gyuri.jpg",
+    image_url: "panyi-gyuri.jpg",
     motto: "A jó ló kiképzése mindig a bizalommal kezdődik.",
     bio: `A lovak egész életemet végigkísérték. Több mint ötven éve foglalkozom velük, és ez idő alatt megtapasztaltam a lovassport szépségeit, kihívásait, valamint azt, hogy a legjobb eredményeket mindig türelemmel, következetességgel és a ló iránti tisztelettel lehet elérni.
 
@@ -36,7 +36,7 @@ Előadásomban saját tapasztalataimon keresztül szeretném megmutatni, hogyan 
   {
     name: "Karl Péter",
     subtitle: "Western és ranch szemlélet • Horsemanship",
-    image_url: "assets/karl-peter.jpg",
+    image_url: "karl-peter.jpg",
     motto: "A jó lóval való kapcsolat nem erőből, hanem megértésből épül.",
     bio: `A ló és ember közötti tiszta kommunikációt, a következetes segítségadást és a bizalmon alapuló munkát képviseli.`,
     topic: "Horsemanship | Kommunikáció | Ranch szemlélet",
@@ -47,7 +47,7 @@ Előadásomban saját tapasztalataimon keresztül szeretném megmutatni, hogyan 
   {
     name: "Kevey Bella",
     subtitle: "Hagyományos lókiképzés, sport, terápiás és iskolalovak képzése",
-    image_url: "assets/kevey-bella.jpeg.PNG",
+    image_url: "kevey-bella.jpeg.PNG",
     motto: "A jó iskolaló, sportló és terápiás ló képzése ugyanarra épül: bizalomra, következetességre és pontos alapmunkára.",
     bio: `A hagyományos lókiképzés szemléletéből indulok ki, ahol a ló képzése nem gyors eredményekről, hanem biztos alapokról, fokozatosságról és hosszú távon is működő együttműködésről szól. Számomra a sportlovak, terápiás lovak és iskolalovak képzése ugyanarra az alapra épül: a ló legyen nyugodt, érthető segítségekre reagáló, testileg és lelkileg is terhelhető, biztonságos társ.
 
@@ -62,7 +62,7 @@ Fontosnak tartom, hogy a ló ne csak végrehajtsa a feladatot, hanem értse is a
   {
     name: "Pataky Kata",
     subtitle: "Okleveles Monty Roberts Instruktor",
-    image_url: "assets/pataky-kata.jpg",
+    image_url: "pataky-kata.jpg",
     motto: "A bizalom mindig a kommunikációval kezdődik.",
     bio: `A lovak mindig arra ösztönöztek, hogy ne csupán irányítani próbáljam őket, hanem valóban megértsem a gondolkodásukat és a kommunikációjukat. Ez vezetett el Monty Roberts erőszakmentes módszeréhez, amely alapjaiban változtatta meg a lovakról alkotott szemléletemet.
 
@@ -77,7 +77,7 @@ Előadásomban megmutatom, hogyan alkalmazható a Monty Roberts módszer a minde
   {
     name: "Szabó Árpád",
     subtitle: "Akhal-teke tenyésztő • Csikónevelés",
-    image_url: "assets/szabo-arpad-card.jpg",
+    image_url: "szabo-arpad-card.jpg",
     motto: "Először ki kell vívni a ló tiszteletét. Aztán el kell nyerni a bizalmát.",
     bio: `48 éve foglalkozom lovakkal, és úgy érzem, ma is ugyanazzal a lelkesedéssel tanulok tőlük, mint amikor először ültem nyeregbe. Számomra a lótenyésztés nem a csikó megszületéséig tart, hanem éppen ott kezdődik. Hiszem, hogy a tenyésztő felelőssége már az első pillanattól kialakítani azt a bizalmi kapcsolatot, amelyre később minden további képzés épülhet.`,
     topic: "Csikónevelés | Tenyésztői felelősség | Akhal-teke fajta",
@@ -90,7 +90,7 @@ Előadásomban megmutatom, hogyan alkalmazható a Monty Roberts módszer a minde
   {
     name: "Kaska Zoltán",
     subtitle: "Díjugratás • Versenytapasztalat",
-    image_url: "assets/kaska-zoltan.jpg",
+    image_url: "kaska-zoltan.jpg",
     motto: "A jó ugrás a felkészítésben kezdődik.",
     bio: `Díjugrató szemlélettel, versenytapasztalattal és gyakorlati lófelkészítési gondolatokkal érkezik a fórumra.`,
     topic: "Díjugratás | Versenyló | Felkészítés",
@@ -101,7 +101,7 @@ Előadásomban megmutatom, hogyan alkalmazható a Monty Roberts módszer a minde
   {
     name: "Benner Jani",
     subtitle: "Terepmunka • Használati ló képzés",
-    image_url: "assets/benner-jani.jpg",
+    image_url: "benner-jani.jpg",
     motto: "A képzett ló terepen is magabiztos, figyelmes és együttműködő.",
     bio: `A használati szemléletű lókiképzés, a terepen is működő lovak és a gyakorlati tapasztalat oldaláról kapcsolódik a szakmai naphoz.`,
     topic: "Terepmunka | Használati ló | Lókiképzés",
@@ -112,7 +112,7 @@ Előadásomban megmutatom, hogyan alkalmazható a Monty Roberts módszer a minde
   {
     name: "Tisza Zoltán",
     subtitle: "Szabadidomítás • Lóval való kommunikáció",
-    image_url: "assets/tisza-zoltan.jpg",
+    image_url: "tisza-zoltan.jpg",
     motto: "A látványos munka mögött mindig pontos kommunikáció és bizalom áll.",
     bio: `A lóval való földi munka, a figyelem, a bizalom és a finom kommunikáció területéről hoz gyakorlati tapasztalatokat.`,
     topic: "Szabadidomítás | Földi munka | Kommunikáció",
@@ -123,7 +123,7 @@ Előadásomban megmutatom, hogyan alkalmazható a Monty Roberts módszer a minde
   {
     name: "Tászler Melinda",
     subtitle: "Lovas bemutató • Klasszikus munka",
-    image_url: "assets/taszler-melinda.jpg",
+    image_url: "taszler-melinda.jpg",
     motto: "A lóval való összhang a legszebb bemutató.",
     bio: `A klasszikus lovas munka számomra nem pusztán látványos bemutató, hanem a lóval való finom, tiszta és következetes kommunikáció eredménye. Hiszem, hogy a valódi összhang akkor születik meg, amikor a lovas nem uralni akarja a lovat, hanem érti a jelzéseit, figyel rá, és türelemmel építi fel a közös munkát.
 
@@ -138,7 +138,7 @@ Szeretném megmutatni, hogy a klasszikus jellegű munka nem elérhetetlen külö
   {
     name: "Szabó Zoltán",
     subtitle: "Terepakadályok • Gyakorlati képzés",
-    image_url: "assets/szabo-zoltan.jpg",
+    image_url: "szabo-zoltan.jpg",
     motto: "A bátorság tanítható, ha a ló lépésről lépésre érti a feladatot.",
     bio: `Gyakorlati terepakadályos tapasztalattal és használati szemléletű lófelkészítéssel kapcsolódik a fórum programjához.`,
     topic: "Terepakadály | Bátorság | Gyakorlati képzés",
@@ -180,7 +180,7 @@ function renderSpeakerCard(s) {
     <article class="speaker-premium-card ${s.is_featured ? 'is-featured' : ''}" id="speaker-${esc(slug)}">
       <button class="speaker-card-open" type="button" data-speaker-slug="${esc(slug)}" aria-label="${esc(s.name)} bemutatása">
         <div class="speaker-image-wrap">
-          ${img ? `<img class="speaker-photo" src="${esc(img)}" alt="${esc(s.name)}" loading="lazy" onerror="this.onerror=null;this.src='assets/panyi-gyuri.jpg';">` : `<div class="speaker-photo placeholder">${esc((s.name || '?').charAt(0))}</div>`}
+          ${img ? `<img class="speaker-photo" src="${esc(img)}" alt="${esc(s.name)}" loading="lazy" onerror="this.onerror=null;this.src='panyi-gyuri.jpg';">` : `<div class="speaker-photo placeholder">${esc((s.name || '?').charAt(0))}</div>`}
           ${s.is_featured ? '<span class="profile-tag floating-tag">⭐ Kiemelt előadó</span>' : ""}
         </div>
         <div class="speaker-body">

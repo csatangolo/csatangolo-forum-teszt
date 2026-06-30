@@ -16,7 +16,7 @@ Elsősorban akhal-teke lovakat tenyésztek, és nagy öröm számomra, hogy ezt 
 
 Korábban sok lovat lovagoltam be, ma pedig különösen büszke vagyok arra, amikor egy saját tenyésztésű csikó a korai nevelésnek köszönhetően magabiztosan és könnyedén kezdi meg a munkát. Hiszem, hogy egy jól felkészített fiatal lóval a belovaglás már nem a bizalom kialakításáról, hanem a valódi közös munkáról szól.',
   'Csikónevelés | Tenyésztői felelősség | Jól képzett hobbiló | Tereplovaglásra képzett ló | Akhal-teke fajta',
-  'assets/szabo-arpad.jpg',
+  'szabo-arpad.jpg',
   'https://www.facebook.com/share/p/18LLaey9Xi/',
   'https://nava.hu/id/4473109/',
   10,
