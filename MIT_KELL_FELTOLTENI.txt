@@ -1,18 +1,14 @@
-Admin v1.2 javítócsomag – TESZT repóhoz
+Beléptetés 2.0 javítócsomag – TESZT repóhoz
 
 Cserélendő/feltöltendő:
-- admin.html
-- admin.js
+- beleptetes.html
+- beleptetes.js
 - styles.css
-- supabase_admin_v1_2_participants.sql
-- docs/CHANGELOG_v1_2_ADMIN.md
+- supabase_checkin_v2_policy.sql
+- docs/CHANGELOG_v1_3_CHECKIN.md
 
-Supabase TEST SQL Editorban futtasd:
-- supabase_admin_v1_2_participants.sql
+Supabase TEST SQL Editorban futtasd, ha még nem futott:
+- supabase_checkin_v2_policy.sql
 
-Ezután a teszt admin oldalon próbáld ki:
-- keresés
-- szerkesztés
-- törlés
-- megérkezett/fizetett kapcsolók
-- CSV export
+Teszt PIN:
+- 2026

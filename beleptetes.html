@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Beléptetés – Csatangoló Fórum</title>
-  <link rel="stylesheet" href="styles.css?v=checkin-master-1">
+  <title>Beléptetés 2.0 – Csatangoló Fórum</title>
+  <link rel="stylesheet" href="styles.css?v=checkin-v2-1">
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="supabase-config.js?v=test-env-1"></script>
   <script src="https://unpkg.com/html5-qrcode/minified/html5-qrcode.min.js"></script>
 </head>
-<body class="gate-admin-body checkin-only-body">
+<body class="checkin-v2-body">
   <nav class="topbar">
     <a href="index.html" class="brand">Csatangoló Beléptetés</a>
     <div class="navlinks">
@@ -18,62 +18,137 @@
     </div>
   </nav>
 
-  <main class="gate-admin-page checkin-only-page">
-    <section class="gate-admin-hero checkin-hero-master">
-      <span class="badge">QR beléptetés</span>
-      <h1>Beléptető felület</h1>
-      <p>Beolvasás után külön jelölhető: megérkezett, fizetett, majd mentés.</p>
-    </section>
+  <main class="checkin-v2-page">
+    <section id="gateLogin" class="checkin-v2-login">
+      <div class="checkin-v2-logo">🐴</div>
+      <span class="badge">Beléptetés 2.0</span>
+      <h1>Csatangoló Fórum</h1>
+      <p>Gyors QR beolvasás, név szerinti keresés és helyszíni regisztráció egy felületen.</p>
 
-    <section id="gateLogin" class="gate-admin-card gate-login">
-      <h2>Beléptető belépés</h2>
-      <p class="hint">A kollégák csak az éppen beolvasott vendéget látják.</p>
-      <label>Beléptető jelszó / PIN
-        <input id="gateCode" type="password" inputmode="numeric" placeholder="Írd be a beléptető PIN-kódot">
+      <label>Beléptető PIN
+        <input id="gateCode" type="password" inputmode="numeric" placeholder="PIN">
       </label>
-      <button class="button gate-primary-btn" id="unlockGate">Beléptetés megnyitása</button>
+      <button class="button checkin-primary" id="unlockGate">Beléptetés megnyitása</button>
       <div id="gateMessage" class="form-message"></div>
     </section>
 
-    <section id="scannerSection" class="gate-dashboard hidden">
-      <div class="gate-admin-grid checkin-grid">
-        <section class="gate-admin-card scanner-card">
-          <div class="gate-card-title">
-            <div>
-              <span class="eyebrow">Kamera</span>
-              <h2>QR-kód beolvasása</h2>
+    <section id="scannerSection" class="checkin-v2-dashboard hidden">
+      <header class="checkin-v2-header">
+        <div>
+          <span class="eyebrow">Rendezvénynapi felület</span>
+          <h1>Beléptetés</h1>
+        </div>
+        <div class="checkin-v2-status" id="connectionStatus">Teszt rendszer</div>
+      </header>
+
+      <section class="checkin-v2-stats">
+        <article><span id="statTotal">0</span><small>regisztrált</small></article>
+        <article><span id="statArrived">0</span><small>megérkezett</small></article>
+        <article><span id="statPaid">0</span><small>fizetett</small></article>
+        <article><span id="statWaitingPay">0</span><small>fizetésre vár</small></article>
+      </section>
+
+      <section class="checkin-v2-actions">
+        <button class="checkin-big-action active" id="showScanner" type="button">📷<span>QR beolvasása</span></button>
+        <button class="checkin-big-action" id="showSearch" type="button">🔍<span>Név keresése</span></button>
+        <button class="checkin-big-action" id="showOnsite" type="button">➕<span>Helyszíni regisztráció</span></button>
+      </section>
+
+      <section class="checkin-v2-layout">
+        <div class="checkin-v2-left">
+          <section id="scannerPanel" class="checkin-panel">
+            <div class="panel-head">
+              <div>
+                <span class="eyebrow">Kamera</span>
+                <h2>QR-kód beolvasása</h2>
+              </div>
+              <button id="startScannerBtn" class="button checkin-primary" type="button">Kamera indítása</button>
             </div>
-            <button id="startScannerBtn" class="button gate-primary-btn" type="button">Kamera indítása</button>
-          </div>
-          <p id="cameraStatus" class="hint">Indítsd el a kamerát, majd tartsd a QR-kódot a négyzet elé.</p>
-          <div id="reader" class="premium-reader"></div>
+            <p id="cameraStatus" class="hint">Indítsd el a kamerát, majd tartsd a QR-kódot a négyzet elé.</p>
+            <div id="reader" class="premium-reader checkin-reader"></div>
+            <div class="checkin-button-row">
+              <button id="stopScannerBtn" class="button ghost dark" type="button">Kamera leállítása</button>
+              <button id="restartScannerBtn" class="button ghost dark" type="button">Újraindítás</button>
+            </div>
+          </section>
 
-          <div class="gate-scanner-actions">
-            <button id="stopScannerBtn" class="button ghost dark" type="button">Kamera leállítása</button>
-            <button id="restartScannerBtn" class="button ghost dark" type="button">Újraindítás</button>
-          </div>
-
-          <div class="manual-entry-box">
-            <h3>Kézi kódbevitel</h3>
-            <label>Belépőkód
-              <input id="manualCode" type="text" placeholder="FORUM-2026-...">
+          <section id="searchPanel" class="checkin-panel hidden">
+            <div class="panel-head">
+              <div>
+                <span class="eyebrow">Kézi keresés</span>
+                <h2>Ha nincs QR-kód</h2>
+              </div>
+            </div>
+            <label>Név, település vagy belépőkód
+              <input id="manualSearchInput" type="search" placeholder="Kezdj el gépelni...">
             </label>
-            <button class="button gate-primary-btn" id="manualSearch">Keresés</button>
-          </div>
-        </section>
+            <div id="manualResults" class="manual-results"></div>
+          </section>
 
-        <section id="resultBox" class="gate-admin-card gate-result-card checkin-result-card">
-          <div class="gate-waiting">
-            <b>🎟️</b>
-            <h2>Várakozás beolvasásra</h2>
-            <p>Olvass be egy vendégkártyát, vagy írd be kézzel a belépőkódot.</p>
-          </div>
-        </section>
-      </div>
+          <section id="onsitePanel" class="checkin-panel hidden">
+            <div class="panel-head">
+              <div>
+                <span class="eyebrow">Helyszíni regisztráció</span>
+                <h2>Új résztvevő</h2>
+              </div>
+            </div>
+            <form id="quickOnsiteForm" class="quick-onsite-form">
+              <label>Név *
+                <input id="quickName" type="text" required placeholder="Résztvevő neve">
+              </label>
+              <label>Település
+                <input id="quickCity" type="text" placeholder="pl. Kalocsa">
+              </label>
+              <label>Titulus
+                <select id="quickType">
+                  <option>Vendég</option>
+                  <option>Gyermek vendég</option>
+                  <option>Oktató</option>
+                  <option>Lovasedző</option>
+                  <option>Előadó</option>
+                  <option>Lókiképző</option>
+                  <option>Belovagló</option>
+                  <option>Tenyésztő</option>
+                  <option>Kiállító</option>
+                  <option>Támogató</option>
+                </select>
+              </label>
+              <div class="quick-checks">
+                <label><input id="quickArrived" type="checkbox" checked> Megérkezett</label>
+                <label><input id="quickPaid" type="checkbox"> Fizetett</label>
+              </div>
+              <button class="button checkin-primary" type="submit">Rögzítés és beléptetés</button>
+              <div id="quickMessage" class="form-message"></div>
+            </form>
+          </section>
+        </div>
+
+        <aside class="checkin-v2-right">
+          <section id="resultBox" class="checkin-result-stage">
+            <div class="checkin-waiting">
+              <b>🎟️</b>
+              <h2>Várakozás beolvasásra</h2>
+              <p>Olvass be QR-kódot, keress név alapján, vagy rögzíts helyszíni vendéget.</p>
+            </div>
+          </section>
+
+          <section class="recent-checkins">
+            <div class="panel-head compact">
+              <div>
+                <span class="eyebrow">Utolsó belépések</span>
+                <h2>Legutóbbi 10</h2>
+              </div>
+            </div>
+            <div id="recentList" class="recent-list">
+              <p class="hint">Még nincs beléptetés ebben a munkamenetben.</p>
+            </div>
+          </section>
+        </aside>
+      </section>
     </section>
   </main>
 
-<script src="beleptetes.js?v=checkin-master-1"></script>
+<script src="beleptetes.js?v=checkin-v2-1"></script>
 <script src="site-mobile-menu.js?v=real-final"></script>
 </body>
 </html>

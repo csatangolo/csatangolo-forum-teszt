@@ -3523,3 +3523,579 @@ body.modal-open{overflow:hidden}
     padding:7px 9px;
   }
 }
+
+
+/* === BELÉPTETÉS 2.0 – QR + keresés + helyszíni regisztráció === */
+.checkin-v2-body{
+  overflow-x:hidden;
+}
+
+.checkin-v2-page{
+  width:min(1220px, calc(100% - 28px));
+  margin:0 auto;
+  padding:24px 0 44px;
+}
+
+.checkin-v2-login{
+  min-height:calc(100vh - 130px);
+  display:grid;
+  place-items:center;
+  align-content:center;
+  gap:14px;
+  text-align:center;
+  padding:34px;
+  border-radius:38px;
+  background:
+    linear-gradient(135deg,rgba(36,17,7,.92),rgba(94,60,38,.74)),
+    url("fokep.png") center/cover;
+  color:#fff8ea;
+  border:1px solid rgba(242,203,121,.28);
+  box-shadow:0 34px 100px rgba(70,42,22,.25);
+}
+
+.checkin-v2-login .checkin-v2-logo{
+  width:82px;
+  height:82px;
+  display:grid;
+  place-items:center;
+  border-radius:26px;
+  background:rgba(255,248,234,.14);
+  border:1px solid rgba(242,203,121,.25);
+  font-size:2.8rem;
+}
+
+.checkin-v2-login h1{
+  margin:.1em 0;
+  color:#fff8ea;
+  font-size:clamp(2.3rem,6vw,5rem);
+  line-height:1.02;
+}
+
+.checkin-v2-login p{
+  max-width:680px;
+  color:#ecd8b8;
+  line-height:1.62;
+}
+
+.checkin-v2-login label{
+  width:min(420px,100%);
+  text-align:left;
+  color:#fff8ea;
+}
+
+.checkin-v2-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  padding:24px 28px;
+  border-radius:30px;
+  background:linear-gradient(135deg,#fff8ea,#ead6b5);
+  border:1px solid rgba(160,106,50,.18);
+  box-shadow:0 18px 52px rgba(70,42,22,.09);
+}
+
+.checkin-v2-header h1{
+  margin:.1em 0 0;
+  color:#3a2110;
+  font-size:clamp(2rem,4vw,3.8rem);
+  line-height:1.02;
+}
+
+.checkin-v2-status{
+  padding:10px 14px;
+  border-radius:999px;
+  background:#5e3c26;
+  color:#fff8ea;
+  font:900 .82rem Arial,sans-serif;
+}
+
+.checkin-v2-stats{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px;
+  margin:18px 0;
+}
+
+.checkin-v2-stats article{
+  min-height:118px;
+  display:grid;
+  place-items:center;
+  text-align:center;
+  padding:18px;
+  border-radius:26px;
+  background:#fff8ea;
+  border:1px solid rgba(160,106,50,.16);
+  box-shadow:0 14px 42px rgba(70,42,22,.08);
+}
+
+.checkin-v2-stats span{
+  color:#4b2a17;
+  font-size:clamp(2rem,4vw,3.2rem);
+  font-weight:900;
+  line-height:.9;
+}
+
+.checkin-v2-stats small{
+  color:#7a5a42;
+  font:900 .74rem Arial,sans-serif;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+}
+
+.checkin-v2-actions{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+  margin:18px 0;
+}
+
+.checkin-big-action{
+  border:1px solid rgba(160,106,50,.18);
+  border-radius:28px;
+  min-height:116px;
+  padding:18px;
+  background:linear-gradient(135deg,#fff8ea,#ead6b5);
+  color:#5e3c26;
+  cursor:pointer;
+  box-shadow:0 16px 46px rgba(70,42,22,.08);
+  display:grid;
+  place-items:center;
+  gap:8px;
+  font-size:2.2rem;
+  font-weight:900;
+}
+
+.checkin-big-action span{
+  font:900 1rem Arial,sans-serif;
+}
+
+.checkin-big-action.active{
+  background:linear-gradient(135deg,#5e3c26,#2b1509);
+  color:#fff8ea;
+}
+
+.checkin-v2-layout{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(360px,.8fr);
+  gap:18px;
+  align-items:start;
+}
+
+.checkin-panel,
+.checkin-result-stage,
+.recent-checkins{
+  padding:24px;
+  border-radius:30px;
+  background:#fff8ea;
+  border:1px solid rgba(160,106,50,.16);
+  box-shadow:0 18px 54px rgba(70,42,22,.09);
+}
+
+.panel-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+  margin-bottom:14px;
+}
+
+.panel-head h2{
+  margin:.1em 0 0;
+  color:#3a2110;
+  font-size:clamp(1.55rem,3vw,2.45rem);
+  line-height:1.06;
+}
+
+.panel-head.compact h2{
+  font-size:1.45rem;
+}
+
+.checkin-reader{
+  min-height:330px!important;
+  border-radius:26px;
+  overflow:hidden;
+  background:#2b1509;
+}
+
+.checkin-button-row,
+.checkin-save-row{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:14px;
+}
+
+.checkin-primary{
+  background:linear-gradient(135deg,#d6a24b,#7a4323)!important;
+  color:#fff8ea!important;
+}
+
+.checkin-result-stage{
+  min-height:420px;
+  display:grid;
+  align-items:center;
+}
+
+.checkin-waiting,
+.checkin-error-card,
+.checkin-saved-card{
+  text-align:center;
+  padding:22px;
+}
+
+.checkin-waiting b,
+.checkin-error-card b,
+.checkin-saved-card b{
+  display:block;
+  font-size:4rem;
+  margin-bottom:10px;
+}
+
+.checkin-waiting h2,
+.checkin-error-card h2,
+.checkin-saved-card h2{
+  margin:.1em 0;
+  color:#3a2110;
+  font-size:clamp(1.8rem,4vw,3rem);
+  line-height:1.05;
+}
+
+.checkin-waiting p,
+.checkin-error-card p,
+.checkin-saved-card p{
+  color:#6e523b;
+  line-height:1.55;
+}
+
+.checkin-person-card{
+  padding:24px;
+  border-radius:28px;
+  text-align:center;
+  border:1px solid rgba(160,106,50,.18);
+  box-shadow:0 18px 54px rgba(70,42,22,.10);
+}
+
+.checkin-person-card.complete,
+.checkin-saved-card.complete{
+  background:linear-gradient(135deg,#e4f8dc,#fff8ea);
+}
+
+.checkin-person-card.payment,
+.checkin-saved-card.payment{
+  background:linear-gradient(135deg,#fff0c2,#fff8ea);
+}
+
+.checkin-person-card.speaker{
+  background:linear-gradient(135deg,#e9e0ff,#fff8ea);
+}
+
+.checkin-person-card.new,
+.checkin-saved-card.new{
+  background:linear-gradient(135deg,#fff8ea,#ead6b5);
+}
+
+.checkin-card-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  color:#5e3c26;
+  font:900 .78rem Arial,sans-serif;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+}
+
+.checkin-card-top b{
+  padding:7px 10px;
+  border-radius:999px;
+  background:#5e3c26;
+  color:#fff8ea;
+}
+
+.checkin-person-card h2{
+  margin:.2em 0 0;
+  color:#3a2110;
+  font-size:clamp(2.2rem,5vw,4rem);
+  line-height:1.02;
+}
+
+.checkin-role{
+  color:#5e3c26;
+  font-weight:900;
+  font-size:1.16rem;
+}
+
+.checkin-city,
+.checkin-code{
+  color:#6e523b;
+  font-weight:800;
+}
+
+.checkin-code{
+  font-family:Arial,sans-serif;
+  font-size:.85rem;
+}
+
+.checkin-arrival{
+  margin:16px auto;
+  padding:14px;
+  border-radius:18px;
+  background:rgba(255,248,234,.72);
+  border:1px solid rgba(160,106,50,.16);
+  display:grid;
+  gap:4px;
+}
+
+.checkin-arrival span{
+  color:#a66a2f;
+  font:900 .72rem Arial,sans-serif;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+}
+
+.checkin-arrival strong{
+  color:#3a2110;
+}
+
+.checkin-switch-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  margin:16px 0;
+}
+
+.checkin-switch{
+  min-height:102px;
+  border:1px solid rgba(160,106,50,.18);
+  border-radius:22px;
+  background:#fff8ea;
+  color:#5e3c26;
+  cursor:pointer;
+  display:grid;
+  place-items:center;
+  gap:8px;
+  font:900 1rem Arial,sans-serif;
+  box-shadow:0 12px 34px rgba(70,42,22,.08);
+}
+
+.checkin-switch b{
+  width:38px;
+  height:38px;
+  display:grid;
+  place-items:center;
+  border-radius:50%;
+  background:#f3dfbd;
+  color:#5e3c26;
+  font-size:1.4rem;
+}
+
+.checkin-switch.on{
+  background:linear-gradient(135deg,#dff5d6,#fff8ea);
+  color:#2f7a3a;
+  border-color:rgba(74,130,57,.34);
+}
+
+.checkin-switch.on b{
+  background:#2f7a3a;
+  color:#fff;
+}
+
+.checkin-status-pills{
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:10px;
+  margin:16px 0;
+}
+
+.checkin-status-pills span{
+  padding:9px 12px;
+  border-radius:999px;
+  font:900 .85rem Arial,sans-serif;
+}
+
+.checkin-status-pills .ok{background:#dff5d6;color:#2f7a3a}
+.checkin-status-pills .pay{background:#fff0c2;color:#8a5e38}
+.checkin-status-pills .wait{background:#f3dfbd;color:#5e3c26}
+
+.manual-results{
+  margin-top:14px;
+  display:grid;
+  gap:10px;
+}
+
+.manual-result-item{
+  width:100%;
+  text-align:left;
+  padding:14px;
+  border-radius:18px;
+  background:#fff8ea;
+  border:1px solid rgba(160,106,50,.18);
+  color:#3a2110;
+  cursor:pointer;
+  display:grid;
+  gap:4px;
+}
+
+.manual-result-item strong{
+  font-size:1.08rem;
+}
+
+.manual-result-item span,
+.manual-result-item small{
+  color:#6e523b;
+}
+
+.quick-onsite-form{
+  display:grid;
+  gap:12px;
+}
+
+.quick-checks{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+
+.quick-checks label{
+  padding:12px;
+  border-radius:16px;
+  background:#f3dfbd;
+  color:#5e3c26;
+  font-weight:900;
+}
+
+.recent-checkins{
+  margin-top:18px;
+}
+
+.recent-list{
+  display:grid;
+  gap:8px;
+}
+
+.recent-item{
+  display:grid;
+  grid-template-columns:56px 1fr auto;
+  gap:10px;
+  align-items:center;
+  padding:10px 12px;
+  border-radius:16px;
+  background:#fff8ea;
+  border:1px solid rgba(160,106,50,.14);
+}
+
+.recent-item.ok{
+  background:#e9f8e1;
+}
+
+.recent-item.warn{
+  background:#fff0c2;
+}
+
+.recent-item span{
+  font:900 .84rem Arial,sans-serif;
+  color:#5e3c26;
+}
+
+.recent-item strong{
+  color:#3a2110;
+}
+
+.recent-item small{
+  color:#6e523b;
+  font-weight:900;
+}
+
+@media(max-width:980px){
+  .checkin-v2-layout{
+    grid-template-columns:1fr;
+  }
+
+  .checkin-v2-stats,
+  .checkin-v2-actions{
+    grid-template-columns:1fr 1fr;
+  }
+}
+
+@media(max-width:720px){
+  .checkin-v2-page{
+    width:calc(100% - 18px);
+    padding-top:12px;
+  }
+
+  .checkin-v2-header{
+    display:grid;
+    padding:20px;
+    border-radius:26px;
+  }
+
+  .checkin-v2-stats,
+  .checkin-v2-actions,
+  .checkin-switch-grid,
+  .quick-checks{
+    grid-template-columns:1fr;
+  }
+
+  .checkin-big-action{
+    min-height:88px;
+  }
+
+  .checkin-panel,
+  .checkin-result-stage,
+  .recent-checkins{
+    padding:18px;
+    border-radius:24px;
+  }
+
+  .panel-head{
+    display:grid;
+  }
+
+  .checkin-button-row .button,
+  .checkin-save-row .button{
+    width:100%;
+    justify-content:center;
+  }
+
+  .recent-item{
+    grid-template-columns:52px 1fr;
+  }
+
+  .recent-item small{
+    grid-column:2;
+  }
+}
+
+@media(max-width:980px) and (orientation:landscape){
+  .checkin-v2-page{
+    width:calc(100% - 20px);
+  }
+
+  .checkin-v2-header{
+    padding:16px 20px;
+  }
+
+  .checkin-v2-stats article{
+    min-height:86px;
+  }
+
+  .checkin-big-action{
+    min-height:78px;
+    padding:12px;
+  }
+
+  .checkin-reader{
+    min-height:240px!important;
+    max-height:330px!important;
+  }
+
+  .checkin-v2-layout{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .checkin-person-card h2{
+    font-size:clamp(1.7rem,4vw,2.6rem);
+  }
+}
