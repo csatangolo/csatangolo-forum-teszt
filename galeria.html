@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="hu">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Galéria – Csatangoló Fórum</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js?v=test-env-1"></script>
+</head>
+<body>
+<nav class="topbar">
+  <a href="index.html" class="brand">Csatangoló Fórum</a>
+<div class="navlinks">
+    <a href="index.html">Főoldal</a>
+    <a href="program.html">Program</a>
+    <a href="eloadok.html">Előadók</a>
+    <a href="tudastar.html">Tudástár</a>
+    <a href="hirek.html">Hírek</a>
+    <a href="galeria.html">Galéria</a>
+    <a class="nav-cta" href="regisztracio.html">Regisztráció</a>
+  </div>
+</nav>
+<main class="page">
+  <section class="hero small">
+    <div class="badge">Galéria</div>
+    <h1>Fórum képek</h1>
+    <p class="motto">Hangulatképek, előkészületek, pillanatok.</p>
+  </section>
+  <section id="galleryList" class="gallery-grid"></section>
+</main>
+<footer class="footer"><strong>Egymástól tanulunk.</strong><strong>A lovakért.</strong><strong>Egy közösségként.</strong></footer>
+<script src="public-content.js"></script>
+<script>loadPublicGallery();</script>
+  <script src="site-mobile-menu.js?v=real-final"></script>
+</body>
+</html>

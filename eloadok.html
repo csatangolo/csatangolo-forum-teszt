@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="hu">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Előadók – Csatangoló Fórum</title>
+  <link rel="stylesheet" href="styles.css?v=eloadok-final-3">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js?v=test-env-1"></script>
+</head>
+<body>
+<nav class="topbar site-nav-final">
+  <a href="index.html" class="brand">Csatangoló Lovarda</a>
+<div class="navlinks">
+    <a href="index.html">Főoldal</a>
+    <a href="program.html">Program</a>
+    <a href="eloadok.html">Előadók</a>
+    <a href="bemutatkozas.html">Lovarda</a>
+    <a href="tudastar.html">Tudástár</a>
+    <a href="galeria.html">Galéria</a>
+    <a href="tamogatas.html">Támogatás</a>
+    <a class="nav-cta" href="regisztracio.html">Regisztráció</a>
+  </div>
+</nav>
+<main class="page speakers-page final-speakers-page speakers-page-only">
+  <section class="speakers-hero-final">
+    <span class="badge">Előadók</span>
+    <h1>Akiktől érdemes személyesen tanulni</h1>
+    <p>Gyakorlati tudás, valódi tapasztalatok és különböző lovas szemléletek egy napon, egy helyen.</p>
+  </section>
+
+  <section class="speakers-intro-final">
+    <span class="eyebrow">Szakmai közösség</span>
+    <h2>Előadóink és meghívott szakembereink</h2>
+    <p>A kártyákra kattintva minden előadóról külön, részletes bemutatkozást olvashatsz.</p>
+  </section>
+
+  <section id="speakerList" class="speaker-grid-final"></section>
+
+  <section class="speaker-contact-banner">
+    <div>
+      <span class="eyebrow">Kapcsolatfelvétel</span>
+      <h2>Előadóként csatlakoznál?</h2>
+      <p>Ha belovaglással, lókiképzéssel, fiatal lovak képzésével vagy kapcsolódó lovas szakmai témával foglalkozol, jelezd felénk.</p>
+    </div>
+    <a class="button" href="kapcsolat.html">Kapcsolatfelvétel</a>
+  </section>
+</main>
+<footer class="footer"><strong>Egymástól tanulunk.</strong><strong>A lovakért.</strong><strong>Egy közösségként.</strong></footer>
+<script src="public-content.js?v=eloadok-final-3"></script>
+<script>loadPublicSpeakers();</script>
+  <script src="site-mobile-menu.js?v=real-final"></script>
+</body>
+</html>

@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="hu">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>I. Országos Belovagló és Lókiképző Szakmai Fórum</title>
+  <link rel="preload" as="image" href="assets/hero-forum.jpg">
+  <link rel="stylesheet" href="styles.css?v=FINAL2">
+  <link rel="stylesheet" href="forum-premium-3-3.css?v=FINAL2">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js?v=test-env-1"></script>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+</head>
+<body class="forum33">
+  <nav class="f33-nav site-nav-final">
+    <a class="f33-brand" href="index.html">
+      <span class="f33-logo" aria-hidden="true"></span>
+      <span><strong>Csatangoló</strong><small>Lovarda</small></span>
+    </a>
+    <div class="f33-menu">
+      <a href="index.html">Főoldal</a>
+      <a href="program.html">Program</a>
+      <a href="eloadok.html">Előadók</a>
+      <a href="bemutatkozas.html">Lovarda</a>
+      <a href="tudastar.html">Tudástár</a>
+      <a href="galeria.html">Galéria</a>
+      <a href="tamogatas.html">Támogatás</a>
+      <a class="f33-menu-cta" href="regisztracio.html">Regisztráció</a>
+    </div>
+  </nav>
+
+  <header class="f33-hero">
+    <div class="f33-hero-bg"></div>
+    <div class="f33-hero-shade"></div>
+
+    <section class="f33-hero-text">
+      <div class="f33-kicker"><span></span>Élő szakmai nap belovaglóknak, lókiképzőknek és lovasoknak<span></span></div>
+      <h1>I. Országos<br>Belovagló és Lókiképző<br>Szakmai Fórum</h1>
+      <p>Egymástól tanulunk. A lovakért. Egy közösségként.</p>
+
+      <div class="f33-meta-line" aria-label="Esemény adatai">
+        <span>📅 2026. július 25.</span>
+        <span class="f33-meta-time">🕘 9.00-tól</span>
+        <span>📍 Öregcsertő, Homokmégyi u. 39.</span>
+      </div>
+
+      <div class="f33-countdown">
+        <div><strong id="f33Days">00</strong><small>nap</small></div>
+        <div><strong id="f33Hours">00</strong><small>óra</small></div>
+        <div><strong id="f33Minutes">00</strong><small>perc</small></div>
+      </div>
+
+      <div class="f33-actions">
+        <a class="f33-btn" href="regisztracio.html">Regisztrálok</a>
+        <a class="f33-btn outline" href="program.html">Programok</a>
+      </div>
+    </section>
+  </header>
+
+  <main>
+    <section class="f33-section f33-intro-grid f33-atmo-intro">
+      <article class="f33-atmo-card" style="--card-img:url('assets/forum-extra-1.webp?v=1.4')">
+        <div class="f33-atmo-text">
+          <span class="f33-eyebrow">A fórum hangulata</span>
+          <h2>Szakmai nap időkorlátok nélkül</h2>
+          <p>Nem percre pontos konferenciát szervezünk, hanem olyan szakmai találkozót, ahol az előadások, bemutatók és beszélgetések természetesen kapcsolódnak egymáshoz.</p>
+        </div>
+      </article>
+
+      <article class="f33-atmo-card" style="--card-img:url('assets/forum-extra-2.webp?v=1.4')">
+        <div class="f33-atmo-text">
+          <span class="f33-eyebrow">Kényelem egész nap</span>
+          <h2>Fröccsterasz és lovas büfé</h2>
+          <p>A szakmai program mellett a Csatangoló Lovas Büfé és a Fröccsterasz ad helyet a kötetlen beszélgetéseknek, pihenésnek és találkozásoknak.</p>
+        </div>
+      </article>
+
+      <article class="f33-atmo-card" style="--card-img:url('assets/forum-extra-3.webp?v=1.4')">
+        <div class="f33-atmo-text">
+          <span class="f33-eyebrow">Fedeles lovarda</span>
+          <h2>Időjárástól függetlenül</h2>
+          <p>Rosszabb idő esetén is biztonságosan megtarthatóak a bemutatók és beszélgetések a fedeles lovardában.</p>
+        </div>
+      </article>
+    </section>
+
+    <section class="f33-section">
+      <div class="f33-speaker-title f33-speaker-title-premium">
+        <span>Előadóink</span>
+        <h2>Akiktől érdemes személyesen tanulni</h2>
+        <p>Gyakorlati tudás, valódi tapasztalatok és különböző lovas szemléletek egy napon, egy helyen.</p>
+      </div>
+      <div class="f33-speaker-strip f33-auto-speakers" id="speakerList">
+        <article class="f33-speaker featured">
+          <div class="f33-speaker-photo" style="background-image:url('assets/panyi-gyuri.jpg')"></div>
+          <div class="f33-speaker-body"><span>Kiemelt előadó</span><h3>Panyi Gyuri</h3><p>Lovas szakember • gyakorlati szemlélet</p><a href="eloadok.html">Bemutatkozás</a></div>
+        </article>
+        <article class="f33-speaker featured">
+          <div class="f33-speaker-photo" style="background-image:url('assets/pataky-kata.jpg')"></div>
+          <div class="f33-speaker-body"><span>Kiemelt előadó</span><h3>Pataky Kata</h3><p>Oktatás • lóval való kapcsolat</p><a href="eloadok.html">Bemutatkozás</a></div>
+        </article>
+        <article class="f33-speaker ">
+          <div class="f33-speaker-photo" style="background-image:url('assets/karl-peter.jpg')"></div>
+          <div class="f33-speaker-body"><span>Előadó</span><h3>Karl Péter</h3><p>Western és ranch szemlélet</p><a href="eloadok.html">Részletek</a></div>
+        </article>
+        <article class="f33-speaker ">
+          <div class="f33-speaker-photo" style="background-image:url('assets/kevey-bella.png')"></div>
+          <div class="f33-speaker-body"><span>Előadó</span><h3>Kevey Bella</h3><p>Díjugratás • sportló képzés</p><a href="eloadok.html">Részletek</a></div>
+        </article>
+        <article class="f33-speaker ">
+          <div class="f33-speaker-photo" style="background-image:url('assets/szabo-arpad-card.jpg')"></div>
+          <div class="f33-speaker-body"><span>Előadó</span><h3>Szabó Árpád</h3><p>Csikónevelés • tenyésztői felelősség</p><a href="eloadok.html">Részletek</a></div>
+        </article>
+        <article class="f33-speaker ">
+          <div class="f33-speaker-photo" style="background-image:url('assets/kaska-zoltan.jpg')"></div>
+          <div class="f33-speaker-body"><span>Előadó</span><h3>Kaska Zoltán</h3><p>Díjugratás • versenytapasztalat</p><a href="eloadok.html">Részletek</a></div>
+        </article>
+        <article class="f33-speaker ">
+          <div class="f33-speaker-photo" style="background-image:url('assets/benner-jani.jpg')"></div>
+          <div class="f33-speaker-body"><span>Előadó</span><h3>Benner Jani</h3><p>Terepmunka • használati ló</p><a href="eloadok.html">Részletek</a></div>
+        </article>
+        <article class="f33-speaker ">
+          <div class="f33-speaker-photo" style="background-image:url('assets/tisza-zoltan.jpg')"></div>
+          <div class="f33-speaker-body"><span>Előadó</span><h3>Tisza Zoltán</h3><p>Szabadidomítás • kommunikáció</p><a href="eloadok.html">Részletek</a></div>
+        </article>
+        <article class="f33-speaker ">
+          <div class="f33-speaker-photo" style="background-image:url('assets/taszler-melinda.jpg')"></div>
+          <div class="f33-speaker-body"><span>Előadó</span><h3>Tászler Melinda</h3><p>Lovas bemutató • összhang</p><a href="eloadok.html">Részletek</a></div>
+        </article>
+        <article class="f33-speaker ">
+          <div class="f33-speaker-photo" style="background-image:url('assets/szabo-zoltan.jpg')"></div>
+          <div class="f33-speaker-body"><span>Előadó</span><h3>Szabó Zoltán</h3><p>Terepakadályok • gyakorlati képzés</p><a href="eloadok.html">Részletek</a></div>
+        </article>
+        <article class="f33-speaker f33-speaker-apply">
+          <div class="f33-speaker-photo"></div>
+          <div class="f33-speaker-body"><span>Nyitott lehetőség</span><h3>Jelentkezz te is előadónak</h3><p>Kerülj fel hamarosan az előadók közé.</p><a href="kapcsolat.html">Kapcsolatfelvétel</a></div>
+        </article>
+
+      </div>
+    </section>
+
+    <section class="f33-section">
+      <div class="f33-heading"><span></span><h2>A nap menete</h2><span></span></div>
+      <div class="f33-flow">
+        <div><b>☕</b><strong>Érkezés</strong><small>regisztráció, kávé, ismerkedés</small></div>
+        <div><b>🎤</b><strong>Szakmai gondolatindító</strong><small>előadások és tapasztalatok</small></div>
+        <div><b>🐴</b><strong>Gyakorlati bemutatók</strong><small>fedeles lovardában vagy kültéren</small></div>
+        <div><b>🤝</b><strong>Kötetlen beszélgetések</strong><small>kérdések, kapcsolatok, közös gondolkodás</small></div>
+        <div><b>🌙</b><strong>Esti levezetés</strong><small>akár késő estig, jó hangulatban</small></div>
+      </div>
+    </section>
+
+    <section class="f33-section f33-lower-atmo-section">
+      <article class="f33-lower-atmo-card" style="--lower-img:url('assets/1_1.png')">
+        <div class="f33-lower-atmo-text">
+          <span class="f33-eyebrow">Közösségi tér</span>
+          <h2>Lovarda, legelő, fröccsterasz és szakmai közösség</h2>
+          <p>A fórum lényege nem csak az előadás: egész nap olyan közegben találkozhattok, ahol a lovas szakma, a jó hangulat és a személyes beszélgetések természetesen kapcsolódnak össze. A családokat is szeretettel várjuk – a gyerekek sem fognak unatkozni, hiszen egész nap családi programok, lovas élmények és kikapcsolódási lehetőségek várják őket.</p>
+          <ul class="f33-experience-list">
+            <li>Fedeles lovarda és lovas környezet egész nap</li>
+            <li>Csatangoló Lovas Büfé és fröccsterasz</li>
+            <li>Kötetlen szakmai beszélgetések, találkozások</li>
+            <li>Családi programok és lovas élmények a gyerekeknek is</li>
+          </ul>
+        </div>
+      <div class="f33-community-slider" aria-label="Közösségi tér képgaléria">
+            <img class="f33-community-slide is-active" src="assets/1_1.png" alt="Csatangoló közösségi tér" loading="lazy">
+            <img class="f33-community-slide" src="assets/1_2.png" alt="Csatangoló Lovas Büfé és Fröccsterasz" loading="lazy">
+            <img class="f33-community-slide" src="assets/1_3.png" alt="Családi programok" loading="lazy">
+            <div class="f33-community-caption" id="communityCaption">Családi programok egész nap</div>
+          </div>
+        </article>
+    </section>
+
+    <section class="f33-section f33-cards f33-cards-two">
+      <div class="f33-card"><span class="f33-eyebrow">Program</span><h2>Kötetlen szakmai nap</h2><p>Nem percre pontos időrendben gondolkodunk, hanem rugalmas, tartalmas, egész napos szakmai jelenlétben.</p><a href="program.html">Program részletei</a></div>
+      <div class="f33-card image f33-visible-image-card"><img src="assets/forum-extra-3.webp?v=1.4" alt="Fedeles lovarda" loading="lazy"></div>
+      <div class="f33-card f33-registration-card"><span class="f33-eyebrow">Jelentkezés</span><h2>Regisztráció a fórumra</h2><p>A regisztráció után névre szóló digitális QR-belépőt kapsz, amelyet a helyszíni beléptetésnél tudunk ellenőrizni.</p><ul><li>Digitális QR-belépő</li><li>Egész napos szakmai program</li><li>Büfé és fröccsterasz a helyszínen</li></ul><a href="regisztracio.html">Regisztrálok</a></div>
+    </section>
+
+    <section class="f33-section f33-public-map-section">
+      <div class="f33-public-map-copy">
+        <span class="f33-eyebrow">Lovas közösség</span>
+        <h2>Innen érkeznek a résztvevők</h2>
+        <p>A térképen csak a települések jelennek meg, személyes adatok és létszámok nélkül. Egy finom arany pont jelzi, honnan csatlakoznak a fórumhoz.</p>
+        <div class="f33-map-legend">
+          <span><i></i> Résztvevői település</span>
+          <small id="publicMapNote">A térkép a regisztrációk alapján frissül.</small>
+        </div>
+      </div>
+      <div class="f33-public-map-card">
+        <div id="publicForumMap"></div>
+      </div>
+    </section>
+
+    <section class="f33-newsletter">
+      <div><b>✉</b><strong>Ne maradj le a fórum híreiről!</strong><small>A fontos értesítéseket kulturáltan, leiratkozási lehetőséggel küldjük.</small></div>
+      <form><input type="email" placeholder="E-mail címed"><button type="button">Feliratkozom</button></form>
+    </section>
+  </main>
+
+  <section class="f33-footer-prelude">
+      <div>
+        <span class="f33-eyebrow">Találkozunk a Csatangoló Lovardában</span>
+        <h2>Egy nap, ahol a szakma és a lovas közösség valóban találkozik.</h2>
+        <p>Regisztrálj, hozd magaddal a kérdéseidet, és kapcsolódj be egy olyan fórum hangulatába, ahol a gyakorlati tudásé és az emberi kapcsolatoké a főszerep.</p>
+      </div>
+      <a href="regisztracio.html">Regisztrálok</a>
+    </section>
+
+    <footer class="f33-footer" style="background-image:url('assets/fokep.png')" id="kapcsolat">
+    <div class="f33-footer-text">Találkozzunk a Csatangoló Lovardában!</div>
+    <div class="f33-footer-grid f33-footer-grid-premium">
+      <div>
+        <strong>Csatangoló Lovarda</strong>
+        <small>Öregcsertő, Homokmégyi u. 39.<br>Telefon: <a href="tel:+36306548617">06 30 654 8617</a></small>
+      </div>
+      <div>
+        <strong>Főszervezők</strong>
+        <small>Kis Csilla Lilla — <a href="tel:+36306548617">06 30 654 8617</a><br>Panyi Gyuri — <a href="tel:+36702151091">06 70 215 1091</a></small>
+      </div>
+      <div>
+        <strong>Közösségi oldalak</strong>
+        <small class="f33-social-links">
+          <a href="https://www.facebook.com/share/1H8y5Qni1b/?mibextid=wwXIfr" target="_blank" rel="noopener">Facebook</a>
+          <a href="https://www.tiktok.com/@csatangolo_lovarda?_r=1&_t=ZN-97aSx6GaG87" target="_blank" rel="noopener">TikTok</a>
+          <a href="https://youtube.com/@csatangolo_lovarda?si=Xl12yTvzTKIyeQLn" target="_blank" rel="noopener">YouTube</a>
+          <a href="https://www.instagram.com/csatangolo_lovarda?igsh=MXBrbzFydHUycHVxdQ%3D%3D&utm_source=qr" target="_blank" rel="noopener">Instagram</a>
+        </small>
+      </div>
+      <div>
+        <strong>Hasznos linkek</strong>
+        <small class="f33-social-links">
+          <a href="https://csatangolo.online" target="_blank" rel="noopener">Csatangoló applikáció</a>
+          <a href="https://csatangolo.online/tabor" target="_blank" rel="noopener">Lovas tábor jelentkezés</a>
+          <a href="adatkezeles.html">Adatkezelés</a>
+          <a href="impresszum.html">Impresszum</a>
+          <a href="kapcsolat.html">Kapcsolat</a>
+        </small>
+      </div>
+    </div>
+  </footer>
+
+  <script src="homepage.js?v=FINAL2"></script>
+  <script src="forum-premium-3-3.js?v=3.3.0"></script>
+
+<script id="f33-count-threshold-200">
+(function(){
+  function hideOrShowRegistrationCount(){
+    var candidates = [
+      document.getElementById('participantCounter'),
+      document.getElementById('registeredCount'),
+      document.getElementById('registrationCounter'),
+      document.querySelector('[data-registered-count]')
+    ].filter(Boolean);
+
+    candidates.forEach(function(el){
+      var raw = (el.textContent || el.dataset.count || '').replace(/[^0-9]/g,'');
+      var count = parseInt(raw || '0', 10);
+      var holder = el.closest('.f33-ribbon, .registration-ribbon, .participant-counter, .counter-card, section, div') || el.parentElement;
+      if(count < 200){
+        if(holder) holder.classList.add('is-hidden-under-200');
+      }else{
+        if(holder) holder.classList.remove('is-hidden-under-200');
+        el.textContent = count >= 200 ? ('Már több mint ' + count + ' fő jelentkezett') : '';
+      }
+    });
+  }
+  document.addEventListener('DOMContentLoaded', hideOrShowRegistrationCount);
+  window.addEventListener('load', hideOrShowRegistrationCount);
+  setTimeout(hideOrShowRegistrationCount, 800);
+  setTimeout(hideOrShowRegistrationCount, 1800);
+})();
+</script>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="public-map.js?v=FINAL2"></script>
+  <script src="site-mobile-menu.js?v=real-final"></script>
+</body>
+</html>

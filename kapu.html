@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="hu">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kapu – Csatangoló Fórum</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js?v=test-env-1"></script>
+  <script src="https://unpkg.com/html5-qrcode"></script>
+</head>
+<body>
+  <nav class="topbar">
+    <a href="index.html" class="brand">Csatangoló Fórum Kapu</a>
+<div class="navlinks">
+      <a href="szervezo.html">Admin</a>
+      <a href="index.html">Főoldal</a>
+    </div>
+  </nav>
+
+  <main class="page narrow">
+    <section class="hero small">
+      <div class="badge">QR beléptetés</div>
+      <h1>Kapu</h1>
+      <p class="motto">Olvasd be a résztvevő QR-kódját</p>
+    </section>
+
+    <section class="card">
+      <h2>Szervezői kód</h2>
+      <label>Szervezői kód
+        <input id="gateCode" type="password" placeholder="Írd be az szervezői kódot">
+      </label>
+      <button class="button" id="unlockGate">Beléptetés megnyitása</button>
+      <div id="gateMessage" class="form-message"></div>
+    </section>
+
+    <section id="scannerSection" class="card hidden">
+      <h2>QR olvasó</h2>
+      <p class="hint">Telefonon engedélyezd a kamerát, majd mutasd a QR-kódot.</p>
+      <div id="reader" class="reader-box"></div>
+
+      <h2>Kézi kódbevitel</h2>
+      <label>Belépőkód
+        <input id="manualCode" type="text" placeholder="FORUM-2026-...">
+      </label>
+      <button class="button" id="manualSearch">Keresés</button>
+    </section>
+
+    <section id="resultBox" class="card hidden"></section>
+  </main>
+
+<script src="kapu.js"></script>
+  <script src="site-mobile-menu.js?v=real-final"></script>
+</body>
+</html>

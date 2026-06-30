@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="hu">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Egyszerű Kapu – Csatangoló Fórum</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js?v=test-env-1"></script>
+  <script src="https://unpkg.com/html5-qrcode"></script>
+</head>
+<body>
+  <main class="page narrow">
+    <section class="hero small">
+      <div class="badge">Egyszerű beléptetés</div>
+      <h1>Kapu</h1>
+      <p class="motto">QR-kód beolvasás • Beléptetés • Hozzájárulás</p>
+    </section>
+
+    <section class="card" id="simpleLogin">
+      <h2>Kapu kód</h2>
+      <p class="hint">Ezt a felületet segítőknek készítettük. Csak beléptetésre és fizetés jelölésére használható.</p>
+      <label>Kapu kód
+        <input id="simpleGateCode" type="password" placeholder="Írd be a kapu kódot">
+      </label>
+      <button class="button" id="unlockSimpleGate">Belépés</button>
+      <div id="simpleGateMessage" class="form-message"></div>
+    </section>
+
+    <section id="simpleScannerSection" class="card hidden">
+      <h2>QR-kód olvasó</h2>
+      <p class="hint">Engedélyezd a kamerát, majd olvasd be a résztvevő QR-kódját.</p>
+      <div id="simpleReader" class="reader-box"></div>
+
+      <h2>Kézi kódbevitel</h2>
+      <label>Belépőkód
+        <input id="simpleManualCode" type="text" placeholder="FORUM-2026-...">
+      </label>
+      <button class="button" id="simpleManualSearch">Keresés</button>
+    </section>
+
+    <section id="simpleResultBox" class="card hidden"></section>
+  </main>
+
+<script src="kapu-egyszeru.js"></script>
+</body>
+</html>
