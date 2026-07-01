@@ -3,19 +3,19 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Csatangoló Manager – Szervezői Központ</title>
-  <link rel="stylesheet" href="styles.css?v=ui2-1">
+  <title>Csatangoló Manager – Dashboard 2.0</title>
+  <link rel="stylesheet" href="styles.css?v=dashboard-2-0">
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="supabase-config.js?v=test-env-1"></script>
   <script src="event-loader.js?v=events-connect-1"></script>
 </head>
-<body class="manager-body">
-  <main class="manager-page">
+<body class="manager-body dashboard20-body">
+  <main class="manager-page dashboard20-page">
     <section id="managerLogin" class="manager-login-card">
       <div class="manager-logo">🐴</div>
       <span class="badge">Csatangoló Manager</span>
-      <h1>Szervezői Központ</h1>
-      <p>Minden fontos felület, link, PIN és rendezvénynapi teendő egy helyen.</p>
+      <h1>Dashboard 2.0</h1>
+      <p>A Fórum központi irányítópultja: jelentkezők, előadók, galéria, beléptetés és rendszerállapot egy helyen.</p>
       <label>Manager PIN
         <input id="managerPin" type="password" placeholder="PIN">
       </label>
@@ -23,18 +23,18 @@
       <div id="managerLoginMessage" class="form-message"></div>
     </section>
 
-    <section id="managerContent" class="hidden">
-      <header class="manager-header">
+    <section id="managerContent" class="hidden dashboard20-content">
+      <header class="dashboard20-hero">
         <div>
-          <span class="eyebrow">Csatangoló Lovarda</span>
-          <h1>Manager központ</h1>
+          <span class="eyebrow">Csatangoló Manager</span>
+          <h1 id="managerGreeting">Jó napot! 👋</h1>
           <p id="managerSubtitle">Aktív rendezvény betöltése...</p>
         </div>
         <div class="manager-env-pill">🟢 TESZT rendszer</div>
       </header>
 
-      <section class="manager-overview">
-        <article class="manager-event-card">
+      <section class="dashboard20-event-card">
+        <div>
           <span class="eyebrow">Aktív rendezvény</span>
           <h2 id="managerEventName">Betöltés...</h2>
           <div class="manager-event-meta">
@@ -43,103 +43,85 @@
             <span id="managerEventLocation">📍 –</span>
             <span id="managerEventFee">💰 –</span>
           </div>
-        </article>
-
-        <article class="manager-system-card">
-          <span class="eyebrow">Rendszer PIN</span>
-          <h2>Tigris97</h2>
-          <p>Admin • Dashboard • Beléptetés • Rendezvény beállítások • Manager</p>
-        </article>
+        </div>
+        <div class="dashboard20-countdown">
+          <strong id="daysUntilEvent">–</strong>
+          <small>nap van hátra</small>
+        </div>
       </section>
 
-      <section class="manager-quick-grid">
-        <a class="manager-tile" href="admin.html"><b>👥</b><strong>Jelentkezők</strong><span>Admin lista, keresés, törlés</span></a>
-        <a class="manager-tile" href="beleptetes.html"><b>📷</b><strong>Beléptetés</strong><span>QR, keresés, helyszíni regisztráció</span></a>
-        <a class="manager-tile" href="dashboard.html"><b>📊</b><strong>Dashboard</strong><span>Élő statisztikák</span></a>
-        <a class="manager-tile" href="event-settings.html"><b>⚙️</b><strong>Rendezvény</strong><span>Aktív rendezvény beállításai</span></a>
-        <a class="manager-tile soon" href="#"><b>🎤</b><strong>Előadók</strong><span>Hamarosan adminból</span></a>
-        <a class="manager-tile soon" href="#"><b>🕒</b><strong>Programok</strong><span>Hamarosan adminból</span></a>
-        <a class="manager-tile soon" href="#"><b>📚</b><strong>Archívum</strong><span>Örökre megmaradó rendezvények</span></a>
-        <a class="manager-tile soon" href="#"><b>📂</b><strong>Dokumentumtár</strong><span>Plakátok, fájlok, jegyzetek</span></a>
+      <section class="dashboard20-kpis">
+        <article><span id="kpiParticipants">0</span><small>jelentkező</small></article>
+        <article><span id="kpiCheckedIn">0</span><small>beléptetve</small></article>
+        <article><span id="kpiSpeakers">0</span><small>előadó</small></article>
+        <article><span id="kpiGallery">0</span><small>galériakép</small></article>
       </section>
 
-      <section class="manager-columns">
-        <article class="manager-panel">
-          <div class="panel-head compact">
-            <div>
-              <span class="eyebrow">Szervezői linkek</span>
-              <h2>Gyors elérések</h2>
-            </div>
+      <section class="dashboard20-progress-card">
+        <div>
+          <span class="eyebrow">Készültségi állapot</span>
+          <h2 id="readinessPercent">0%</h2>
+          <p id="readinessText">Ellenőrzés folyamatban...</p>
+        </div>
+        <div class="readiness-bar"><span id="readinessBar"></span></div>
+      </section>
+
+      <section class="manager-quick-grid dashboard20-actions">
+        <a class="manager-tile" href="admin.html"><b>👥</b><strong>Jelentkezők</strong><span>Lista, fizetés, export</span></a>
+        <a class="manager-tile" href="beleptetes.html"><b>📷</b><strong>Beléptetés</strong><span>QR és név szerinti keresés</span></a>
+        <a class="manager-tile" href="speakers-manager.html"><b>🎤</b><strong>Előadók</strong><span>Személyek és bemutatkozások</span></a>
+        <a class="manager-tile" href="gallery-manager.html"><b>📸</b><strong>Galéria</strong><span>Albumok és képfeltöltés</span></a>
+        <a class="manager-tile" href="event-settings.html"><b>⚙️</b><strong>Rendezvény</strong><span>Adatok és linkek</span></a>
+        <a class="manager-tile" href="dashboard.html"><b>📊</b><strong>Élő dashboard</strong><span>Érkezések és bevétel</span></a>
+      </section>
+
+      <section class="dashboard20-columns">
+        <article class="manager-panel dashboard20-todos">
+          <span class="eyebrow">Teendők</span>
+          <h2>Automatikus javaslatok</h2>
+          <div id="managerTodos" class="dashboard20-list">
+            <div>Adatok betöltése...</div>
           </div>
-          <div class="manager-links">
-            <a href="index.html">🌐 Teszt főoldal</a>
-            <a href="https://csatangolo.online/csatangolo-forum/" target="_blank" rel="noopener">🚀 Éles fórum oldal</a>
-            <a href="https://github.com/" target="_blank" rel="noopener">🐙 GitHub</a>
-            <a href="https://supabase.com/dashboard/project/brbtvjikquaanypccvlf" target="_blank" rel="noopener">🗄️ Supabase TESZT</a>
-            <a href="https://supabase.com/dashboard/project/ywkabsgazkzrjgjncbfc" target="_blank" rel="noopener">🗄️ Supabase ÉLES</a>
-            <a href="https://maps.app.goo.gl/1N2QbDjBaoTYU3Np9?g_st=ic" target="_blank" rel="noopener">📍 Google térkép</a>
+        </article>
+
+        <article class="manager-panel dashboard20-status">
+          <span class="eyebrow">Rendszerállapot</span>
+          <h2>Ellenőrzések</h2>
+          <div id="managerSystemStatus" class="dashboard20-list">
+            <div>Adatok betöltése...</div>
           </div>
         </article>
 
         <article class="manager-panel">
-          <div class="panel-head compact">
-            <div>
-              <span class="eyebrow">Projekt állapot</span>
-              <h2>Fejlesztési áttekintő</h2>
-            </div>
-          </div>
-          <div class="manager-status-list">
-            <div class="ok">🟢 Jelentkezés</div>
-            <div class="ok">🟢 Admin</div>
-            <div class="ok">🟢 Dashboard</div>
-            <div class="ok">🟢 Beléptetés</div>
-            <div class="ok">🟢 Rendezvény beállítások</div>
-            <div class="wait">🟡 Előadókezelő</div>
-            <div class="wait">🟡 Programkezelő</div>
-            <div class="wait">🟡 Galéria / Archívum</div>
-          </div>
-        </article>
-
-        <article class="manager-panel">
-          <div class="panel-head compact">
-            <div>
-              <span class="eyebrow">Rendezvénynapi lista</span>
-              <h2>Teendők</h2>
-            </div>
-          </div>
+          <span class="eyebrow">Rendezvénynapi lista</span>
+          <h2>Gyors ellenőrzőlista</h2>
           <div class="manager-checklist" id="managerChecklist">
             <label><input type="checkbox"> Hangosítás kipróbálva</label>
             <label><input type="checkbox"> Projektor / kijelző előkészítve</label>
             <label><input type="checkbox"> QR beléptetés tesztelve</label>
             <label><input type="checkbox"> Büfé előkészítve</label>
             <label><input type="checkbox"> Fotós / videós egyeztetve</label>
-            <label><input type="checkbox"> Tombola / támogatók előkészítve</label>
-            <label><input type="checkbox"> Előadók fogadása megszervezve</label>
           </div>
         </article>
 
         <article class="manager-panel">
-          <div class="panel-head compact">
-            <div>
-              <span class="eyebrow">Következő fejlesztések</span>
-              <h2>Roadmap</h2>
-            </div>
-          </div>
+          <span class="eyebrow">Fejlesztés</span>
+          <h2>Következő lépések</h2>
           <div class="manager-roadmap">
-            <div>✅ Rendezvény beállítások</div>
-            <div>✅ Aktív rendezvény összekötés</div>
-            <div>✅ Szervezői Központ</div>
-            <div>⬜ Előadókezelő</div>
-            <div>⬜ Programkezelő</div>
-            <div>⬜ Galéria</div>
+            <div>✅ UI 2.1</div>
+            <div>✅ Galéria Manager</div>
+            <div>✅ Dashboard 2.0 alap</div>
+            <div>⬜ Rendszerellenőrzés 2.1</div>
             <div>⬜ Archívum</div>
+            <div>⬜ Dokumentumtár</div>
           </div>
         </article>
       </section>
     </section>
   </main>
 
-<script src="manager.js?v=manager-v1-6-2"></script>
-<div class="version-badge">Manager v1.6.2 TESZT</div>
+<script src="manager.js?v=dashboard-2-0"></script>
+<script src="site-mobile-menu.js?v=ui2-1"></script>
+<div class="version-badge">Dashboard 2.0 TESZT</div>
 </body>
 </html>

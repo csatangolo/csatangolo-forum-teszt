@@ -5298,3 +5298,243 @@ body.site-menu-active .site-menu-overlay{opacity:1; pointer-events:auto}
     justify-content:center!important;
   }
 }
+
+
+/* === Dashboard 2.0 – Csatangoló Manager irányítóközpont === */
+.dashboard20-page{
+  width:min(1240px, calc(100% - 28px));
+}
+
+.dashboard20-hero{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:18px;
+  padding:30px;
+  border-radius:36px;
+  background:
+    radial-gradient(circle at 90% 0%, rgba(214,162,75,.23), transparent 34%),
+    linear-gradient(135deg,#fff8ea,#ead6b5);
+  border:1px solid rgba(160,106,50,.18);
+  box-shadow:0 22px 68px rgba(43,21,9,.12);
+}
+
+.dashboard20-hero h1{
+  margin:.1em 0;
+  color:#2b1509;
+  font-size:clamp(2.4rem,5vw,4.8rem);
+  line-height:1;
+  letter-spacing:-.045em;
+}
+
+.dashboard20-hero p{
+  margin:0;
+  color:#6e523b;
+  font-weight:900;
+}
+
+.dashboard20-event-card{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 190px;
+  gap:18px;
+  align-items:center;
+  margin:18px 0;
+  padding:26px;
+  border-radius:34px;
+  color:#fff8ea;
+  background:
+    radial-gradient(circle at 88% 12%, rgba(214,162,75,.26), transparent 32%),
+    linear-gradient(135deg,#5e3c26,#2b1509);
+  box-shadow:0 24px 76px rgba(43,21,9,.22);
+  border:1px solid rgba(214,162,75,.32);
+}
+
+.dashboard20-event-card h2{
+  margin:.15em 0;
+  color:#fff8ea;
+  font-size:clamp(1.9rem,4vw,3.8rem);
+  line-height:1.02;
+}
+
+.dashboard20-event-card .manager-event-meta span{
+  background:rgba(255,248,234,.13);
+  color:#fff8ea;
+  border:1px solid rgba(214,162,75,.28);
+}
+
+.dashboard20-countdown{
+  aspect-ratio:1/1;
+  border-radius:34px;
+  display:grid;
+  place-items:center;
+  text-align:center;
+  background:rgba(255,248,234,.14);
+  border:1px solid rgba(214,162,75,.30);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.04);
+}
+
+.dashboard20-countdown strong{
+  display:block;
+  color:#fff8ea;
+  font-size:clamp(2.5rem,6vw,4.5rem);
+  line-height:.9;
+}
+
+.dashboard20-countdown small{
+  display:block;
+  margin-top:8px;
+  color:#f3dfbd;
+  font-weight:900;
+}
+
+.dashboard20-kpis{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:14px;
+  margin:18px 0;
+}
+
+.dashboard20-kpis article{
+  min-height:150px;
+  display:grid;
+  place-items:center;
+  text-align:center;
+  padding:22px;
+  border-radius:30px;
+  background:linear-gradient(135deg,#fff8ea,#ead6b5);
+  border:1px solid rgba(160,106,50,.16);
+  box-shadow:0 18px 54px rgba(43,21,9,.10);
+}
+
+.dashboard20-kpis span{
+  color:#2b1509;
+  font-size:clamp(2.6rem,5vw,4.5rem);
+  line-height:.95;
+  font-weight:900;
+}
+
+.dashboard20-kpis small{
+  color:#6e523b;
+  font-weight:900;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+  font-size:.72rem;
+}
+
+.dashboard20-progress-card{
+  display:grid;
+  grid-template-columns:260px 1fr;
+  gap:20px;
+  align-items:center;
+  padding:24px;
+  margin:18px 0;
+  border-radius:32px;
+  background:#fff8ea;
+  border:1px solid rgba(160,106,50,.16);
+  box-shadow:0 18px 54px rgba(43,21,9,.09);
+}
+
+.dashboard20-progress-card h2{
+  margin:.05em 0;
+  color:#2b1509;
+  font-size:clamp(2.2rem,5vw,4rem);
+  line-height:1;
+}
+
+.dashboard20-progress-card p{
+  margin:0;
+  color:#6e523b;
+  font-weight:900;
+}
+
+.readiness-bar{
+  height:22px;
+  border-radius:999px;
+  background:#ead6b5;
+  overflow:hidden;
+  border:1px solid rgba(160,106,50,.18);
+}
+
+.readiness-bar span{
+  display:block;
+  height:100%;
+  width:0%;
+  border-radius:999px;
+  background:linear-gradient(135deg,#d6a24b,#5e3c26);
+  transition:width .35s ease;
+}
+
+.dashboard20-actions{
+  grid-template-columns:repeat(3,1fr);
+}
+
+.dashboard20-columns{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
+  margin-top:18px;
+}
+
+.dashboard20-list{
+  display:grid;
+  gap:9px;
+  margin-top:12px;
+}
+
+.dashboard20-list div{
+  padding:12px 14px;
+  border-radius:18px;
+  background:#f3dfbd;
+  color:#5e3c26;
+  font-weight:900;
+}
+
+.dashboard20-list .ok{
+  background:#e4f8dc;
+  color:#2f7a3a;
+}
+
+.dashboard20-list .warn{
+  background:#fff0c2;
+  color:#8a5e38;
+}
+
+@media(max-width:1020px){
+  .dashboard20-kpis,
+  .dashboard20-actions{
+    grid-template-columns:repeat(2,1fr);
+  }
+  .dashboard20-event-card,
+  .dashboard20-progress-card,
+  .dashboard20-columns{
+    grid-template-columns:1fr;
+  }
+  .dashboard20-countdown{
+    aspect-ratio:auto;
+    min-height:130px;
+  }
+}
+
+@media(max-width:680px){
+  .dashboard20-page{
+    width:calc(100% - 18px);
+    padding-top:12px;
+  }
+  .dashboard20-hero,
+  .dashboard20-event-card,
+  .dashboard20-progress-card{
+    padding:20px;
+    border-radius:26px;
+  }
+  .dashboard20-hero{
+    display:grid;
+  }
+  .dashboard20-kpis,
+  .dashboard20-actions,
+  .dashboard20-columns{
+    grid-template-columns:1fr;
+  }
+  .dashboard20-kpis article{
+    min-height:124px;
+  }
+}
