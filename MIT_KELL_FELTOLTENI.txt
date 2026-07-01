@@ -1,24 +1,18 @@
-v1.8 Galéria Manager – TESZT repóhoz
+UI 2.0 fejléc javítócsomag – TESZT repóhoz
 
 Feltöltendő/cserélendő:
-- gallery-manager.html
-- gallery-manager.js
-- public-gallery.js
+- site-mobile-menu.js
 - styles.css
-- manager.html
-- admin.html
-- dashboard.html
-- event-settings.html
-- speakers-manager.html
-- galeria.html, ha benne van a csomagban
-- docs/CHANGELOG_v1_8_GALLERY.md
+- forum-premium-3-3.css
+- a csomagban lévő .html fájlok
+- docs/CHANGELOG_UI_2_0_HEADER.md
 
 SQL:
-- Nincs SQL fájl.
-- Az SQL-t a chatben kapod, onnan másold be Supabase SQL Editorba.
+- Nem kell.
 
-Storage:
-- A SQL létrehozza a gallery bucketet is.
-
-PIN:
-- Tigris97
+Tesztelendő:
+- Főoldal mobil fejléc
+- Hamburger menü nyitás/zárás
+- Aloldalak menüje
+- iPad álló/fekvő nézet
+- Manager oldal menüje
