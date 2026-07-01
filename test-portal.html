@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="hu">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Csatangoló TESZT Portál</title>
+  <link rel="stylesheet" href="styles.css?v=test-portal-1">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js?v=test-env-1"></script>
+  <script src="event-loader.js?v=events-connect-1"></script>
+</head>
+<body class="test-portal-body">
+  <main class="test-portal-page">
+    <section id="portalLogin" class="test-portal-login">
+      <div class="manager-logo">🐴</div>
+      <span class="badge">TESZT rendszer</span>
+      <h1>Csatangoló Teszt Portál</h1>
+      <p>Innen egy kattintással eléred az összes teszt modult. Ez még nem az éles rendszer.</p>
+      <label>PIN <input id="portalPin" type="password" placeholder="PIN"></label>
+      <button id="portalUnlock" class="button manager-primary" type="button">Belépés</button>
+      <div id="portalMessage" class="form-message"></div>
+    </section>
+
+    <section id="portalContent" class="hidden">
+      <header class="test-portal-hero">
+        <div>
+          <span class="eyebrow">Csatangoló Manager</span>
+          <h1>TESZT Portál</h1>
+          <p id="portalEventText">Aktív rendezvény betöltése...</p>
+        </div>
+        <div class="test-mode-pill">🟢 TESZT MÓD</div>
+      </header>
+
+      <section class="test-portal-warning"><strong>Fontos:</strong> ez a tesztkörnyezet. Itt nyugodtan lehet próbálni és ellenőrizni.</section>
+
+      <section class="test-portal-grid">
+        <a href="manager.html"><b>🐴</b><strong>Manager Dashboard</strong><span>Vezérlőközpont</span></a>
+        <a href="index.html"><b>🌐</b><strong>Nyilvános főoldal</strong><span>Látogatói oldal</span></a>
+        <a href="admin.html"><b>👥</b><strong>Jelentkezők</strong><span>Admin lista</span></a>
+        <a href="dashboard.html"><b>📊</b><strong>Élő Dashboard</strong><span>Statisztikák</span></a>
+        <a href="beleptetes.html"><b>📷</b><strong>Beléptetés</strong><span>QR és keresés</span></a>
+        <a href="event-settings.html"><b>⚙️</b><strong>Rendezvény beállítások</strong><span>Aktív rendezvény</span></a>
+        <a href="speakers-manager.html"><b>🎤</b><strong>Előadókezelő</strong><span>Személyek</span></a>
+        <a href="eloadok.html"><b>🎙️</b><strong>Nyilvános előadók</strong><span>Látogatói oldal</span></a>
+        <a href="gallery-manager.html"><b>📸</b><strong>Galéria Manager</strong><span>Albumok</span></a>
+        <a href="galeria.html"><b>🖼️</b><strong>Nyilvános galéria</strong><span>Galéria oldal</span></a>
+        <a href="regisztracio.html"><b>📝</b><strong>Regisztráció</strong><span>Jelentkezés</span></a>
+        <a href="terkep.html"><b>🗺️</b><strong>Térkép</strong><span>Helyszín</span></a>
+      </section>
+    </section>
+  </main>
+<script src="test-portal.js?v=test-portal-1"></script>
+<div class="version-badge">TESZT Portál v1</div>
+</body>
+</html>
