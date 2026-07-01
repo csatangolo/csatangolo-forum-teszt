@@ -1,23 +1,30 @@
-Dashboard 2.0 – TESZT repóhoz
+Csatangoló Manager v2.2 összefésült tesztcsomag
 
 Feltöltendő/cserélendő:
-- manager.html
-- manager.js
+- a csomagban lévő összes .html fájl
 - styles.css
-- docs/CHANGELOG_DASHBOARD_2_0.md
+- forum-premium-3-3.css
+- site-mobile-menu.js
+- manager.js
+- gallery-manager.js
+- public-gallery.js
+- speakers-manager.js
+- public-content.js
+- event-loader.js
+- docs/CHANGELOG_MANAGER_v2_2_MERGED.md
 
 SQL:
-- Nem kell új SQL.
+- Nincs új SQL.
+- Csak akkor kell SQL, ha a v1.6 / v1.7 / v1.8 SQL-ek közül valamelyik még nem futott le.
 
 PIN:
 - Tigris97
 
 Tesztelendő:
-- manager.html megnyitása
-- PIN belépés
-- aktív rendezvény betöltése
-- jelentkezők száma
-- előadók száma
-- galéria száma
-- teendők panel
-- mobil / iPad nézet
+1. manager.html
+2. index.html mobil fejléc és hero
+3. eloadok.html
+4. speakers-manager.html
+5. gallery-manager.html
+6. galeria.html
+7. admin.html / dashboard.html / beleptetes.html

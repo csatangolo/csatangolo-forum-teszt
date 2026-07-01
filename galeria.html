@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="styles.css">
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="supabase-config.js?v=test-env-1"></script>
+  <script src="event-loader.js?v=events-connect-1"></script>
 </head>
 <body>
 <nav class="topbar">
@@ -28,10 +29,19 @@
     <p class="motto">Hangulatképek, előkészületek, pillanatok.</p>
   </section>
   <section id="galleryList" class="gallery-grid"></section>
+
+  <section class="gallery-dynamic-section">
+    <span class="eyebrow">Rendezvény galéria</span>
+    <h2>Friss képek a Csatangoló Managerből</h2>
+    <div id="dynamicGallery" class="public-gallery-grid">
+      <p class="hint">Galéria betöltése...</p>
+    </div>
+  </section>
 </main>
 <footer class="footer"><strong>Egymástól tanulunk.</strong><strong>A lovakért.</strong><strong>Egy közösségként.</strong></footer>
 <script src="public-content.js"></script>
 <script>loadPublicGallery();</script>
-  <script src="site-mobile-menu.js?v=ui2-1"></script>
+  <script src="public-gallery.js?v=gallery-v1-8"></script>
+<script src="site-mobile-menu.js?v=v2-2-merged"></script>
 </body>
 </html>
