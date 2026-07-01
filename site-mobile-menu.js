@@ -33,9 +33,7 @@
     menu.querySelectorAll("a").forEach(function(a){
       var href = (a.getAttribute("href") || "").split("#")[0].split("?")[0].toLowerCase();
       if(!href) return;
-      if(href === path || (path === "" && href === "index.html")){
-        a.classList.add("is-active");
-      }
+      if(href === path || (path === "" && href === "index.html")) a.classList.add("is-active");
     });
   }
 
@@ -47,11 +45,8 @@
     markActive(menu);
 
     var brand = nav.querySelector(".f33-brand, .brand");
-    if(brand && !brand.querySelector(".csat-brand-mark")){
-      brand.classList.add("csat-brand-v2");
-      if(!brand.querySelector(".f33-logo")){
-        brand.insertAdjacentHTML("afterbegin", '<span class="csat-brand-mark" aria-hidden="true">🐴</span>');
-      }
+    if(brand && !brand.querySelector(".csat-brand-mark") && !brand.querySelector(".f33-logo")){
+      brand.insertAdjacentHTML("afterbegin", '<span class="csat-brand-mark" aria-hidden="true">🐴</span>');
     }
 
     var btn = nav.querySelector(".site-menu-toggle");
@@ -93,9 +88,7 @@
     });
 
     menu.addEventListener("click", function(e){
-      if(e.target && e.target.closest && e.target.closest("a")){
-        setOpen(false);
-      }
+      if(e.target && e.target.closest && e.target.closest("a")) setOpen(false);
     });
 
     document.addEventListener("keydown", function(e){

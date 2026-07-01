@@ -1,18 +1,18 @@
-UI 2.0 fejléc javítócsomag – TESZT repóhoz
+UI 2.1 prémium tesztcsomag – TESZT repóhoz
 
 Feltöltendő/cserélendő:
 - site-mobile-menu.js
 - styles.css
 - forum-premium-3-3.css
+- index.html
 - a csomagban lévő .html fájlok
-- docs/CHANGELOG_UI_2_0_HEADER.md
+- docs/CHANGELOG_UI_2_1_PREMIUM.md
 
 SQL:
 - Nem kell.
 
-Tesztelendő:
-- Főoldal mobil fejléc
-- Hamburger menü nyitás/zárás
-- Aloldalak menüje
+Mit nézz meg:
+- Főoldal nyitó része mobilon
+- Fejléc és hamburger menü
+- Regisztráció gombok
 - iPad álló/fekvő nézet
-- Manager oldal menüje
