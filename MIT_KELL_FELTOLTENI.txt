@@ -7,11 +7,17 @@ Feltöltendő/cserélendő:
 - docs/CHANGELOG_DASHBOARD_2_0.md
 
 SQL:
-- Nem kell.
+- Nem kell új SQL.
 
 PIN:
 - Tigris97
 
-Teszt:
-- Nyisd meg: manager.html
-- Ellenőrizd az aktív rendezvényt, számlálókat és készültségi mutatót.
+Tesztelendő:
+- manager.html megnyitása
+- PIN belépés
+- aktív rendezvény betöltése
+- jelentkezők száma
+- előadók száma
+- galéria száma
+- teendők panel
+- mobil / iPad nézet
