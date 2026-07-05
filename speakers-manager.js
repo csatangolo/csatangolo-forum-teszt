@@ -10,6 +10,7 @@ let appearances = [];
 let selectedPerson = null;
 let selectedAppearance = null;
 let speakerGalleryImages = ["", "", ""];
+let draggedPersonId = null;
 
 const $ = id => document.getElementById(id);
 
@@ -119,8 +120,8 @@ function renderSpeakerList() {
     const img = speakerImageUrl(p.image_filename);
     const status = a?.is_visible ? "Publikus" : a ? "Rejtett" : "Nincs hozzárendelve";
     return `
-      <button type="button" class="speaker-pro-card ${a?.is_visible ? "is-visible" : "is-hidden"} ${a?.is_featured ? "is-featured" : ""}" data-id="${p.id}">
-        <span class="speaker-pro-thumb">${img ? `<img src="${escapeHtml(img)}" alt="">` : "👤"}</span>
+      <button type="button" draggable="true" class="speaker-pro-card ${a?.is_visible ? "is-visible" : "is-hidden"} ${a?.is_featured ? "is-featured" : ""}" data-id="${p.id}">
+        <span class="speaker-drag-handle">☰</span><span class="speaker-pro-thumb">${img ? `<img src="${escapeHtml(img)}" alt="">` : "👤"}</span>
         <span class="speaker-pro-card-text">
           <strong>${escapeHtml(p.name || "Névtelen")}</strong>
           <small>${escapeHtml(p.title || "Nincs szakterület")} ${p.city ? "• " + escapeHtml(p.city) : ""}</small>
@@ -132,7 +133,74 @@ function renderSpeakerList() {
 
   list.querySelectorAll("button[data-id]").forEach(btn => {
     btn.addEventListener("click", () => selectPerson(btn.dataset.id));
+
+    btn.addEventListener("dragstart", event => {
+      draggedPersonId = btn.dataset.id;
+      btn.classList.add("dragging-card");
+      event.dataTransfer.effectAllowed = "move";
+    });
+
+    btn.addEventListener("dragend", () => {
+      draggedPersonId = null;
+      btn.classList.remove("dragging-card");
+      document.querySelectorAll(".speaker-pro-card.drag-over").forEach(el => el.classList.remove("drag-over"));
+    });
+
+    btn.addEventListener("dragover", event => {
+      event.preventDefault();
+      if (draggedPersonId && draggedPersonId !== btn.dataset.id) btn.classList.add("drag-over");
+    });
+
+    btn.addEventListener("dragleave", () => btn.classList.remove("drag-over"));
+
+    btn.addEventListener("drop", async event => {
+      event.preventDefault();
+      btn.classList.remove("drag-over");
+      if (!draggedPersonId || draggedPersonId === btn.dataset.id) return;
+      await reorderSpeakers(draggedPersonId, btn.dataset.id);
+    });
   });
+}
+
+
+async function reorderSpeakers(sourcePersonId, targetPersonId) {
+  const rows = getRows()
+    .filter(row => row.appearance)
+    .sort((a,b) => Number(a.appearance?.sort_order || 100) - Number(b.appearance?.sort_order || 100));
+
+  const fromIndex = rows.findIndex(row => String(row.person.id) === String(sourcePersonId));
+  const toIndex = rows.findIndex(row => String(row.person.id) === String(targetPersonId));
+  if (fromIndex < 0 || toIndex < 0) return;
+
+  const [moved] = rows.splice(fromIndex, 1);
+  rows.splice(toIndex, 0, moved);
+
+  const updates = rows.map((row, index) => ({
+    id: row.appearance.id,
+    sort_order: (index + 1) * 10
+  }));
+
+  const msg = $("speakerFormMessage");
+  msg.className = "form-message";
+  msg.textContent = "Sorrend mentése...";
+
+  for (const item of updates) {
+    const { error } = await client
+      .from("event_speakers")
+      .update({ sort_order: item.sort_order })
+      .eq("id", item.id);
+
+    if (error) {
+      console.error(error);
+      msg.className = "form-message error";
+      msg.textContent = "Nem sikerült menteni a sorrendet.";
+      return;
+    }
+  }
+
+  msg.className = "form-message success";
+  msg.textContent = "Sorrend mentve.";
+  await loadSpeakerData();
 }
 
 function selectPerson(id) {

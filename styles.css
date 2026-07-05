@@ -6355,3 +6355,58 @@ body.site-menu-active .site-menu-overlay{opacity:1; pointer-events:auto}
     grid-template-columns:1fr;
   }
 }
+
+
+
+
+/* === Előadókezelő PRO 3.1 – láthatóbb képgaléria + sorrendezés === */
+.speaker-pro-card{
+  grid-template-columns:26px 68px 1fr!important;
+}
+.speaker-drag-handle{
+  width:24px;
+  height:44px;
+  display:grid;
+  place-items:center;
+  color:#7a5a42;
+  font-size:1.25rem;
+  cursor:grab;
+  user-select:none;
+}
+.speaker-pro-card.dragging-card{
+  opacity:.5;
+  transform:scale(.98);
+}
+.speaker-pro-card.drag-over{
+  outline:3px solid #d6a24b;
+  background:#fff0c2!important;
+}
+.speaker-gallery-title{
+  padding:10px 12px;
+  border-radius:16px;
+  background:#5e3c26;
+  color:#fff8ea;
+  font-weight:900;
+  text-align:center;
+}
+.speaker-pro-media-block{
+  outline:2px solid rgba(214,162,75,.24);
+}
+.speaker-drop-zone.main{
+  background:linear-gradient(135deg,#fff8ea,#fff0c2);
+  border-color:rgba(214,162,75,.55);
+}
+.speaker-gallery-slots{
+  padding:12px;
+  border-radius:22px;
+  background:rgba(255,248,234,.62);
+  border:1px solid rgba(160,106,50,.14);
+}
+.speaker-gallery-slots .speaker-drop-zone{
+  background:#fff8ea;
+}
+@media(max-width:620px){
+  .speaker-pro-card{
+    grid-template-columns:22px 58px 1fr!important;
+  }
+}

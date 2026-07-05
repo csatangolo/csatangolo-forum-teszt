@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Előadókezelő PRO – Csatangoló Manager</title>
-  <link rel="stylesheet" href="styles.css?v=speakers-pro-3">
+  <link rel="stylesheet" href="styles.css?v=speakers-pro-3-1">
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="supabase-config.js?v=test-env-1"></script>
   <script src="event-loader.js?v=events-connect-1"></script>
@@ -97,7 +97,7 @@
               <div class="speaker-media-head">
                 <div>
                   <span class="eyebrow">Képek</span>
-                  <h3>1 fő kép + 3 galériakép</h3>
+                  <h3>Fő kép és további képek</h3>
                 </div>
                 <span id="speakerImageCounter" class="save-state">0/4 kép</span>
               </div>
@@ -105,12 +105,13 @@
               <div id="mainImageDrop" class="speaker-drop-zone main">
                 <div id="mainImagePreview" class="speaker-drop-preview">📷</div>
                 <strong>Fő kép</strong>
-                <span>Húzd ide a képet, vagy kattints a feltöltéshez</span>
+                <span>Ez jelenik meg a főoldalon és az előadói kártyán. Húzd ide vagy kattints.</span>
                 <input id="mainImageFile" type="file" accept="image/*">
               </div>
 
               <input id="personImage" type="hidden">
 
+              <div class="speaker-gallery-title">További képek a részletes bemutatkozáshoz</div>
               <div class="speaker-gallery-slots">
                 <div class="speaker-drop-zone gallery" data-slot="0">
                   <div class="speaker-drop-preview">+</div>
@@ -192,8 +193,8 @@
     </section>
   </main>
 
-<script src="speakers-manager.js?v=speakers-pro-3"></script>
+<script src="speakers-manager.js?v=speakers-pro-3-1"></script>
 <script src="site-mobile-menu.js?v=v2-2-full"></script>
-<div class="version-badge">Speakers PRO 3 TESZT</div>
+<div class="version-badge">Speakers PRO 3.1 TESZT</div>
 </body>
 </html>

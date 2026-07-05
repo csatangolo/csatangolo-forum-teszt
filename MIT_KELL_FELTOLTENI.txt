@@ -1,16 +1,12 @@
-Előadókezelő PRO 3 – Tested Edition
+Előadókezelő PRO 3.1
 
 Feltöltendő:
 - speakers-manager.html
 - speakers-manager.js
 - styles.css
-- docs/CHANGELOG_SPEAKERS_PRO_3.md
 
 SQL:
-- Az SQL kódot a chatben kapod, nem fájlban.
+- Nem kell új SQL, ha a PRO 3 SQL már lefutott.
 
-Tesztlink:
+Teszt:
 https://csatangolo.online/csatangolo-forum-teszt/speakers-manager.html
-
-PIN:
-Tigris97
