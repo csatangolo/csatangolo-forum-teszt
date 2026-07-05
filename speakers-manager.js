@@ -9,6 +9,7 @@ let people = [];
 let appearances = [];
 let selectedPerson = null;
 let selectedAppearance = null;
+let speakerGalleryImages = ["", "", ""];
 
 const $ = id => document.getElementById(id);
 
@@ -21,6 +22,7 @@ $("speakerSearch").addEventListener("input", renderSpeakerList);
 $("speakerFilter").addEventListener("change", renderSpeakerList);
 $("speakerForm").addEventListener("submit", saveSpeaker);
 $("deleteSpeakerBtn").addEventListener("click", deleteSelectedSpeaker);
+initSpeakerMediaUpload();
 
 ["personName","personTitle","personCity","personImage","personBio","personLink","talkTitle","speakerOrder","speakerVisible","speakerFeatured"].forEach(id => {
   $(id).addEventListener("input", () => {
@@ -145,6 +147,7 @@ function selectPerson(id) {
   $("personTitle").value = selectedPerson.title || "";
   $("personCity").value = selectedPerson.city || "";
   $("personImage").value = selectedPerson.image_filename || "";
+  speakerGalleryImages = normalizeGalleryImages(selectedPerson.gallery_images);
   $("personBio").value = selectedPerson.bio || "";
   $("personLink").value = selectedPerson.link_url || "";
   $("talkTitle").value = selectedAppearance?.talk_title || "";
@@ -167,6 +170,9 @@ function resetForm() {
   $("speakerOrder").value = 100;
   $("speakerVisible").checked = true;
   $("speakerFeatured").checked = false;
+  $("personImage").value = "";
+  speakerGalleryImages = ["", "", ""];
+  renderMediaManager();
   $("speakerFormMessage").textContent = "";
   $("saveState").textContent = "Új adatlap";
   $("saveState").className = "save-state";
@@ -189,7 +195,8 @@ async function saveSpeaker(event) {
     city: $("personCity").value.trim(),
     image_filename: $("personImage").value.trim(),
     bio: $("personBio").value.trim(),
-    link_url: $("personLink").value.trim()
+    link_url: $("personLink").value.trim(),
+    gallery_images: speakerGalleryImages.filter(Boolean)
   };
 
   if (!personRow.name) {
@@ -270,46 +277,6 @@ async function deleteSelectedSpeaker() {
 }
 
 
-async function uploadSpeakerImage() {
-  const msg = $("speakerFormMessage");
-  const fileInput = $("speakerImageFile");
-  const file = fileInput.files && fileInput.files[0];
-
-  if (!file) {
-    msg.className = "form-message error";
-    msg.textContent = "Előbb válassz ki egy képet.";
-    return;
-  }
-
-  const currentName = $("personName").value.trim() || "eloadok";
-  const safeName = makeSafeFileName(currentName + "-" + file.name);
-  const path = `speakers/${Date.now()}-${safeName}`;
-
-  msg.className = "form-message";
-  msg.textContent = "Kép feltöltése folyamatban...";
-
-  const { error } = await client.storage
-    .from(SPEAKER_IMAGE_BUCKET)
-    .upload(path, file, { cacheControl: "3600", upsert: false });
-
-  if (error) {
-    console.error(error);
-    msg.className = "form-message error";
-    msg.textContent = "Nem sikerült feltölteni a képet. Ellenőrizd a Storage jogosultságokat.";
-    return;
-  }
-
-  const { data } = client.storage.from(SPEAKER_IMAGE_BUCKET).getPublicUrl(path);
-  $("personImage").value = data.publicUrl;
-  fileInput.value = "";
-
-  msg.className = "form-message success";
-  msg.textContent = "Kép feltöltve. Ne felejtsd el menteni az előadót.";
-  $("saveState").textContent = "Módosítva";
-  $("saveState").className = "save-state changed";
-  renderLivePreview();
-}
-
 function makeSafeFileName(name) {
   return String(name || "image.jpg")
     .normalize("NFD")
@@ -319,6 +286,218 @@ function makeSafeFileName(name) {
     .toLowerCase();
 }
 
+
+function initSpeakerMediaUpload() {
+  const mainZone = $("mainImageDrop");
+  const mainInput = $("mainImageFile");
+
+  if (mainZone && mainInput && !mainZone.dataset.ready) {
+    mainZone.dataset.ready = "1";
+    mainZone.addEventListener("click", event => {
+      if (event.target.tagName !== "BUTTON") mainInput.click();
+    });
+    mainInput.addEventListener("change", () => {
+      const file = mainInput.files && mainInput.files[0];
+      if (file) uploadSpeakerMedia(file, "main");
+    });
+    wireDropZone(mainZone, file => uploadSpeakerMedia(file, "main"));
+  }
+
+  document.querySelectorAll(".speaker-drop-zone.gallery").forEach(zone => {
+    if (zone.dataset.ready) return;
+    zone.dataset.ready = "1";
+    const slot = Number(zone.dataset.slot);
+    const input = zone.querySelector("input[type=file]");
+
+    zone.addEventListener("click", event => {
+      const action = event.target.closest("[data-media-action]");
+      if (action) return;
+      input.click();
+    });
+
+    input.addEventListener("change", () => {
+      const file = input.files && input.files[0];
+      if (file) uploadSpeakerMedia(file, "gallery", slot);
+    });
+
+    wireDropZone(zone, file => uploadSpeakerMedia(file, "gallery", slot));
+  });
+
+  renderMediaManager();
+}
+
+function wireDropZone(zone, callback) {
+  ["dragenter", "dragover"].forEach(type => {
+    zone.addEventListener(type, event => {
+      event.preventDefault();
+      zone.classList.add("dragging");
+    });
+  });
+
+  ["dragleave", "drop"].forEach(type => {
+    zone.addEventListener(type, event => {
+      event.preventDefault();
+      zone.classList.remove("dragging");
+    });
+  });
+
+  zone.addEventListener("drop", event => {
+    const file = event.dataTransfer && event.dataTransfer.files && event.dataTransfer.files[0];
+    if (file) callback(file);
+  });
+}
+
+async function uploadSpeakerMedia(file, kind, slot = null) {
+  const msg = $("speakerFormMessage");
+
+  if (!file.type || !file.type.startsWith("image/")) {
+    msg.className = "form-message error";
+    msg.textContent = "Csak képfájlt lehet feltölteni.";
+    return;
+  }
+
+  msg.className = "form-message";
+  msg.textContent = "Kép optimalizálása és feltöltése...";
+
+  try {
+    const optimized = await optimizeImage(file, kind === "main" ? 1200 : 1000);
+    const currentName = $("personName").value.trim() || "eloadok";
+    const safeName = makeSafeFileName(`${currentName}-${kind}-${slot ?? "main"}-${file.name.replace(/\.[^.]+$/, "")}.jpg`);
+    const path = `speakers/${Date.now()}-${safeName}`;
+
+    const { error } = await client.storage
+      .from(SPEAKER_IMAGE_BUCKET)
+      .upload(path, optimized, { cacheControl: "3600", upsert: false, contentType: "image/jpeg" });
+
+    if (error) throw error;
+
+    const { data } = client.storage.from(SPEAKER_IMAGE_BUCKET).getPublicUrl(path);
+
+    if (kind === "main") {
+      $("personImage").value = data.publicUrl;
+    } else {
+      speakerGalleryImages[slot] = data.publicUrl;
+    }
+
+    msg.className = "form-message success";
+    msg.textContent = "Kép feltöltve. Mentéskor bekerül az előadó adatlapjára.";
+    $("saveState").textContent = "Módosítva";
+    $("saveState").className = "save-state changed";
+    renderLivePreview();
+  } catch (error) {
+    console.error(error);
+    msg.className = "form-message error";
+    msg.textContent = "Nem sikerült feltölteni a képet. Ellenőrizd a Storage jogosultságokat.";
+  }
+}
+
+function optimizeImage(file, maxSize) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    const url = URL.createObjectURL(file);
+
+    img.onload = () => {
+      URL.revokeObjectURL(url);
+
+      let width = img.width;
+      let height = img.height;
+      const ratio = Math.min(maxSize / width, maxSize / height, 1);
+      width = Math.round(width * ratio);
+      height = Math.round(height * ratio);
+
+      const canvas = document.createElement("canvas");
+      canvas.width = width;
+      canvas.height = height;
+      const ctx = canvas.getContext("2d");
+      ctx.drawImage(img, 0, 0, width, height);
+
+      canvas.toBlob(blob => {
+        if (!blob) reject(new Error("Nem sikerült tömöríteni a képet."));
+        else resolve(blob);
+      }, "image/jpeg", 0.84);
+    };
+
+    img.onerror = () => reject(new Error("Nem sikerült megnyitni a képet."));
+    img.src = url;
+  });
+}
+
+function renderMediaManager() {
+  const mainUrl = speakerImageUrl($("personImage").value.trim());
+  const mainPreview = $("mainImagePreview");
+
+  if (mainPreview) {
+    mainPreview.innerHTML = mainUrl
+      ? `<img src="${escapeHtml(mainUrl)}" alt=""><button type="button" data-media-action="remove-main">Törlés</button>`
+      : "📷";
+  }
+
+  document.querySelectorAll(".speaker-drop-zone.gallery").forEach(zone => {
+    const slot = Number(zone.dataset.slot);
+    const url = speakerImageUrl(speakerGalleryImages[slot]);
+    const preview = zone.querySelector(".speaker-drop-preview");
+    if (!preview) return;
+
+    preview.innerHTML = url
+      ? `<img src="${escapeHtml(url)}" alt="">
+          <div class="speaker-media-buttons">
+            <button type="button" data-media-action="make-main" data-slot="${slot}">⭐ Főkép</button>
+            <button type="button" data-media-action="remove-gallery" data-slot="${slot}">Törlés</button>
+          </div>`
+      : "+";
+  });
+
+  const counter = $("speakerImageCounter");
+  if (counter) {
+    const count = ($("personImage").value.trim() ? 1 : 0) + speakerGalleryImages.filter(Boolean).length;
+    counter.textContent = `${count}/4 kép`;
+  }
+
+  document.querySelectorAll("[data-media-action]").forEach(btn => {
+    if (btn.dataset.ready) return;
+    btn.dataset.ready = "1";
+    btn.addEventListener("click", event => {
+      event.stopPropagation();
+      const action = btn.dataset.mediaAction;
+      const slot = Number(btn.dataset.slot);
+
+      if (action === "remove-main") {
+        $("personImage").value = "";
+      }
+
+      if (action === "remove-gallery") {
+        speakerGalleryImages[slot] = "";
+      }
+
+      if (action === "make-main") {
+        const oldMain = $("personImage").value.trim();
+        $("personImage").value = speakerGalleryImages[slot] || "";
+        speakerGalleryImages[slot] = oldMain;
+      }
+
+      $("saveState").textContent = "Módosítva";
+      $("saveState").className = "save-state changed";
+      renderLivePreview();
+    });
+  });
+}
+
+function normalizeGalleryImages(value) {
+  let arr = [];
+
+  if (Array.isArray(value)) arr = value;
+  else if (typeof value === "string" && value.trim()) {
+    try {
+      const parsed = JSON.parse(value);
+      if (Array.isArray(parsed)) arr = parsed;
+    } catch {
+      arr = value.split(",").map(x => x.trim()).filter(Boolean);
+    }
+  }
+
+  return [arr[0] || "", arr[1] || "", arr[2] || ""];
+}
+
 function renderLivePreview() {
   const name = $("personName").value.trim() || "Előadó neve";
   const title = $("personTitle").value.trim() || "Szakterület / titulus";
@@ -326,6 +505,8 @@ function renderLivePreview() {
   const bio = $("personBio").value.trim() || "A bemutatkozás élő előnézete itt jelenik meg.";
   const talk = $("talkTitle").value.trim();
   const img = speakerImageUrl($("personImage").value.trim());
+  const gallery = speakerGalleryImages.filter(Boolean).map(speakerImageUrl);
+  renderMediaManager();
   const featured = $("speakerFeatured").checked;
   const visible = $("speakerVisible").checked;
 
@@ -340,6 +521,7 @@ function renderLivePreview() {
         <p class="speaker-preview-title">${escapeHtml(title)}${city ? " • " + escapeHtml(city) : ""}</p>
         ${talk ? `<p class="speaker-preview-talk">🎤 ${escapeHtml(talk)}</p>` : ""}
         <p>${escapeHtml(bio).slice(0, 260)}${bio.length > 260 ? "..." : ""}</p>
+        ${gallery.length ? `<div class="speaker-preview-gallery">${gallery.map(url => `<img src="${escapeHtml(url)}" alt="">`).join("")}</div>` : ""}
       </div>
     </article>
   `;

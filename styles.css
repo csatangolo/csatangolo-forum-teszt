@@ -6219,3 +6219,139 @@ body.site-menu-active .site-menu-overlay{opacity:1; pointer-events:auto}
   color:#6e523b;
   line-height:1.35;
 }
+
+
+
+
+/* === Előadókezelő PRO 3 – drag & drop képek === */
+.speaker-pro-media-block{
+  display:grid;
+  gap:14px;
+  padding:16px;
+  border-radius:24px;
+  background:#f3dfbd;
+  border:1px solid rgba(160,106,50,.16);
+}
+.speaker-media-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+}
+.speaker-media-head h3{
+  margin:.1em 0 0;
+  color:#3a2110;
+  font-size:1.35rem;
+}
+.speaker-drop-zone{
+  position:relative;
+  display:grid;
+  place-items:center;
+  gap:7px;
+  min-height:170px;
+  padding:16px;
+  border-radius:24px;
+  border:2px dashed rgba(94,60,38,.28);
+  background:#fff8ea;
+  color:#5e3c26;
+  text-align:center;
+  cursor:pointer;
+  overflow:hidden;
+  transition:transform .16s ease, border-color .16s ease, background .16s ease;
+}
+.speaker-drop-zone.dragging{
+  transform:scale(.99);
+  border-color:#d6a24b;
+  background:#fff0c2;
+}
+.speaker-drop-zone input[type=file]{
+  position:absolute;
+  width:1px;
+  height:1px;
+  opacity:0;
+  pointer-events:none;
+}
+.speaker-drop-zone.main{
+  min-height:260px;
+}
+.speaker-drop-preview{
+  width:100%;
+  min-height:80px;
+  display:grid;
+  place-items:center;
+  font-size:2.7rem;
+}
+.speaker-drop-preview img{
+  width:100%;
+  height:100%;
+  max-height:260px;
+  object-fit:cover;
+  border-radius:20px;
+  display:block;
+}
+.speaker-drop-zone strong{
+  font-size:1.05rem;
+}
+.speaker-drop-zone span{
+  color:#7a5a42;
+  font-weight:800;
+  line-height:1.35;
+}
+.speaker-gallery-slots{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+}
+.speaker-gallery-slots .speaker-drop-zone{
+  min-height:190px;
+}
+.speaker-gallery-slots .speaker-drop-preview img{
+  max-height:138px;
+}
+.speaker-media-buttons{
+  position:absolute;
+  left:8px;
+  right:8px;
+  bottom:8px;
+  display:flex;
+  gap:6px;
+  justify-content:center;
+  flex-wrap:wrap;
+}
+.speaker-media-buttons button,
+#mainImagePreview button{
+  border:0;
+  border-radius:999px;
+  padding:7px 10px;
+  background:#5e3c26;
+  color:#fff8ea;
+  font-weight:900;
+  cursor:pointer;
+  box-shadow:0 8px 18px rgba(43,21,9,.18);
+}
+#mainImagePreview button{
+  position:absolute;
+  right:12px;
+  bottom:12px;
+}
+.speaker-media-note{
+  color:#6e523b;
+  font-weight:800;
+}
+.speaker-preview-gallery{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+  margin-top:12px;
+}
+.speaker-preview-gallery img{
+  width:100%;
+  aspect-ratio:1/1;
+  object-fit:cover;
+  border-radius:14px;
+}
+@media(max-width:880px){
+  .speaker-gallery-slots{
+    grid-template-columns:1fr;
+  }
+}
