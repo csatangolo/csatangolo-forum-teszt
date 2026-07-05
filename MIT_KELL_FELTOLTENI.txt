@@ -1,1 +1,16 @@
-TESZT Portál csomag\n\nFeltöltendő:\n- test-portal.html\n- test-portal.js\n- styles.css\n- manager.html\n- docs/CHANGELOG_TEST_PORTAL.md\n\nSQL nem kell.\nPIN: Tigris97\n
+Előadókezelő PRO 1 csomag
+
+Feltöltendő:
+- speakers-manager.html
+- speakers-manager.js
+- styles.css
+- docs/CHANGELOG_SPEAKERS_PRO_1.md
+
+SQL:
+- Nem kell.
+
+Tesztlink:
+https://csatangolo.online/csatangolo-forum-teszt/speakers-manager.html
+
+PIN:
+Tigris97
