@@ -46,153 +46,116 @@ setInterval(updateCountdown, 60000);
 loadParticipantCounter();
 
 
-// Premium előadói sor: automatikus, finom lapozás
+
+// === Public Speakers 1: főoldali előadók Supabase-ből ===
 (function(){
-  function initSpeakerAutoscroll(){
-    var strip = document.getElementById('speakerList');
-    if(!strip || strip.dataset.autoscrollReady === '1') return;
-    strip.dataset.autoscrollReady = '1';
-    var paused = false;
-    strip.addEventListener('mouseenter', function(){ paused = true; });
-    strip.addEventListener('mouseleave', function(){ paused = false; });
-    strip.addEventListener('touchstart', function(){ paused = true; }, {passive:true});
-    strip.addEventListener('touchend', function(){ setTimeout(function(){ paused = false; }, 2500); }, {passive:true});
-    setInterval(function(){
-      if(paused || strip.scrollWidth <= strip.clientWidth) return;
-      var card = strip.querySelector('.f33-speaker, .speaker-premium-card');
-      var step = card ? (card.getBoundingClientRect().width + 20) : 320;
-      if(strip.scrollLeft + strip.clientWidth >= strip.scrollWidth - 20){
-        strip.scrollTo({left:0, behavior:'smooth'});
-      }else{
-        strip.scrollBy({left:step, behavior:'smooth'});
-      }
-    }, 4200);
+  let speakerAutoscrollStarted = false;
+
+  function escapeHtml(str) {
+    return String(str || "").replace(/[&<>"']/g, function(m){
+      return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m];
+    });
   }
-  document.addEventListener('DOMContentLoaded', initSpeakerAutoscroll);
-  window.addEventListener('load', initSpeakerAutoscroll);
-  setTimeout(initSpeakerAutoscroll, 1200);
-})();
 
+  function speakerImageUrl(value) {
+    if (!value) return "";
+    return value;
+  }
 
-// Premium v1.7 előadói sor: folyamatos, körbeforduló lapozás
-(function(){
-  function initInfiniteSpeakers(){
-    var strip = document.getElementById('speakerList');
-    if(!strip || strip.dataset.infiniteSpeakers === '1') return;
-    strip.dataset.infiniteSpeakers = '1';
+  function renderSpeakerCard(row) {
+    const person = row.people || row.person || {};
+    const img = speakerImageUrl(person.image_filename);
+    const title = person.title || row.talk_title || "Előadó";
+    const city = person.city ? " • " + person.city : "";
+    const isFeatured = !!row.is_featured;
+    const galleryCount = Array.isArray(person.gallery_images) ? person.gallery_images.filter(Boolean).length : 0;
 
-    var originalCards = Array.prototype.slice.call(strip.children);
-    if(originalCards.length < 2) return;
+    return `
+      <article class="f33-speaker ${isFeatured ? "featured" : ""}">
+        <div class="f33-speaker-photo" ${img ? `style="background-image:url('${escapeHtml(img)}')"` : ""}></div>
+        <div class="f33-speaker-body">
+          <span>${isFeatured ? "Kiemelt előadó" : "Előadó"}${galleryCount ? ` • 📷 +${galleryCount}` : ""}</span>
+          <h3>${escapeHtml(person.name || "Előadó")}</h3>
+          <p>${escapeHtml(title + city)}</p>
+          <a href="eloadok.html">Részletek</a>
+        </div>
+      </article>
+    `;
+  }
 
-    originalCards.forEach(function(card){
-      var clone = card.cloneNode(true);
-      clone.setAttribute('aria-hidden', 'true');
-      clone.classList.add('f33-speaker-clone');
+  async function loadHomeSpeakers() {
+    const strip = document.getElementById("speakerList");
+    if (!strip || strip.dataset.dynamicSpeakersReady === "1") return;
+
+    const fallbackHtml = strip.innerHTML;
+
+    try {
+      const activeEvent = await loadActiveEvent(client);
+      if (!activeEvent) return;
+
+      const { data, error } = await client
+        .from("event_speakers")
+        .select("id, talk_title, sort_order, is_visible, is_featured, people(id, name, title, city, bio, image_filename, gallery_images)")
+        .eq("event_id", activeEvent.id)
+        .eq("is_visible", true)
+        .order("sort_order", { ascending: true });
+
+      if (error) throw error;
+
+      const rows = (data || []).filter(row => row.people);
+      if (!rows.length) {
+        strip.innerHTML = fallbackHtml;
+        return;
+      }
+
+      strip.dataset.dynamicSpeakersReady = "1";
+      strip.innerHTML = rows.map(renderSpeakerCard).join("");
+      initHomeSpeakerAutoscroll();
+    } catch (error) {
+      console.log("Főoldali előadók nem tölthetők be, marad a statikus lista:", error);
+      strip.innerHTML = fallbackHtml;
+    }
+  }
+
+  function initHomeSpeakerAutoscroll() {
+    const strip = document.getElementById("speakerList");
+    if (!strip || speakerAutoscrollStarted) return;
+
+    const cards = Array.from(strip.children);
+    if (cards.length < 2) return;
+
+    speakerAutoscrollStarted = true;
+    strip.dataset.infiniteSpeakersPublic = "1";
+
+    cards.forEach(card => {
+      const clone = card.cloneNode(true);
+      clone.setAttribute("aria-hidden", "true");
+      clone.classList.add("f33-speaker-clone");
       strip.appendChild(clone);
     });
 
-    var paused = false;
-    var speed = 0.42;
+    let paused = false;
+    const speed = 0.38;
 
-    strip.addEventListener('mouseenter', function(){ paused = true; });
-    strip.addEventListener('mouseleave', function(){ paused = false; });
-    strip.addEventListener('touchstart', function(){ paused = true; }, {passive:true});
-    strip.addEventListener('touchend', function(){ setTimeout(function(){ paused = false; }, 2200); }, {passive:true});
+    strip.addEventListener("mouseenter", () => paused = true);
+    strip.addEventListener("mouseleave", () => paused = false);
+    strip.addEventListener("touchstart", () => paused = true, { passive:true });
+    strip.addEventListener("touchend", () => setTimeout(() => paused = false, 2200), { passive:true });
 
-    function halfWidth(){
-      return strip.scrollWidth / 2;
-    }
-
-    function tick(){
-      if(!paused && strip.scrollWidth > strip.clientWidth){
+    function tick() {
+      if (!paused && strip.scrollWidth > strip.clientWidth) {
+        const half = strip.scrollWidth / 2;
         strip.scrollLeft += speed;
-        if(strip.scrollLeft >= halfWidth()){
-          strip.scrollLeft = strip.scrollLeft - halfWidth();
-        }
+        if (strip.scrollLeft >= half) strip.scrollLeft -= half;
       }
       requestAnimationFrame(tick);
     }
+
     requestAnimationFrame(tick);
   }
 
-  document.addEventListener('DOMContentLoaded', initInfiniteSpeakers);
-  window.addEventListener('load', initInfiniteSpeakers);
-  setTimeout(initInfiniteSpeakers, 1000);
-})();
-
-
-// Premium v1.8: előadói körlapozás frissítése a plusz kártya után
-(function(){
-  function refreshSpeakerCarousel(){
-    var strip = document.getElementById('speakerList');
-    if(!strip) return;
-    if(!strip.querySelector('.f33-speaker-apply')){
-      var card = document.createElement('article');
-      card.className = 'f33-speaker f33-speaker-apply';
-      card.innerHTML = '<div class="f33-speaker-photo"></div><div class="f33-speaker-body"><span>Nyitott lehetőség</span><h3>Jelentkezz te is előadónak</h3><p>Kerülj fel hamarosan az előadók közé.</p><a href="kapcsolat.html">Kapcsolatfelvétel</a></div>';
-      strip.appendChild(card);
-    }
-  }
-  window.addEventListener('load', function(){
-    setTimeout(refreshSpeakerCarousel, 1200);
-    setTimeout(refreshSpeakerCarousel, 2600);
-  });
-})();
-
-
-// Premium v1.9: előadói kártyák folyamatos, körbeforduló mozgása
-(function(){
-  function ensureApplyCard(strip){
-    if(!strip || strip.querySelector('.f33-speaker-apply')) return;
-    var card = document.createElement('article');
-    card.className = 'f33-speaker f33-speaker-apply';
-    card.innerHTML = '<div class="f33-speaker-photo"></div><div class="f33-speaker-body"><span>Nyitott lehetőség</span><h3>Jelentkezz te is előadónak</h3><p>Kerülj fel hamarosan az előadók közé.</p><a href="kapcsolat.html">Kapcsolatfelvétel</a></div>';
-    strip.appendChild(card);
-  }
-
-  function initInfiniteSpeakersV19(){
-    var strip = document.getElementById('speakerList');
-    if(!strip || strip.dataset.infiniteSpeakersV19 === '1') return;
-
-    ensureApplyCard(strip);
-
-    var cards = Array.prototype.slice.call(strip.children).filter(function(card){
-      return !card.classList.contains('f33-speaker-clone');
-    });
-    if(cards.length < 2) return;
-
-    strip.dataset.infiniteSpeakersV19 = '1';
-
-    cards.forEach(function(card){
-      var clone = card.cloneNode(true);
-      clone.setAttribute('aria-hidden', 'true');
-      clone.classList.add('f33-speaker-clone');
-      strip.appendChild(clone);
-    });
-
-    var paused = false;
-    var speed = 0.38;
-
-    strip.addEventListener('mouseenter', function(){ paused = true; });
-    strip.addEventListener('mouseleave', function(){ paused = false; });
-    strip.addEventListener('touchstart', function(){ paused = true; }, {passive:true});
-    strip.addEventListener('touchend', function(){ setTimeout(function(){ paused = false; }, 2200); }, {passive:true});
-
-    function tick(){
-      if(!paused && strip.scrollWidth > strip.clientWidth){
-        var half = strip.scrollWidth / 2;
-        strip.scrollLeft += speed;
-        if(strip.scrollLeft >= half){
-          strip.scrollLeft = strip.scrollLeft - half;
-        }
-      }
-      requestAnimationFrame(tick);
-    }
-    requestAnimationFrame(tick);
-  }
-
-  document.addEventListener('DOMContentLoaded', function(){ setTimeout(initInfiniteSpeakersV19, 700); });
-  window.addEventListener('load', function(){ setTimeout(initInfiniteSpeakersV19, 1200); });
+  document.addEventListener("DOMContentLoaded", loadHomeSpeakers);
+  window.addEventListener("load", () => setTimeout(loadHomeSpeakers, 350));
 })();
 
 
