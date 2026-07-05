@@ -1,13 +1,16 @@
-Előadókezelő PRO 1 csomag
+Előadókezelő PRO 2 csomag
 
 Feltöltendő:
 - speakers-manager.html
 - speakers-manager.js
 - styles.css
-- docs/CHANGELOG_SPEAKERS_PRO_1.md
+- docs/CHANGELOG_SPEAKERS_PRO_2.md
 
 SQL:
-- Nem kell.
+- Nem kell új SQL, ha a Storage jogosultságok már zöldek.
+
+Újdonság:
+- Előadói képfeltöltés a Managerből.
 
 Tesztlink:
 https://csatangolo.online/csatangolo-forum-teszt/speakers-manager.html

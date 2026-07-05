@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Előadókezelő PRO – Csatangoló Manager</title>
-  <link rel="stylesheet" href="styles.css?v=speakers-pro-1">
+  <link rel="stylesheet" href="styles.css?v=speakers-pro-2">
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="supabase-config.js?v=test-env-1"></script>
   <script src="event-loader.js?v=events-connect-1"></script>
@@ -98,6 +98,13 @@
               <label>Kép fájlneve vagy URL
                 <input id="personImage" type="text" placeholder="pl. szabo-arpad.jpg vagy https://...">
               </label>
+              <div class="speaker-upload-box">
+                <label class="speaker-upload-label">Képfeltöltés
+                  <input id="speakerImageFile" type="file" accept="image/*">
+                </label>
+                <button id="uploadSpeakerImageBtn" class="button ghost dark" type="button">📤 Kép feltöltése</button>
+                <small>A kép a Supabase Storage <b>forum-assets</b> mappába kerül.</small>
+              </div>
             </div>
 
             <div class="speaker-pro-two">
@@ -157,8 +164,8 @@
     </section>
   </main>
 
-<script src="speakers-manager.js?v=speakers-pro-1"></script>
+<script src="speakers-manager.js?v=speakers-pro-2"></script>
 <script src="site-mobile-menu.js?v=v2-2-full"></script>
-<div class="version-badge">Speakers PRO 1 TESZT</div>
+<div class="version-badge">Speakers PRO 2 TESZT</div>
 </body>
 </html>

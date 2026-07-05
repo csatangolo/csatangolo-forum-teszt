@@ -6189,3 +6189,33 @@ body.site-menu-active .site-menu-overlay{opacity:1; pointer-events:auto}
 @media(max-width:1180px){.speaker-pro-layout{grid-template-columns:330px 1fr}.speaker-pro-preview-panel{grid-column:1/-1}.speaker-pro-stats{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:880px){.speaker-pro-layout,.speaker-pro-toolbar,.speaker-pro-two,.speaker-pro-three{grid-template-columns:1fr}.speaker-pro-image-row{grid-template-columns:1fr}.speaker-pro-image-preview{width:100%;height:220px}.speaker-pro-hero{display:grid}.speaker-pro-actions .button,.speaker-pro-form-actions .button{width:100%;justify-content:center}}
 @media(max-width:620px){.speaker-pro-page{width:calc(100% - 18px);padding-top:12px}.speaker-pro-hero,.speaker-pro-list-panel,.speaker-pro-editor-panel,.speaker-pro-preview-panel{padding:18px;border-radius:24px}.speaker-pro-stats{grid-template-columns:1fr}}
+
+
+
+
+/* === Előadókezelő PRO 2 – képfeltöltés === */
+.speaker-upload-box{
+  display:grid;
+  gap:9px;
+  padding:12px;
+  border-radius:20px;
+  background:#f3dfbd;
+  border:1px solid rgba(160,106,50,.14);
+}
+.speaker-upload-label{
+  display:grid!important;
+  gap:7px!important;
+  color:#5e3c26!important;
+  font-weight:900!important;
+}
+.speaker-upload-label input{
+  width:100%;
+  padding:10px;
+  border-radius:16px;
+  background:#fff8ea;
+  border:1px solid rgba(94,60,38,.16);
+}
+.speaker-upload-box small{
+  color:#6e523b;
+  line-height:1.35;
+}

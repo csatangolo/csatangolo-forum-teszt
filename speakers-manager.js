@@ -2,6 +2,7 @@ const SUPABASE_URL = window.CSATANGOLO_SUPABASE_URL;
 const SUPABASE_ANON_KEY = window.CSATANGOLO_SUPABASE_ANON_KEY;
 const client = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 const MANAGER_PIN = "Tigris97";
+const SPEAKER_IMAGE_BUCKET = "forum-assets";
 
 let activeEvent = null;
 let people = [];
@@ -266,6 +267,56 @@ async function deleteSelectedSpeaker() {
   msg.textContent = "Levettük az aktív rendezvény előadói közül.";
   await loadSpeakerData();
   resetForm();
+}
+
+
+async function uploadSpeakerImage() {
+  const msg = $("speakerFormMessage");
+  const fileInput = $("speakerImageFile");
+  const file = fileInput.files && fileInput.files[0];
+
+  if (!file) {
+    msg.className = "form-message error";
+    msg.textContent = "Előbb válassz ki egy képet.";
+    return;
+  }
+
+  const currentName = $("personName").value.trim() || "eloadok";
+  const safeName = makeSafeFileName(currentName + "-" + file.name);
+  const path = `speakers/${Date.now()}-${safeName}`;
+
+  msg.className = "form-message";
+  msg.textContent = "Kép feltöltése folyamatban...";
+
+  const { error } = await client.storage
+    .from(SPEAKER_IMAGE_BUCKET)
+    .upload(path, file, { cacheControl: "3600", upsert: false });
+
+  if (error) {
+    console.error(error);
+    msg.className = "form-message error";
+    msg.textContent = "Nem sikerült feltölteni a képet. Ellenőrizd a Storage jogosultságokat.";
+    return;
+  }
+
+  const { data } = client.storage.from(SPEAKER_IMAGE_BUCKET).getPublicUrl(path);
+  $("personImage").value = data.publicUrl;
+  fileInput.value = "";
+
+  msg.className = "form-message success";
+  msg.textContent = "Kép feltöltve. Ne felejtsd el menteni az előadót.";
+  $("saveState").textContent = "Módosítva";
+  $("saveState").className = "save-state changed";
+  renderLivePreview();
+}
+
+function makeSafeFileName(name) {
+  return String(name || "image.jpg")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-zA-Z0-9._-]/g, "-")
+    .replace(/-+/g, "-")
+    .toLowerCase();
 }
 
 function renderLivePreview() {
