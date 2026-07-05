@@ -1,0 +1,14 @@
+Csatangoló Manager v2.2 FULL TEST EDITION
+
+Feltöltés:
+- A ZIP teljes tartalmát töltsd fel a teszt weboldal mappájába.
+- Ha rákérdez, válaszd a felülírást.
+
+Új teszt kezdőlink:
+https://csatangolo.online/csatangolo-forum/test-portal.html
+
+PIN:
+Tigris97
+
+SQL:
+Nem kell új SQL, ha a v1.6 / v1.7 / v1.8 SQL-ek már lefutottak.
