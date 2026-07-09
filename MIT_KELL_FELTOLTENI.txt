@@ -1,15 +1,17 @@
-Public Speakers 1 – Főoldali előadók összekötése
+ÉLES oldal – csak előadókezelő frissítés
 
 Feltöltendő:
 - index.html
 - homepage.js
+- public-content.js
+- speakers-manager.html
+- speakers-manager.js
+- styles.css
+- docs/CHANGELOG_LIVE_SPEAKERS_ONLY.md
 
 SQL:
-- Nem kell.
+- A szükséges SQL-t a chatben kapod, nem fájlban.
 
-Teszt:
-1. Adj hozzá vagy módosíts egy előadót az Előadókezelőben.
-2. Legyen látható.
-3. Nyisd meg a főoldalt:
-   https://csatangolo.online/csatangolo-forum-teszt/
-4. Az előadónak meg kell jelennie az Előadóink résznél.
+Fontos:
+- Ez csak az előadói rendszert érinti.
+- A többi éles funkcióhoz nem nyúl.

@@ -1,8 +1,47 @@
-const SUPABASE_URL = window.CSATANGOLO_SUPABASE_URL;
-const SUPABASE_ANON_KEY = window.CSATANGOLO_SUPABASE_ANON_KEY;
+const SUPABASE_URL = "https://ywkabsgazkzrjgjncbfc.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_DJvD1Hoou3Tn74T9BFx0ww_O6ObFlxY";
 const client = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 const MANAGER_PIN = "Tigris97";
 const SPEAKER_IMAGE_BUCKET = "forum-assets";
+
+async function loadActiveEvent(client) {
+  try {
+    const { data, error } = await client
+      .from("events")
+      .select("*")
+      .eq("is_active", true)
+      .limit(1)
+      .maybeSingle();
+    if (!error && data) return data;
+  } catch (error) {
+    console.warn("Aktív rendezvény nem tölthető be:", error);
+  }
+
+  try {
+    const { data, error } = await client
+      .from("events")
+      .select("*")
+      .order("event_date", { ascending: true })
+      .limit(1)
+      .maybeSingle();
+    if (!error && data) return data;
+  } catch (error) {
+    console.warn("Első rendezvény nem tölthető be:", error);
+  }
+
+  return null;
+}
+
+function formatEventDateHu(value) {
+  if (!value) return "";
+  try {
+    return new Intl.DateTimeFormat("hu-HU", { year:"numeric", month:"long", day:"numeric" }).format(new Date(value));
+  } catch {
+    return value;
+  }
+}
+
+
 
 let activeEvent = null;
 let people = [];

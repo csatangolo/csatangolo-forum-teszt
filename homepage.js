@@ -1,5 +1,5 @@
-const SUPABASE_URL = window.CSATANGOLO_SUPABASE_URL;
-const SUPABASE_ANON_KEY = window.CSATANGOLO_SUPABASE_ANON_KEY;
+const SUPABASE_URL = "https://ywkabsgazkzrjgjncbfc.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_DJvD1Hoou3Tn74T9BFx0ww_O6ObFlxY";
 const client = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 function setTextIfExists(id, value) {
@@ -47,35 +47,40 @@ loadParticipantCounter();
 
 
 
-// === Public Speakers 1: főoldali előadók Supabase-ből ===
+// === ÉLES: főoldali előadók az új Előadókezelőből ===
 (function(){
-  let speakerAutoscrollStarted = false;
+  let started = false;
 
-  function escapeHtml(str) {
+  function escapeHtml(str){
     return String(str || "").replace(/[&<>"']/g, function(m){
       return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m];
     });
   }
 
-  function speakerImageUrl(value) {
-    if (!value) return "";
-    return value;
+  async function loadActiveEventLocal(){
+    try{
+      const { data, error } = await client.from("events").select("*").eq("is_active", true).limit(1).maybeSingle();
+      if(!error && data) return data;
+    }catch(e){}
+    try{
+      const { data, error } = await client.from("events").select("*").order("event_date", { ascending:true }).limit(1).maybeSingle();
+      if(!error && data) return data;
+    }catch(e){}
+    return null;
   }
 
-  function renderSpeakerCard(row) {
-    const person = row.people || row.person || {};
-    const img = speakerImageUrl(person.image_filename);
-    const title = person.title || row.talk_title || "Előadó";
-    const city = person.city ? " • " + person.city : "";
-    const isFeatured = !!row.is_featured;
-    const galleryCount = Array.isArray(person.gallery_images) ? person.gallery_images.filter(Boolean).length : 0;
-
+  function renderCard(row){
+    const p = row.people || {};
+    const img = p.image_filename || "";
+    const featured = !!row.is_featured;
+    const title = row.talk_title || p.title || "Előadó";
+    const city = p.city ? " • " + p.city : "";
     return `
-      <article class="f33-speaker ${isFeatured ? "featured" : ""}">
+      <article class="f33-speaker ${featured ? "featured" : ""}">
         <div class="f33-speaker-photo" ${img ? `style="background-image:url('${escapeHtml(img)}')"` : ""}></div>
         <div class="f33-speaker-body">
-          <span>${isFeatured ? "Kiemelt előadó" : "Előadó"}${galleryCount ? ` • 📷 +${galleryCount}` : ""}</span>
-          <h3>${escapeHtml(person.name || "Előadó")}</h3>
+          <span>${featured ? "Kiemelt előadó" : "Előadó"}</span>
+          <h3>${escapeHtml(p.name || "Előadó")}</h3>
           <p>${escapeHtml(title + city)}</p>
           <a href="eloadok.html">Részletek</a>
         </div>
@@ -83,79 +88,66 @@ loadParticipantCounter();
     `;
   }
 
-  async function loadHomeSpeakers() {
+  async function loadHomeSpeakers(){
     const strip = document.getElementById("speakerList");
-    if (!strip || strip.dataset.dynamicSpeakersReady === "1") return;
+    if(!strip || strip.dataset.liveSpeakersReady === "1") return;
+    const fallback = strip.innerHTML;
 
-    const fallbackHtml = strip.innerHTML;
-
-    try {
-      const activeEvent = await loadActiveEvent(client);
-      if (!activeEvent) return;
+    try{
+      const activeEvent = await loadActiveEventLocal();
+      if(!activeEvent) return;
 
       const { data, error } = await client
         .from("event_speakers")
-        .select("id, talk_title, sort_order, is_visible, is_featured, people(id, name, title, city, bio, image_filename, gallery_images)")
+        .select("id,talk_title,sort_order,is_visible,is_featured,people(id,name,title,city,bio,image_filename,gallery_images)")
         .eq("event_id", activeEvent.id)
         .eq("is_visible", true)
-        .order("sort_order", { ascending: true });
+        .order("sort_order", { ascending:true });
 
-      if (error) throw error;
-
+      if(error) throw error;
       const rows = (data || []).filter(row => row.people);
-      if (!rows.length) {
-        strip.innerHTML = fallbackHtml;
-        return;
-      }
+      if(!rows.length) return;
 
-      strip.dataset.dynamicSpeakersReady = "1";
-      strip.innerHTML = rows.map(renderSpeakerCard).join("");
-      initHomeSpeakerAutoscroll();
-    } catch (error) {
-      console.log("Főoldali előadók nem tölthetők be, marad a statikus lista:", error);
-      strip.innerHTML = fallbackHtml;
+      strip.dataset.liveSpeakersReady = "1";
+      strip.innerHTML = rows.map(renderCard).join("");
+      initAutoscroll();
+    }catch(error){
+      console.log("Éles főoldali előadók: marad a statikus lista.", error);
+      strip.innerHTML = fallback;
     }
   }
 
-  function initHomeSpeakerAutoscroll() {
+  function initAutoscroll(){
     const strip = document.getElementById("speakerList");
-    if (!strip || speakerAutoscrollStarted) return;
-
+    if(!strip || started) return;
     const cards = Array.from(strip.children);
-    if (cards.length < 2) return;
-
-    speakerAutoscrollStarted = true;
-    strip.dataset.infiniteSpeakersPublic = "1";
-
+    if(cards.length < 2) return;
+    started = true;
     cards.forEach(card => {
       const clone = card.cloneNode(true);
       clone.setAttribute("aria-hidden", "true");
       clone.classList.add("f33-speaker-clone");
       strip.appendChild(clone);
     });
-
     let paused = false;
     const speed = 0.38;
-
     strip.addEventListener("mouseenter", () => paused = true);
     strip.addEventListener("mouseleave", () => paused = false);
     strip.addEventListener("touchstart", () => paused = true, { passive:true });
     strip.addEventListener("touchend", () => setTimeout(() => paused = false, 2200), { passive:true });
-
-    function tick() {
-      if (!paused && strip.scrollWidth > strip.clientWidth) {
+    function tick(){
+      if(!paused && strip.scrollWidth > strip.clientWidth){
         const half = strip.scrollWidth / 2;
         strip.scrollLeft += speed;
-        if (strip.scrollLeft >= half) strip.scrollLeft -= half;
+        if(strip.scrollLeft >= half) strip.scrollLeft -= half;
       }
       requestAnimationFrame(tick);
     }
-
     requestAnimationFrame(tick);
   }
 
   document.addEventListener("DOMContentLoaded", loadHomeSpeakers);
-  window.addEventListener("load", () => setTimeout(loadHomeSpeakers, 350));
+  window.addEventListener("load", () => setTimeout(loadHomeSpeakers, 400));
 })();
 
 

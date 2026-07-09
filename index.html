@@ -4,12 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>I. Országos Belovagló és Lókiképző Szakmai Fórum</title>
-  <link rel="preload" as="image" href="hero-forum.jpg">
-  <link rel="stylesheet" href="styles.css?v=v2-2-full">
-  <link rel="stylesheet" href="forum-premium-3-3.css?v=v2-2-full">
+  <link rel="preload" as="image" href="assets/hero-forum.jpg">
+  <link rel="stylesheet" href="styles.css?v=FINAL2">
+  <link rel="stylesheet" href="forum-premium-3-3.css?v=FINAL2">
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="supabase-config.js?v=test-env-1"></script>
-  <script src="event-loader.js?v=events-connect-1"></script>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 </head>
 <body class="forum33">
@@ -34,19 +32,16 @@
     <div class="f33-hero-bg"></div>
     <div class="f33-hero-shade"></div>
 
-    <section class="f33-hero-text ui21-hero-card">
-      <div class="f33-hero-emblem">🐴</div>
-      <div class="f33-kicker ui21-kicker"><span></span>Országos lovas szakmai találkozó<span></span></div>
-      <h1 id="publicEventTitle">I. Országos<br>Belovagló és Lókiképző<br>Szakmai Fórum</h1>
+    <section class="f33-hero-text">
+      <div class="f33-kicker"><span></span>Élő szakmai nap belovaglóknak, lókiképzőknek és lovasoknak<span></span></div>
+      <h1>I. Országos<br>Belovagló és Lókiképző<br>Szakmai Fórum</h1>
       <p>Egymástól tanulunk. A lovakért. Egy közösségként.</p>
 
       <div class="f33-meta-line" aria-label="Esemény adatai">
-        <span id="publicEventDate">📅 2026. július 25.</span>
-        <span id="publicEventTime" class="f33-meta-time">🕘 9.00-tól</span>
-        <span id="publicEventLocation">📍 Öregcsertő, Homokmégyi u. 39.</span>
+        <span>📅 2026. július 25.</span>
+        <span class="f33-meta-time">🕘 9.00-tól</span>
+        <span>📍 Öregcsertő, Homokmégyi u. 39.</span>
       </div>
-
-      <div class="ui21-hero-ribbon"><span>🎤 Előadások</span><span>🐴 Gyakorlati tudás</span><span>🍷 Fröccs terasz és lovas büfé</span></div>
 
       <div class="f33-countdown">
         <div><strong id="f33Days">00</strong><small>nap</small></div>
@@ -55,7 +50,7 @@
       </div>
 
       <div class="f33-actions">
-        <a id="publicRegistrationButton" class="f33-btn" href="regisztracio.html">Regisztrálok</a>
+        <a class="f33-btn" href="regisztracio.html">Regisztrálok</a>
         <a class="f33-btn outline" href="program.html">Programok</a>
       </div>
     </section>
@@ -63,7 +58,7 @@
 
   <main>
     <section class="f33-section f33-intro-grid f33-atmo-intro">
-      <article class="f33-atmo-card" style="--card-img:url('forum-extra-1.webp?v=1.4')">
+      <article class="f33-atmo-card" style="--card-img:url('assets/forum-extra-1.webp?v=1.4')">
         <div class="f33-atmo-text">
           <span class="f33-eyebrow">A fórum hangulata</span>
           <h2>Szakmai nap időkorlátok nélkül</h2>
@@ -71,7 +66,7 @@
         </div>
       </article>
 
-      <article class="f33-atmo-card" style="--card-img:url('forum-extra-2.webp?v=1.4')">
+      <article class="f33-atmo-card" style="--card-img:url('assets/forum-extra-2.webp?v=1.4')">
         <div class="f33-atmo-text">
           <span class="f33-eyebrow">Kényelem egész nap</span>
           <h2>Fröccsterasz és lovas büfé</h2>
@@ -79,7 +74,7 @@
         </div>
       </article>
 
-      <article class="f33-atmo-card" style="--card-img:url('forum-extra-3.webp?v=1.4')">
+      <article class="f33-atmo-card" style="--card-img:url('assets/forum-extra-3.webp?v=1.4')">
         <div class="f33-atmo-text">
           <span class="f33-eyebrow">Fedeles lovarda</span>
           <h2>Időjárástól függetlenül</h2>
@@ -96,43 +91,43 @@
       </div>
       <div class="f33-speaker-strip f33-auto-speakers" id="speakerList">
         <article class="f33-speaker featured">
-          <div class="f33-speaker-photo" style="background-image:url('panyi-gyuri.jpg')"></div>
+          <div class="f33-speaker-photo" style="background-image:url('assets/panyi-gyuri.jpg')"></div>
           <div class="f33-speaker-body"><span>Kiemelt előadó</span><h3>Panyi Gyuri</h3><p>Lovas szakember • gyakorlati szemlélet</p><a href="eloadok.html">Bemutatkozás</a></div>
         </article>
         <article class="f33-speaker featured">
-          <div class="f33-speaker-photo" style="background-image:url('pataky-kata.jpg')"></div>
+          <div class="f33-speaker-photo" style="background-image:url('assets/pataky-kata.jpg')"></div>
           <div class="f33-speaker-body"><span>Kiemelt előadó</span><h3>Pataky Kata</h3><p>Oktatás • lóval való kapcsolat</p><a href="eloadok.html">Bemutatkozás</a></div>
         </article>
         <article class="f33-speaker ">
-          <div class="f33-speaker-photo" style="background-image:url('karl-peter.jpg')"></div>
+          <div class="f33-speaker-photo" style="background-image:url('assets/karl-peter.jpg')"></div>
           <div class="f33-speaker-body"><span>Előadó</span><h3>Karl Péter</h3><p>Western és ranch szemlélet</p><a href="eloadok.html">Részletek</a></div>
         </article>
         <article class="f33-speaker ">
-          <div class="f33-speaker-photo" style="background-image:url('kevey-bella.png')"></div>
+          <div class="f33-speaker-photo" style="background-image:url('assets/kevey-bella.png')"></div>
           <div class="f33-speaker-body"><span>Előadó</span><h3>Kevey Bella</h3><p>Díjugratás • sportló képzés</p><a href="eloadok.html">Részletek</a></div>
         </article>
         <article class="f33-speaker ">
-          <div class="f33-speaker-photo" style="background-image:url('szabo-arpad-card.jpg')"></div>
+          <div class="f33-speaker-photo" style="background-image:url('assets/szabo-arpad-card.jpg')"></div>
           <div class="f33-speaker-body"><span>Előadó</span><h3>Szabó Árpád</h3><p>Csikónevelés • tenyésztői felelősség</p><a href="eloadok.html">Részletek</a></div>
         </article>
         <article class="f33-speaker ">
-          <div class="f33-speaker-photo" style="background-image:url('kaska-zoltan.jpg')"></div>
+          <div class="f33-speaker-photo" style="background-image:url('assets/kaska-zoltan.jpg')"></div>
           <div class="f33-speaker-body"><span>Előadó</span><h3>Kaska Zoltán</h3><p>Díjugratás • versenytapasztalat</p><a href="eloadok.html">Részletek</a></div>
         </article>
         <article class="f33-speaker ">
-          <div class="f33-speaker-photo" style="background-image:url('benner-jani.jpg')"></div>
+          <div class="f33-speaker-photo" style="background-image:url('assets/benner-jani.jpg')"></div>
           <div class="f33-speaker-body"><span>Előadó</span><h3>Benner Jani</h3><p>Terepmunka • használati ló</p><a href="eloadok.html">Részletek</a></div>
         </article>
         <article class="f33-speaker ">
-          <div class="f33-speaker-photo" style="background-image:url('tisza-zoltan.jpg')"></div>
+          <div class="f33-speaker-photo" style="background-image:url('assets/tisza-zoltan.jpg')"></div>
           <div class="f33-speaker-body"><span>Előadó</span><h3>Tisza Zoltán</h3><p>Szabadidomítás • kommunikáció</p><a href="eloadok.html">Részletek</a></div>
         </article>
         <article class="f33-speaker ">
-          <div class="f33-speaker-photo" style="background-image:url('taszler-melinda.jpg')"></div>
+          <div class="f33-speaker-photo" style="background-image:url('assets/taszler-melinda.jpg')"></div>
           <div class="f33-speaker-body"><span>Előadó</span><h3>Tászler Melinda</h3><p>Lovas bemutató • összhang</p><a href="eloadok.html">Részletek</a></div>
         </article>
         <article class="f33-speaker ">
-          <div class="f33-speaker-photo" style="background-image:url('szabo-zoltan.jpg')"></div>
+          <div class="f33-speaker-photo" style="background-image:url('assets/szabo-zoltan.jpg')"></div>
           <div class="f33-speaker-body"><span>Előadó</span><h3>Szabó Zoltán</h3><p>Terepakadályok • gyakorlati képzés</p><a href="eloadok.html">Részletek</a></div>
         </article>
         <article class="f33-speaker f33-speaker-apply">
@@ -155,7 +150,7 @@
     </section>
 
     <section class="f33-section f33-lower-atmo-section">
-      <article class="f33-lower-atmo-card" style="--lower-img:url('1_1.png')">
+      <article class="f33-lower-atmo-card" style="--lower-img:url('assets/1_1.png')">
         <div class="f33-lower-atmo-text">
           <span class="f33-eyebrow">Közösségi tér</span>
           <h2>Lovarda, legelő, fröccsterasz és szakmai közösség</h2>
@@ -168,9 +163,9 @@
           </ul>
         </div>
       <div class="f33-community-slider" aria-label="Közösségi tér képgaléria">
-            <img class="f33-community-slide is-active" src="1_1.png" alt="Csatangoló közösségi tér" loading="lazy">
-            <img class="f33-community-slide" src="1_2.png" alt="Csatangoló Lovas Büfé és Fröccsterasz" loading="lazy">
-            <img class="f33-community-slide" src="1_3.png" alt="Családi programok" loading="lazy">
+            <img class="f33-community-slide is-active" src="assets/1_1.png" alt="Csatangoló közösségi tér" loading="lazy">
+            <img class="f33-community-slide" src="assets/1_2.png" alt="Csatangoló Lovas Büfé és Fröccsterasz" loading="lazy">
+            <img class="f33-community-slide" src="assets/1_3.png" alt="Családi programok" loading="lazy">
             <div class="f33-community-caption" id="communityCaption">Családi programok egész nap</div>
           </div>
         </article>
@@ -178,7 +173,7 @@
 
     <section class="f33-section f33-cards f33-cards-two">
       <div class="f33-card"><span class="f33-eyebrow">Program</span><h2>Kötetlen szakmai nap</h2><p>Nem percre pontos időrendben gondolkodunk, hanem rugalmas, tartalmas, egész napos szakmai jelenlétben.</p><a href="program.html">Program részletei</a></div>
-      <div class="f33-card image f33-visible-image-card"><img src="forum-extra-3.webp?v=1.4" alt="Fedeles lovarda" loading="lazy"></div>
+      <div class="f33-card image f33-visible-image-card"><img src="assets/forum-extra-3.webp?v=1.4" alt="Fedeles lovarda" loading="lazy"></div>
       <div class="f33-card f33-registration-card"><span class="f33-eyebrow">Jelentkezés</span><h2>Regisztráció a fórumra</h2><p>A regisztráció után névre szóló digitális QR-belépőt kapsz, amelyet a helyszíni beléptetésnél tudunk ellenőrizni.</p><ul><li>Digitális QR-belépő</li><li>Egész napos szakmai program</li><li>Büfé és fröccsterasz a helyszínen</li></ul><a href="regisztracio.html">Regisztrálok</a></div>
     </section>
 
@@ -212,7 +207,7 @@
       <a href="regisztracio.html">Regisztrálok</a>
     </section>
 
-    <footer class="f33-footer" style="background-image:url('fokep.png')" id="kapcsolat">
+    <footer class="f33-footer" style="background-image:url('assets/fokep.png')" id="kapcsolat">
     <div class="f33-footer-text">Találkozzunk a Csatangoló Lovardában!</div>
     <div class="f33-footer-grid f33-footer-grid-premium">
       <div>
@@ -245,7 +240,7 @@
     </div>
   </footer>
 
-  <script src="homepage.js?v=public-speakers-1"></script>
+  <script src="homepage.js?v=live-speakers-only-1"></script>
   <script src="forum-premium-3-3.js?v=3.3.0"></script>
 
 <script id="f33-count-threshold-200">
@@ -279,7 +274,6 @@
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="public-map.js?v=FINAL2"></script>
-  <script src="public-event.js?v=events-connect-1"></script>
-<script src="site-mobile-menu.js?v=v2-2-full"></script>
+  <script src="site-mobile-menu.js?v=real-final"></script>
 </body>
 </html>
