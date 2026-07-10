@@ -1,5 +1,5 @@
-const SUPABASE_URL = "https://ywkabsgazkzrjgjncbfc.supabase.co";
-const SUPABASE_ANON_KEY = "sb_publishable_DJvD1Hoou3Tn74T9BFx0ww_O6ObFlxY";
+const SUPABASE_URL = "https://brbtvjikquaanypccvlf.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_ROEEHu7pPuecGew1eJIYQQ_Ud5hcOhV";
 const client = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 const MANAGER_PIN = "Tigris97";
 const SPEAKER_IMAGE_BUCKET = "forum-assets";
