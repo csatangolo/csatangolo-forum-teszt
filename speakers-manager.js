@@ -5,31 +5,51 @@ const MANAGER_PIN = "Tigris97";
 const SPEAKER_IMAGE_BUCKET = "forum-assets";
 
 async function loadActiveEvent(client) {
+  const { event } = await loadOrCreateEvent(client);
+  return event;
+}
+
+async function loadOrCreateEvent(client) {
   try {
     const { data, error } = await client
       .from("events")
       .select("*")
-      .eq("is_active", true)
-      .limit(1)
-      .maybeSingle();
-    if (!error && data) return data;
+      .order("event_date", { ascending: true });
+
+    if (!error && Array.isArray(data) && data.length) {
+      allEvents = data;
+      const active = data.find(e => e.is_active === true) || data[0];
+      return { event: active, created: false };
+    }
   } catch (error) {
-    console.warn("Aktív rendezvény nem tölthető be:", error);
+    console.warn("Rendezvények betöltése nem sikerült:", error);
   }
 
   try {
+    const defaultEvent = {
+      name: "I. Országos Belovagló és Lókiképző Szakmai Fórum",
+      title: "I. Országos Belovagló és Lókiképző Szakmai Fórum",
+      event_date: "2026-07-25",
+      start_time: "09:00",
+      location: "6311 Öregcsertő, Homokmégyi u. 39.",
+      is_active: true
+    };
+
     const { data, error } = await client
       .from("events")
+      .insert(defaultEvent)
       .select("*")
-      .order("event_date", { ascending: true })
-      .limit(1)
-      .maybeSingle();
-    if (!error && data) return data;
+      .single();
+
+    if (!error && data) {
+      allEvents = [data];
+      return { event: data, created: true };
+    }
   } catch (error) {
-    console.warn("Első rendezvény nem tölthető be:", error);
+    console.warn("Alap rendezvény létrehozása nem sikerült:", error);
   }
 
-  return null;
+  return { event: null, created: false };
 }
 
 function formatEventDateHu(value) {
@@ -44,6 +64,7 @@ function formatEventDateHu(value) {
 
 
 let activeEvent = null;
+let allEvents = [];
 let people = [];
 let appearances = [];
 let selectedPerson = null;
@@ -56,6 +77,12 @@ const $ = id => document.getElementById(id);
 $("speakerUnlock").addEventListener("click", unlockSpeakers);
 $("speakerPin").addEventListener("keydown", e => { if (e.key === "Enter") unlockSpeakers(); });
 $("reloadSpeakersBtn").addEventListener("click", loadSpeakerData);
+$("speakerEventSelect").addEventListener("change", async () => {
+  const selectedId = $("speakerEventSelect").value;
+  activeEvent = allEvents.find(e => String(e.id) === String(selectedId)) || activeEvent;
+  await migrateLegacySpeakersIfNeeded();
+  await loadSpeakerData(false);
+});
 $("newPersonBtn").addEventListener("click", resetForm);
 $("resetSpeakerForm").addEventListener("click", resetForm);
 $("speakerSearch").addEventListener("input", renderSpeakerList);
@@ -85,16 +112,25 @@ function unlockSpeakers() {
   loadSpeakerData();
 }
 
-async function loadSpeakerData() {
-  activeEvent = await loadActiveEvent(client);
+async function loadSpeakerData(allowAutoMigration = true) {
+  const loaded = await loadOrCreateEvent(client);
+  if (!activeEvent) activeEvent = loaded.event;
+  if (!activeEvent && loaded.event) activeEvent = loaded.event;
+
   const meta = $("speakerEventMeta");
+  renderEventSelect();
 
   if (!activeEvent) {
-    meta.textContent = "Nincs aktív rendezvény. Előbb állítsd be a Rendezvény oldalon.";
+    meta.textContent = "Nem sikerült rendezvényt létrehozni vagy betölteni.";
+    $("speakerList").innerHTML = `<p class="hint">Nincs elérhető rendezvény.</p>`;
     return;
   }
 
-  meta.textContent = [activeEvent.name, activeEvent.event_date ? formatEventDateHu(activeEvent.event_date) : ""].filter(Boolean).join(" • ");
+  meta.textContent = [activeEvent.name || activeEvent.title, activeEvent.event_date ? formatEventDateHu(activeEvent.event_date) : ""].filter(Boolean).join(" • ");
+
+  if (allowAutoMigration) {
+    await migrateLegacySpeakersIfNeeded();
+  }
 
   const peopleRes = await client.from("people").select("*").order("name", { ascending: true });
   const appRes = await client.from("event_speakers").select("*").eq("event_id", activeEvent.id).order("sort_order", { ascending: true });
@@ -110,6 +146,111 @@ async function loadSpeakerData() {
   renderStats();
   renderSpeakerList();
   renderLivePreview();
+}
+
+function renderEventSelect() {
+  const select = $("speakerEventSelect");
+  if (!select) return;
+
+  select.innerHTML = (allEvents || []).map(event => {
+    const label = [event.name || event.title || "Rendezvény", event.event_date ? formatEventDateHu(event.event_date) : ""].filter(Boolean).join(" – ");
+    return `<option value="${escapeHtml(event.id)}">${escapeHtml(label)}</option>`;
+  }).join("");
+
+  if (activeEvent) select.value = activeEvent.id;
+}
+
+async function migrateLegacySpeakersIfNeeded() {
+  if (!activeEvent) return;
+
+  const existingRes = await client
+    .from("event_speakers")
+    .select("id")
+    .eq("event_id", activeEvent.id)
+    .limit(1);
+
+  if (!existingRes.error && existingRes.data && existingRes.data.length) return;
+
+  let legacy = [];
+  try {
+    const { data, error } = await client
+      .from("speakers")
+      .select("*")
+      .order("sort_order", { ascending: true });
+
+    if (!error && data) legacy = data;
+  } catch (error) {
+    console.warn("Régi speakers tábla nem olvasható:", error);
+  }
+
+  if (!legacy.length) return;
+
+  const msg = $("speakerFormMessage");
+  if (msg) {
+    msg.className = "form-message";
+    msg.textContent = "Meglévő előadók átvétele az új rendszerbe...";
+  }
+
+  for (const old of legacy) {
+    const oldName = old.name || old.full_name || old.title || "";
+    if (!oldName.trim()) continue;
+
+    let person = null;
+
+    const found = await client
+      .from("people")
+      .select("*")
+      .ilike("name", oldName.trim())
+      .limit(1)
+      .maybeSingle();
+
+    if (!found.error && found.data) {
+      person = found.data;
+    } else {
+      const personRow = {
+        name: oldName.trim(),
+        title: old.subtitle || old.profession || old.role || old.topic || "",
+        city: old.city || old.location || "",
+        image_filename: old.image_url || old.main_image_url || old.photo_url || old.profile_image_url || "",
+        bio: old.bio || old.description || "",
+        link_url: old.website_url || old.facebook_url || old.report_url || "",
+        gallery_images: Array.isArray(old.gallery_images) ? old.gallery_images : []
+      };
+
+      const inserted = await client
+        .from("people")
+        .insert(personRow)
+        .select("*")
+        .single();
+
+      if (!inserted.error) person = inserted.data;
+    }
+
+    if (!person) continue;
+
+    const exists = await client
+      .from("event_speakers")
+      .select("id")
+      .eq("event_id", activeEvent.id)
+      .eq("person_id", person.id)
+      .limit(1);
+
+    if (!exists.error && exists.data && exists.data.length) continue;
+
+    await client.from("event_speakers").insert({
+      event_id: activeEvent.id,
+      person_id: person.id,
+      talk_title: old.talk_title || old.topic || old.subtitle || old.title || "",
+      sort_order: Number(old.sort_order || 100),
+      is_visible: old.is_visible !== false && old.is_published !== false,
+      is_featured: !!old.is_featured
+    });
+  }
+
+  if (msg) {
+    msg.className = "form-message success";
+    msg.textContent = "Meglévő előadók átvéve az új rendszerbe.";
+  }
 }
 
 function getRows() {

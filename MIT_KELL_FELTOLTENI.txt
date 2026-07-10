@@ -1,17 +1,14 @@
-ÉLES oldal – csak előadókezelő frissítés
+Éles előadókezelő javítás
 
 Feltöltendő:
-- index.html
-- homepage.js
-- public-content.js
 - speakers-manager.html
 - speakers-manager.js
 - styles.css
-- docs/CHANGELOG_LIVE_SPEAKERS_ONLY.md
 
 SQL:
-- A szükséges SQL-t a chatben kapod, nem fájlban.
+- Nem kell új SQL, ha a korábbi gallery_images SQL már lefutott.
 
-Fontos:
-- Ez csak az előadói rendszert érinti.
-- A többi éles funkcióhoz nem nyúl.
+Mit javít:
+- Rendezvény automatikus kiválasztása
+- Rendezvényválasztó
+- Meglévő előadók automatikus átvétele

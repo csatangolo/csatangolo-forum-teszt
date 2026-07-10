@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Előadókezelő PRO – Csatangoló Manager</title>
-  <link rel="stylesheet" href="styles.css?v=live-speakers-only-1">
+  <link rel="stylesheet" href="styles.css?v=live-speakers-event-fix-1">
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body class="speaker-pro-body">
@@ -38,6 +38,9 @@
           <span class="eyebrow">Csatangoló Manager</span>
           <h1>Előadókezelő PRO</h1>
           <p id="speakerEventMeta">Aktív rendezvény betöltése...</p>
+          <label class="speaker-event-select-wrap">Rendezvény
+            <select id="speakerEventSelect"></select>
+          </label>
         </div>
         <div class="speaker-pro-actions">
           <button id="newPersonBtn" class="button speaker-primary" type="button">➕ Új előadó</button>
@@ -191,8 +194,8 @@
     </section>
   </main>
 
-<script src="speakers-manager.js?v=live-speakers-only-1"></script>
+<script src="speakers-manager.js?v=live-speakers-event-fix-1"></script>
 <script src="site-mobile-menu.js?v=v2-2-full"></script>
-<div class="version-badge">Éles előadókezelő</div>
+<div class="version-badge">Éles előadókezelő – rendezvényválasztó</div>
 </body>
 </html>
