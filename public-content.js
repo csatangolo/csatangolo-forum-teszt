@@ -619,7 +619,7 @@ function renderSpeakerDetailFinal(s){
   const img=finalSpeakerImage(s); const ps=finalParagraphs(s.bio); const topics=finalTopics(s.topic);
   return `<article class="speaker-detail-panel"><div class="speaker-detail-hero">${img?`<img src="${esc(img)}" alt="${esc(s.name)}">`:''}<div><span class="eyebrow">Előadó</span><h2>${esc(s.name)}</h2>${s.subtitle?`<p>${esc(s.subtitle)}</p>`:''}${s.motto?`<blockquote>„${esc(s.motto)}”</blockquote>`:''}</div></div><div class="speaker-detail-content"><h3>Bemutatkozás</h3>${ps.length?ps.map(p=>`<p>${esc(p)}</p>`).join(''):'<p>A részletes bemutatkozás hamarosan bővül.</p>'}${topics.length?`<div class="speaker-topic-list detail-topics">${topics.map(t=>`<i>${esc(t)}</i>`).join('')}</div>`:''}</div></article>`;
 }
-async function loadPublicSpeakers() {
+async function loadPublicSpeakers(){
   const el = document.getElementById("speakerList");
   if (!el) return;
 
@@ -682,13 +682,9 @@ async function loadPublicSpeakers() {
         .filter(row => row.people)
         .map(row => {
           const p = row.people;
-          const gallery = Array.isArray(p.gallery_images)
-            ? p.gallery_images.filter(Boolean)
-            : [];
-
+          const gallery = Array.isArray(p.gallery_images) ? p.gallery_images.filter(Boolean) : [];
           const local = (LOCAL_SPEAKERS || []).find(item =>
-            String(item.name || "").toLowerCase().trim() ===
-            String(p.name || "").toLowerCase().trim()
+            String(item.name || "").toLowerCase().trim() === String(p.name || "").toLowerCase().trim()
           ) || {};
 
           return {
