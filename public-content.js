@@ -619,11 +619,156 @@ function renderSpeakerDetailFinal(s){
   const img=finalSpeakerImage(s); const ps=finalParagraphs(s.bio); const topics=finalTopics(s.topic);
   return `<article class="speaker-detail-panel"><div class="speaker-detail-hero">${img?`<img src="${esc(img)}" alt="${esc(s.name)}">`:''}<div><span class="eyebrow">Előadó</span><h2>${esc(s.name)}</h2>${s.subtitle?`<p>${esc(s.subtitle)}</p>`:''}${s.motto?`<blockquote>„${esc(s.motto)}”</blockquote>`:''}</div></div><div class="speaker-detail-content"><h3>Bemutatkozás</h3>${ps.length?ps.map(p=>`<p>${esc(p)}</p>`).join(''):'<p>A részletes bemutatkozás hamarosan bővül.</p>'}${topics.length?`<div class="speaker-topic-list detail-topics">${topics.map(t=>`<i>${esc(t)}</i>`).join('')}</div>`:''}</div></article>`;
 }
-async function loadPublicSpeakers(){
-  const el=document.getElementById('speakerList'); if(!el) return;
-  let db=[]; try{const {data,error}=await client.from('speakers').select('*').eq('is_published',true).order('sort_order',{ascending:true}); if(!error&&data) db=data;}catch(e){console.log(e)}
-  const speakers=finalMergeSpeakers(db); window.CSATANGOLO_SPEAKERS=speakers;
-  el.innerHTML=speakers.map(renderSpeakerCardFinal).join('')+`<article class="speaker-final-card apply"><a href="kapcsolat.html"><div class="speaker-final-image phantom"><span>♞</span></div><div class="speaker-final-body"><span>Nyitott lehetőség</span><h2>Jelentkezz te is előadónak</h2><p>Kerülj fel hamarosan az előadók közé.</p><strong>Kapcsolatfelvétel</strong></div></a></article>`;
-  if(!document.getElementById('speakerModal')){document.body.insertAdjacentHTML('beforeend',`<div id="speakerModal" class="speaker-modal hidden" role="dialog" aria-modal="true"><div class="speaker-modal-backdrop" data-close-speaker></div><div class="speaker-modal-window"><button class="speaker-modal-close" type="button" data-close-speaker>×</button><div id="speakerModalContent"></div></div></div>`);document.querySelectorAll('[data-close-speaker]').forEach(x=>x.addEventListener('click',()=>{document.getElementById('speakerModal').classList.add('hidden');document.body.classList.remove('modal-open');}));}
-  el.querySelectorAll('[data-speaker-slug]').forEach(btn=>btn.addEventListener('click',()=>{const s=speakers.find(x=>finalSpeakerSlug(x.name)===btn.dataset.speakerSlug); if(!s)return; document.getElementById('speakerModalContent').innerHTML=renderSpeakerDetailFinal(s);document.getElementById('speakerModal').classList.remove('hidden');document.body.classList.add('modal-open');}));
+async function loadPublicSpeakers() {
+  const el = document.getElementById("speakerList");
+  if (!el) return;
+
+  let speakers = [];
+
+  try {
+    let activeEvent = null;
+
+    const activeResult = await client
+      .from("events")
+      .select("*")
+      .eq("is_active", true)
+      .limit(1)
+      .maybeSingle();
+
+    if (!activeResult.error && activeResult.data) {
+      activeEvent = activeResult.data;
+    }
+
+    if (!activeEvent) {
+      const firstResult = await client
+        .from("events")
+        .select("*")
+        .order("created_at", { ascending: true })
+        .limit(1)
+        .maybeSingle();
+
+      if (!firstResult.error && firstResult.data) {
+        activeEvent = firstResult.data;
+      }
+    }
+
+    if (activeEvent) {
+      const { data, error } = await client
+        .from("event_speakers")
+        .select(`
+          id,
+          talk_title,
+          sort_order,
+          is_visible,
+          is_featured,
+          people (
+            id,
+            name,
+            title,
+            city,
+            bio,
+            image_filename,
+            link_url,
+            gallery_images
+          )
+        `)
+        .eq("event_id", activeEvent.id)
+        .eq("is_visible", true)
+        .order("sort_order", { ascending: true });
+
+      if (error) throw error;
+
+      speakers = (data || [])
+        .filter(row => row.people)
+        .map(row => {
+          const p = row.people;
+          const gallery = Array.isArray(p.gallery_images)
+            ? p.gallery_images.filter(Boolean)
+            : [];
+
+          const local = (LOCAL_SPEAKERS || []).find(item =>
+            String(item.name || "").toLowerCase().trim() ===
+            String(p.name || "").toLowerCase().trim()
+          ) || {};
+
+          return {
+            ...local,
+            name: p.name || local.name || "",
+            subtitle: p.title || row.talk_title || local.subtitle || "",
+            title: p.title || local.title || "",
+            city: p.city || "",
+            image_url: p.image_filename || local.image_url || "",
+            bio: p.bio || local.bio || "",
+            website_url: p.link_url || local.website_url || "",
+            topic: row.talk_title || p.title || local.topic || "",
+            sort_order: Number(row.sort_order || 100),
+            is_featured: !!row.is_featured,
+            is_published: row.is_visible !== false,
+            gallery_images: gallery,
+            gallery_image_1_url: gallery[0] || "",
+            gallery_image_2_url: gallery[1] || "",
+            gallery_image_3_url: gallery[2] || ""
+          };
+        });
+    }
+  } catch (error) {
+    console.error("Az új előadói rendszer betöltése sikertelen:", error);
+  }
+
+  if (!speakers.length) {
+    speakers = (LOCAL_SPEAKERS || [])
+      .filter(s => s && s.is_published !== false)
+      .sort((a, b) => Number(a.sort_order || 100) - Number(b.sort_order || 100));
+  }
+
+  window.CSATANGOLO_SPEAKERS = speakers;
+
+  el.innerHTML =
+    speakers.map(renderSpeakerCardFinal).join("") +
+    `<article class="speaker-final-card apply">
+      <a href="kapcsolat.html">
+        <div class="speaker-final-image phantom"><span>♞</span></div>
+        <div class="speaker-final-body">
+          <span>Nyitott lehetőség</span>
+          <h2>Jelentkezz te is előadónak</h2>
+          <p>Kerülj fel hamarosan az előadók közé.</p>
+          <strong>Kapcsolatfelvétel</strong>
+        </div>
+      </a>
+    </article>`;
+
+  if (!document.getElementById("speakerModal")) {
+    document.body.insertAdjacentHTML("beforeend", `
+      <div id="speakerModal" class="speaker-modal hidden" role="dialog" aria-modal="true">
+        <div class="speaker-modal-backdrop" data-close-speaker></div>
+        <div class="speaker-modal-window">
+          <button class="speaker-modal-close" type="button" data-close-speaker>×</button>
+          <div id="speakerModalContent"></div>
+        </div>
+      </div>
+    `);
+
+    document.querySelectorAll("[data-close-speaker]").forEach(element => {
+      element.addEventListener("click", () => {
+        document.getElementById("speakerModal").classList.add("hidden");
+        document.body.classList.remove("modal-open");
+      });
+    });
+  }
+
+  el.querySelectorAll("[data-speaker-slug]").forEach(button => {
+    button.addEventListener("click", () => {
+      const speaker = speakers.find(item =>
+        finalSpeakerSlug(item.name) === button.dataset.speakerSlug
+      );
+
+      if (!speaker) return;
+
+      document.getElementById("speakerModalContent").innerHTML =
+        renderSpeakerDetailFinal(speaker);
+
+      document.getElementById("speakerModal").classList.remove("hidden");
+      document.body.classList.add("modal-open");
+    });
+  });
 }
